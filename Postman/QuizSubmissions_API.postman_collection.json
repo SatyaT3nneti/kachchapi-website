@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "quiz-submissions-api-collection",
+		"name": "Quiz Submissions API",
+		"description": "API collection for quiz submissions, scoring, and history management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login to get JWT Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"Student123!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quiz Submissions",
+			"item": [
+				{
+					"name": "Submit Quiz",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"quizId\": \"quiz-1\",\n  \"chapterId\": \"74a14643-1495-401f-a42d-9a4216beb862\",\n  \"timeTakenSeconds\": 900,\n  \"answers\": [\n    {\n      \"questionId\": \"q1-1\",\n      \"answer\": \"D\",\n      \"timeTakenSeconds\": 60\n    },\n    {\n      \"questionId\": \"q1-2\",\n      \"answer\": \"true\",\n      \"timeTakenSeconds\": 45\n    },\n    {\n      \"questionId\": \"q1-3\",\n      \"answer\": \"B\",\n      \"timeTakenSeconds\": 90\n    },\n    {\n      \"questionId\": \"q1-4\",\n      \"answer\": \"reactants\",\n      \"timeTakenSeconds\": 30\n    },\n    {\n      \"questionId\": \"q1-5\",\n      \"answer\": \"C\",\n      \"timeTakenSeconds\": 75\n    },\n    {\n      \"questionId\": \"q1-6\",\n      \"answer\": \"false\",\n      \"timeTakenSeconds\": 40\n    },\n    {\n      \"questionId\": \"q1-7\",\n      \"answer\": \"B\",\n      \"timeTakenSeconds\": 60\n    },\n    {\n      \"questionId\": \"q1-8\",\n      \"answer\": \"products\",\n      \"timeTakenSeconds\": 35\n    },\n    {\n      \"questionId\": \"q1-9\",\n      \"answer\": \"C\",\n      \"timeTakenSeconds\": 80\n    },\n    {\n      \"questionId\": \"q1-10\",\n      \"answer\": \"true\",\n      \"timeTakenSeconds\": 50\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/quizsubmission/submit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"quizsubmission",
+								"submit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quiz Submission by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/quizsubmission/submission/{{submission_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"quizsubmission",
+								"submission",
+								"{{submission_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Latest Quiz Submission",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/quizsubmission/latest/quiz-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"quizsubmission",
+								"latest",
+								"quiz-1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quiz History & Statistics",
+			"item": [
+				{
+					"name": "Get Quiz History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/quizsubmission/history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"quizsubmission",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quiz History by Chapter",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/quizsubmission/history?chapterId=74a14643-1495-401f-a42d-9a4216beb862",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"quizsubmission",
+								"history"
+							],
+							"query": [
+								{
+									"key": "chapterId",
+									"value": "74a14643-1495-401f-a42d-9a4216beb862"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quiz Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/quizsubmission/statistics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"quizsubmission",
+								"statistics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quiz Attempts",
+			"item": [
+				{
+					"name": "Get Quiz Attempt History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/quizsubmission/attempts/quiz-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"quizsubmission",
+								"attempts",
+								"quiz-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Quiz Submission Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/quizsubmission/check-submission/quiz-1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"quizsubmission",
+								"check-submission",
+								"quiz-1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5014",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "submission_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+} 

@@ -1,0 +1,500 @@
+{
+  "info": {
+    "name": "Onboarding API Collection",
+    "description": "Complete collection for testing the Student Onboarding APIs in Kachchapi Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://localhost:7001",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "your_jwt_token_here",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Check Onboarding Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/onboarding/status",
+          "host": ["{{base_url}}"],
+          "path": ["api", "onboarding", "status"]
+        },
+        "description": "Check if the authenticated student has completed onboarding and get their current status"
+      }
+    },
+    {
+      "name": "2. Check if Onboarding is Completed",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/onboarding/completed",
+          "host": ["{{base_url}}"],
+          "path": ["api", "onboarding", "completed"]
+        },
+        "description": "Simple boolean check to see if onboarding is completed"
+      }
+    },
+    {
+      "name": "3. Create Onboarding Profile",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ageGroup\": \"16-18\",\n  \"interests\": [\n    \"Science\",\n    \"Mathematics\",\n    \"Technology\",\n    \"Problem Solving\"\n  ],\n  \"learningGoals\": [\n    \"Improve academic performance\",\n    \"Prepare for competitive exams\",\n    \"Develop critical thinking skills\",\n    \"Learn practical applications\"\n  ],\n  \"motivation\": \"I want to excel in my studies and prepare for future career opportunities in STEM fields. I believe Kachchapi will help me understand complex concepts better through interactive learning.\",\n  \"preferredLearningStyle\": \"visual\",\n  \"studyTimePreference\": \"evening\",\n  \"weeklyStudyHours\": 15\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/onboarding/profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "onboarding", "profile"]
+        },
+        "description": "Create a new onboarding profile for the authenticated student. This will capture their learning preferences and goals."
+      }
+    },
+    {
+      "name": "4. Get Onboarding Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/onboarding/profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "onboarding", "profile"]
+        },
+        "description": "Retrieve the current onboarding profile for the authenticated student"
+      }
+    },
+    {
+      "name": "5. Update Onboarding Profile",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ageGroup\": \"16-18\",\n  \"interests\": [\n    \"Science\",\n    \"Mathematics\",\n    \"Technology\",\n    \"Problem Solving\",\n    \"Artificial Intelligence\"\n  ],\n  \"learningGoals\": [\n    \"Improve academic performance\",\n    \"Prepare for competitive exams\",\n    \"Develop critical thinking skills\",\n    \"Learn practical applications\",\n    \"Explore AI and Machine Learning\"\n  ],\n  \"motivation\": \"I want to excel in my studies and prepare for future career opportunities in STEM fields, particularly in AI and technology. I believe Kachchapi will help me understand complex concepts better through interactive learning.\",\n  \"preferredLearningStyle\": \"kinesthetic\",\n  \"studyTimePreference\": \"morning\",\n  \"weeklyStudyHours\": 20\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/onboarding/profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "onboarding", "profile"]
+        },
+        "description": "Update the existing onboarding profile for the authenticated student. Only provided fields will be updated."
+      }
+    },
+    {
+      "name": "6. Mark Onboarding as Completed",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/onboarding/complete",
+          "host": ["{{base_url}}"],
+          "path": ["api", "onboarding", "complete"]
+        },
+        "description": "Explicitly mark the onboarding process as completed for the authenticated student"
+      }
+    },
+    {
+      "name": "Sample Data - Different Age Groups",
+      "item": [
+        {
+          "name": "Age Group: 13-15",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"13-15\",\n  \"interests\": [\n    \"Gaming\",\n    \"Sports\",\n    \"Music\",\n    \"Art\"\n  ],\n  \"learningGoals\": [\n    \"Have fun while learning\",\n    \"Make new friends\",\n    \"Discover new hobbies\",\n    \"Improve grades\"\n  ],\n  \"motivation\": \"I want to learn in a fun way and make new friends who share similar interests. I hope to discover new things I'm passionate about.\",\n  \"preferredLearningStyle\": \"auditory\",\n  \"studyTimePreference\": \"afternoon\",\n  \"weeklyStudyHours\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Age Group: 19-21",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"19-21\",\n  \"interests\": [\n    \"Career Development\",\n    \"Professional Skills\",\n    \"Networking\",\n    \"Industry Trends\"\n  ],\n  \"learningGoals\": [\n    \"Build professional skills\",\n    \"Prepare for job market\",\n    \"Network with professionals\",\n    \"Stay updated with industry trends\"\n  ],\n  \"motivation\": \"I want to build a strong foundation for my career by developing relevant skills and knowledge. I'm looking for practical learning that will help me in the professional world.\",\n  \"preferredLearningStyle\": \"reading\",\n  \"studyTimePreference\": \"morning\",\n  \"weeklyStudyHours\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Age Group: 22+",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"22+\",\n  \"interests\": [\n    \"Advanced Studies\",\n    \"Research\",\n    \"Specialization\",\n    \"Leadership\"\n  ],\n  \"learningGoals\": [\n    \"Pursue advanced studies\",\n    \"Conduct research\",\n    \"Specialize in specific field\",\n    \"Develop leadership skills\"\n  ],\n  \"motivation\": \"I want to pursue advanced studies and research in my field of interest. I'm looking for in-depth knowledge and opportunities to contribute to my field.\",\n  \"preferredLearningStyle\": \"kinesthetic\",\n  \"studyTimePreference\": \"evening\",\n  \"weeklyStudyHours\": 30\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sample Data - Different Learning Styles",
+      "item": [
+        {
+          "name": "Visual Learner",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"16-18\",\n  \"interests\": [\n    \"Design\",\n    \"Architecture\",\n    \"Visual Arts\",\n    \"Technology\"\n  ],\n  \"learningGoals\": [\n    \"Improve visual thinking\",\n    \"Learn design principles\",\n    \"Develop spatial awareness\",\n    \"Master visual tools\"\n  ],\n  \"motivation\": \"I learn best through visual aids, diagrams, and visual representations. I want to develop my visual thinking and design skills.\",\n  \"preferredLearningStyle\": \"visual\",\n  \"studyTimePreference\": \"morning\",\n  \"weeklyStudyHours\": 18\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Auditory Learner",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"16-18\",\n  \"interests\": [\n    \"Music\",\n    \"Languages\",\n    \"Public Speaking\",\n    \"Communication\"\n  ],\n  \"learningGoals\": [\n    \"Improve listening skills\",\n    \"Learn new languages\",\n    \"Develop public speaking\",\n    \"Enhance communication\"\n  ],\n  \"motivation\": \"I learn best through listening, discussions, and verbal explanations. I want to improve my auditory learning and communication skills.\",\n  \"preferredLearningStyle\": \"auditory\",\n  \"studyTimePreference\": \"afternoon\",\n  \"weeklyStudyHours\": 16\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Kinesthetic Learner",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"16-18\",\n  \"interests\": [\n    \"Sports\",\n    \"Hands-on Projects\",\n    \"Experiments\",\n    \"Physical Activities\"\n  ],\n  \"learningGoals\": [\n    \"Learn through doing\",\n    \"Develop practical skills\",\n    \"Improve physical coordination\",\n    \"Master hands-on techniques\"\n  ],\n  \"motivation\": \"I learn best through hands-on experience, physical activities, and practical applications. I want to develop my practical skills.\",\n  \"preferredLearningStyle\": \"kinesthetic\",\n  \"studyTimePreference\": \"morning\",\n  \"weeklyStudyHours\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Reading/Writing Learner",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"16-18\",\n  \"interests\": [\n    \"Literature\",\n    \"Writing\",\n    \"Research\",\n    \"Documentation\"\n  ],\n  \"learningGoals\": [\n    \"Improve reading comprehension\",\n    \"Develop writing skills\",\n    \"Learn research methods\",\n    \"Master documentation\"\n  ],\n  \"motivation\": \"I learn best through reading, writing, and text-based materials. I want to develop my reading and writing skills.\",\n  \"preferredLearningStyle\": \"reading\",\n  \"studyTimePreference\": \"evening\",\n  \"weeklyStudyHours\": 22\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Error Scenarios",
+      "item": [
+        {
+          "name": "Create Profile - Missing Required Fields",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"16-18\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Create Profile - Invalid Age Group",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"invalid-age\",\n  \"interests\": [\"Science\"],\n  \"learningGoals\": [\"Learn\"],\n  \"motivation\": \"Test\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unauthorized Scenarios",
+      "item": [
+        {
+          "name": "Create Profile - No Authentication",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageGroup\": \"16-18\",\n  \"interests\": [\"Science\"],\n  \"learningGoals\": [\"Learn\"],\n  \"motivation\": \"Test\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/onboarding/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "onboarding", "profile"]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set the base URL based on environment",
+          "if (pm.environment.get('base_url')) {",
+          "    pm.collectionVariables.set('base_url', pm.environment.get('base_url'));",
+          "}",
+          "",
+          "// Set authentication token if available",
+          "if (pm.environment.get('auth_token')) {",
+          "    pm.collectionVariables.set('auth_token', pm.environment.get('auth_token'));",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Test response status",
+          "pm.test(\"Status code is 200 or 201\", function () {",
+          "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+          "});",
+          "",
+          "// Test response time",
+          "pm.test(\"Response time is less than 2000ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});",
+          "",
+          "// Test response format",
+          "pm.test(\"Response has valid JSON format\", function () {",
+          "    pm.response.to.have.jsonBody();",
+          "});",
+          "",
+          "// Test specific endpoints",
+          "if (pm.request.url.path.includes('profile') && pm.request.method === 'POST') {",
+          "    pm.test(\"Profile created successfully\", function () {",
+          "        const response = pm.response.json();",
+          "        pm.expect(response).to.have.property('profileId');",
+          "        pm.expect(response).to.have.property('onboardingCompleted');",
+          "        pm.expect(response.onboardingCompleted).to.be.true;",
+          "    });",
+          "}",
+          "",
+          "if (pm.request.url.path.includes('status')) {",
+          "    pm.test(\"Status response is valid\", function () {",
+          "        const response = pm.response.json();",
+          "        pm.expect(response).to.have.property('isOnboardingCompleted');",
+          "        pm.expect(typeof response.isOnboardingCompleted).to.equal('boolean');",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ]
+}

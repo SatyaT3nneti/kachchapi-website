@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "oauth-api-collection",
+		"name": "OAuth Authentication API",
+		"description": "Complete OAuth authentication flow for Google and GitHub providers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OAuth Providers",
+			"item": [
+				{
+					"name": "Get OAuth Providers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/oauth/providers",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "oauth", "providers"]
+						},
+						"description": "Get list of available OAuth providers and their status"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Google OAuth",
+			"item": [
+				{
+					"name": "Get Google OAuth URL",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"provider\": \"google\",\n  \"redirectUri\": \"https://localhost:7001/api/auth/callback\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/oauth/auth-url",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "oauth", "auth-url"]
+						},
+						"description": "Get Google OAuth authorization URL"
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    if (response.success && response.authUrl) {",
+									"        pm.collectionVariables.set('googleAuthUrl', response.authUrl);",
+									"        console.log('Google OAuth URL:', response.authUrl);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "Login with Google OAuth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"provider\": \"google\",\n  \"code\": \"{{googleAuthCode}}\",\n  \"redirectUri\": \"https://localhost:7001/api/auth/callback\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/oauth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "oauth", "login"]
+						},
+						"description": "Login with Google OAuth authorization code"
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    if (response.success && response.token) {",
+									"        pm.collectionVariables.set('accessToken', response.token);",
+									"        pm.collectionVariables.set('refreshToken', response.refreshToken);",
+									"        console.log('Google OAuth login successful');",
+									"        console.log('Is new user:', response.isNewUser);",
+									"        console.log('Provider:', response.provider);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "GitHub OAuth",
+			"item": [
+				{
+					"name": "Get GitHub OAuth URL",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"provider\": \"github\",\n  \"redirectUri\": \"https://localhost:7001/api/auth/callback\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/oauth/auth-url",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "oauth", "auth-url"]
+						},
+						"description": "Get GitHub OAuth authorization URL"
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    if (response.success && response.authUrl) {",
+									"        pm.collectionVariables.set('githubAuthUrl', response.authUrl);",
+									"        console.log('GitHub OAuth URL:', response.authUrl);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "Login with GitHub OAuth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"provider\": \"github\",\n  \"code\": \"{{githubAuthCode}}\",\n  \"redirectUri\": \"https://localhost:7001/api/auth/callback\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/oauth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "oauth", "login"]
+						},
+						"description": "Login with GitHub OAuth authorization code"
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    if (response.success && response.token) {",
+									"        pm.collectionVariables.set('accessToken', response.token);",
+									"        pm.collectionVariables.set('refreshToken', response.refreshToken);",
+									"        console.log('GitHub OAuth login successful');",
+									"        console.log('Is new user:', response.isNewUser);",
+									"        console.log('Provider:', response.provider);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Protected Endpoints Test",
+			"item": [
+				{
+					"name": "Get User Profile (OAuth Token)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/profile",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "profile"]
+						},
+						"description": "Test protected endpoint with OAuth token"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chapters (OAuth Token)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters?pageNumber=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters"],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Test chapters endpoint with OAuth token"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:7001",
+			"type": "string"
+		},
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string",
+			"description": "JWT token from OAuth login"
+		},
+		{
+			"key": "refreshToken",
+			"value": "",
+			"type": "string",
+			"description": "Refresh token from OAuth login"
+		},
+		{
+			"key": "googleAuthUrl",
+			"value": "",
+			"type": "string",
+			"description": "Google OAuth authorization URL"
+		},
+		{
+			"key": "githubAuthUrl",
+			"value": "",
+			"type": "string",
+			"description": "GitHub OAuth authorization URL"
+		},
+		{
+			"key": "googleAuthCode",
+			"value": "",
+			"type": "string",
+			"description": "Authorization code from Google OAuth flow"
+		},
+		{
+			"key": "githubAuthCode",
+			"value": "",
+			"type": "string",
+			"description": "Authorization code from GitHub OAuth flow"
+		}
+	]
+} 

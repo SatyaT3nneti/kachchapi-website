@@ -1,0 +1,1147 @@
+{
+  "info": {
+    "name": "Exam API",
+    "description": "Comprehensive API collection for Exam management with AI-powered question generation, text extraction from PDF/DOCX/images, and validation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5014",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "exam_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "submission_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "sample_pdf_content",
+      "value": "JVBERi0xLjQKJcOkw7zDtsO...",
+      "type": "string"
+    },
+    {
+      "key": "sample_docx_content",
+      "value": "UEsDBBQAAAAIAA...",
+      "type": "string"
+    },
+    {
+      "key": "sample_image_content",
+      "value": "iVBORw0KGgoAAAANSUhEUgAA...",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Generate Questions",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"syllabusContent\": \"This chapter covers the fundamentals of business statistics including descriptive statistics, probability distributions, hypothesis testing, and regression analysis. Students will learn to analyze data using spreadsheet tools and interpret statistical results for business decision-making.\",\n  \"preferences\": {\n    \"difficultyLevel\": \"Medium\",\n    \"validUntil\": \"2024-12-31T23:59:59Z\",\n    \"totalQuestions\": 15,\n    \"examDuration\": 90,\n    \"passPercentage\": 60.0,\n    \"questionTypes\": [\n      {\n        \"type\": \"Objective\",\n        \"count\": 10\n      },\n      {\n        \"type\": \"Descriptive\",\n        \"count\": 3\n      },\n      {\n        \"type\": \"YesNo\",\n        \"count\": 2\n      }\n    ]\n  },\n  \"attachments\": null,\n  \"files\": [\n    {\n      \"fileName\": \"syllabus.pdf\",\n      \"fileContent\": \"JVBERi0xLjQKJcOkw7zDtsO...\",\n      \"fileType\": \"application/pdf\"\n    },\n    {\n      \"fileName\": \"chapter1.docx\",\n      \"fileContent\": \"UEsDBBQAAAAIAA...\",\n      \"fileType\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\"\n    },\n    {\n      \"fileName\": \"diagram.png\",\n      \"fileContent\": \"iVBORw0KGgoAAAANSUhEUgAA...\",\n      \"fileType\": \"image/png\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/generate-questions",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "generate-questions"]
+        },
+        "description": "Generate exam questions using AI from syllabus content"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Exam",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Business Statistics Mid-Term Exam\",\n  \"description\": \"Comprehensive exam covering descriptive statistics, probability, and hypothesis testing\",\n  \"syllabusContent\": \"This chapter covers the fundamentals of business statistics including descriptive statistics, probability distributions, hypothesis testing, and regression analysis.\",\n  \"preferences\": {\n    \"difficultyLevel\": \"Medium\",\n    \"validUntil\": \"2024-12-31T23:59:59Z\",\n    \"totalQuestions\": 15,\n    \"examDuration\": 90,\n    \"passPercentage\": 60.0,\n    \"questionTypes\": [\n      {\n        \"type\": \"Objective\",\n        \"count\": 10\n      },\n      {\n        \"type\": \"Descriptive\",\n        \"count\": 3\n      },\n      {\n        \"type\": \"YesNo\",\n        \"count\": 2\n      }\n    ]\n  },\n  \"questions\": [\n    {\n      \"questionNumber\": 1,\n      \"type\": \"Objective\",\n      \"question\": \"What is the primary purpose of descriptive statistics?\",\n      \"options\": [\n        \"To make predictions about future events\",\n        \"To summarize and describe data\",\n        \"To test hypotheses\",\n        \"To calculate probabilities\"\n      ],\n      \"correctAnswer\": \"B\",\n      \"explanation\": \"Descriptive statistics are used to summarize and describe the main features of a dataset.\",\n      \"points\": 2\n    },\n    {\n      \"questionNumber\": 2,\n      \"type\": \"Descriptive\",\n      \"question\": \"Explain the difference between mean and median. When would you use each?\",\n      \"correctAnswer\": \"Mean is the average of all values, while median is the middle value when data is ordered. Use mean for normally distributed data, median for skewed data.\",\n      \"explanation\": \"The mean is sensitive to outliers, while the median is robust.\",\n      \"points\": 5\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "create"]
+        },
+        "description": "Create a new exam with generated questions"
+      },
+      "response": []
+    },
+    {
+      "name": "Send Invitations",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"examId\": \"{{exam_id}}\",\n  \"recipients\": [\n    {\n      \"email\": \"student1@example.com\",\n      \"name\": \"John Doe\"\n    },\n    {\n      \"email\": \"student2@example.com\",\n      \"name\": \"Jane Smith\"\n    },\n    {\n      \"email\": \"student3@example.com\",\n      \"name\": \"Mike Johnson\"\n    }\n  ],\n  \"customMessage\": \"Please complete this exam by the deadline. Good luck!\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/send-invitations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "send-invitations"]
+        },
+        "description": "Send exam invitations to participants"
+      },
+      "response": []
+    },
+    {
+            "name": "Submit Exam (Student Only)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"examId\": \"{{exam_id}}\",\n  \"answers\": [\n    {\n      \"questionNumber\": 1,\n      \"answer\": \"B\"\n    },\n    {\n      \"questionNumber\": 2,\n      \"answer\": \"Mean is the average of all values, while median is the middle value when data is ordered. Use mean for normally distributed data, median for skewed data.\"\n    }\n  ],\n  \"startedAt\": \"2024-01-15T10:00:00Z\",\n  \"submittedAt\": \"2024-01-15T11:30:00Z\"\n}\n\n// Note: Students get success message, no immediate results shown for exam integrity"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/submit-exam",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "submit-exam"]
+        },
+        "description": "Submit exam using JWT token for student identification - Students get success message, no immediate results shown"
+      },
+      "response": []
+    },
+    {
+      "name": "Submit Exam (Alternative Example)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"examId\": \"{{exam_id}}\",\n  \"answers\": [\n    {\n      \"questionNumber\": 1,\n      \"answer\": \"A\"\n    },\n    {\n      \"questionNumber\": 2,\n      \"answer\": \"Descriptive answer example for question 2.\"\n    },\n    {\n      \"questionNumber\": 3,\n      \"answer\": \"Yes\"\n    }\n  ],\n  \"startedAt\": \"2024-01-15T10:00:00Z\",\n  \"submittedAt\": \"2024-01-15T11:30:00Z\"\n}\n\n// Note: Students get success message, no immediate results shown for exam integrity"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/submit-exam",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "submit-exam"]
+        },
+        "description": "Alternative example - Students get success message, no immediate results shown"
+      },
+        "response": []
+      },
+      {
+      "name": "Get Exams List",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/list?page=1&pageSize=10&includeArchived=false&onlyArchived=false",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "list"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            },
+            {
+              "key": "includeArchived",
+              "value": "false"
+            },
+            {
+              "key": "onlyArchived",
+              "value": "false"
+            }
+          ]
+        },
+        "description": "Get list of active exams only (default behavior)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Exams (Include Archived)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/list?page=1&pageSize=10&includeArchived=true&onlyArchived=false",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "list"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            },
+            {
+              "key": "includeArchived",
+              "value": "true"
+            },
+            {
+              "key": "onlyArchived",
+              "value": "false"
+            }
+          ]
+        },
+        "description": "Get list of all exams (both active and archived)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Only Archived Exams",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/list?page=1&pageSize=10&includeArchived=false&onlyArchived=true",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "list"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            },
+            {
+              "key": "includeArchived",
+              "value": "false"
+            },
+            {
+              "key": "onlyArchived",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "Get list of only archived exams"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Exam Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/{{exam_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "{{exam_id}}"]
+        },
+        "description": "Get detailed exam information by ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Exam",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated Business Statistics Mid-Term Exam\",\n  \"description\": \"Updated comprehensive exam covering descriptive statistics, probability, and hypothesis testing\",\n  \"syllabusContent\": \"This chapter covers the fundamentals of business statistics including descriptive statistics, probability distributions, hypothesis testing, and regression analysis.\",\n  \"preferences\": {\n    \"difficultyLevel\": \"Hard\",\n    \"validUntil\": \"2024-12-31T23:59:59Z\",\n    \"totalQuestions\": 20,\n    \"examDuration\": 120,\n    \"passPercentage\": 75.0,\n    \"questionTypes\": [\n      {\n        \"type\": \"Objective\",\n        \"count\": 15\n      },\n      {\n        \"type\": \"Descriptive\",\n        \"count\": 3\n      },\n      {\n        \"type\": \"YesNo\",\n        \"count\": 2\n      }\n    ]\n  },\n  \"questions\": [\n    {\n      \"questionNumber\": 1,\n      \"type\": \"Objective\",\n      \"question\": \"What is the primary purpose of descriptive statistics?\",\n      \"options\": [\n        \"To make predictions about future events\",\n        \"To summarize and describe data\",\n        \"To test hypotheses\",\n        \"To calculate probabilities\"\n      ],\n      \"correctAnswer\": \"To summarize and describe data\",\n      \"explanation\": \"Descriptive statistics are used to summarize and describe the main features of a dataset.\",\n      \"points\": 2\n    },\n    {\n      \"questionNumber\": 2,\n      \"type\": \"Descriptive\",\n      \"question\": \"Explain the difference between mean and median. When would you use each?\",\n      \"correctAnswer\": \"Mean is the average of all values, while median is the middle value when data is ordered. Use mean for normally distributed data, median for skewed data.\",\n      \"explanation\": \"The mean is sensitive to outliers, while the median is robust.\",\n      \"points\": 5\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/{{exam_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "{{exam_id}}"]
+        },
+        "description": "Update exam details"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Exam",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/{{exam_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "{{exam_id}}"]
+        },
+        "description": "Delete an exam (only if no submissions exist)"
+      },
+      "response": []
+    },
+    {
+      "name": "Archive Exam",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/{{exam_id}}/archive",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "{{exam_id}}", "archive"]
+        },
+        "description": "Archive an exam (hide from main list)"
+      },
+      "response": []
+    },
+    {
+      "name": "Unarchive Exam",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/{{exam_id}}/unarchive",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "{{exam_id}}", "unarchive"]
+        },
+        "description": "Unarchive an exam (show in main list again)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Exam Submissions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/all-submissions?page=1&pageSize=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "all-submissions"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all exam submissions across all exams (filtered by user groups)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Exam Submissions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/{{exam_id}}/submissions?page=1&pageSize=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "{{exam_id}}", "submissions"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get exam submissions for a specific exam"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Exam Submission Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/submissions/{{submission_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "submissions", "{{submission_id}}"]
+        },
+        "description": "Get specific exam submission details"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Exam Submission Details",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"scorePercentage\": 85.5,\n  \"totalCorrectAnswers\": 12,\n  \"status\": \"Graded\",\n  \"aiFeedback\": \"Good performance overall. Areas for improvement in descriptive questions.\",\n  \"aiValidationResults\": [\n    {\n      \"questionNumber\": 1,\n      \"isCorrect\": true,\n      \"aiEvaluation\": \"Correct answer provided.\",\n      \"questionType\": \"Objective\"\n    },\n    {\n      \"questionNumber\": 2,\n      \"isCorrect\": false,\n      \"aiEvaluation\": \"Answer partially correct but missing key concepts.\",\n      \"questionType\": \"Descriptive\"\n    }\n  ],\n  \"teacherFeedback\": \"Good work on objective questions. Need more detail in descriptive answers.\",\n  \"isManuallyReviewed\": true,\n  \"publishResults\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/submissions/{{submission_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "submissions", "{{submission_id}}"]
+        },
+        "description": "Update exam submission details (Admin/Teacher only). When publishResults is true, sends email notification to student with results."
+      },
+      "response": []
+    },
+    {
+      "name": "Validate Invitation Token",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/validate-token/{{token}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "validate-token", "{{token}}"]
+        },
+        "description": "Validate exam invitation token (for students)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Exam by Token",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/by-token/{{token}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "by-token", "{{token}}"]
+        },
+        "description": "Get exam details by invitation token (for students)"
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Questions - PDF Only",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"syllabusContent\": \"\",\n  \"preferences\": {\n    \"difficultyLevel\": \"Easy\",\n    \"validUntil\": \"2024-12-31T23:59:59Z\",\n    \"totalQuestions\": 10,\n    \"examDuration\": 50,\n    \"questionTypes\": [\n      {\n        \"type\": \"Objective\",\n        \"count\": 8\n      },\n      {\n        \"type\": \"Descriptive\",\n        \"count\": 2\n      }\n    ]\n  },\n  \"attachments\": null,\n  \"files\": [\n    {\n      \"fileName\": \"business-statistics.pdf\",\n      \"fileContent\": \"JVBERi0xLjQKJcOkw7zDtsO...\",\n      \"fileType\": \"application/pdf\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/generate-questions",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "generate-questions"]
+        },
+        "description": "Generate questions from PDF file only (text extraction test)"
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Questions - DOCX Only",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"syllabusContent\": \"\",\n  \"preferences\": {\n    \"difficultyLevel\": \"Medium\",\n    \"validUntil\": \"2024-12-31T23:59:59Z\",\n    \"totalQuestions\": 12,\n    \"examDuration\": 60,\n    \"questionTypes\": [\n      {\n        \"type\": \"Objective\",\n        \"count\": 10\n      },\n      {\n        \"type\": \"YesNo\",\n        \"count\": 2\n      }\n    ]\n  },\n  \"attachments\": null,\n  \"files\": [\n    {\n      \"fileName\": \"chapter-notes.docx\",\n      \"fileContent\": \"UEsDBBQAAAAIAA...\",\n      \"fileType\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/generate-questions",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "generate-questions"]
+        },
+        "description": "Generate questions from DOCX file only (text extraction test)"
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Questions - Image Only",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"syllabusContent\": \"\",\n  \"preferences\": {\n    \"difficultyLevel\": \"Hard\",\n    \"validUntil\": \"2024-12-31T23:59:59Z\",\n    \"totalQuestions\": 8,\n    \"examDuration\": 45,\n    \"questionTypes\": [\n      {\n        \"type\": \"Objective\",\n        \"count\": 6\n      },\n      {\n        \"type\": \"Descriptive\",\n        \"count\": 2\n      }\n    ]\n  },\n  \"attachments\": null,\n  \"files\": [\n    {\n      \"fileName\": \"diagram-with-text.png\",\n      \"fileContent\": \"iVBORw0KGgoAAAANSUhEUgAA...\",\n      \"fileType\": \"image/png\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/generate-questions",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "generate-questions"]
+        },
+        "description": "Generate questions from image file only (OCR test)"
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Questions - Mixed Content",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"syllabusContent\": \"Additional course notes and important concepts to consider.\",\n  \"preferences\": {\n    \"difficultyLevel\": \"Medium\",\n    \"validUntil\": \"2024-12-31T23:59:59Z\",\n    \"totalQuestions\": 20,\n    \"examDuration\": 120,\n    \"questionTypes\": [\n      {\n        \"type\": \"Objective\",\n        \"count\": 15\n      },\n      {\n        \"type\": \"Descriptive\",\n        \"count\": 3\n      },\n      {\n        \"type\": \"YesNo\",\n        \"count\": 2\n      }\n    ]\n  },\n  \"attachments\": null,\n  \"files\": [\n    {\n      \"fileName\": \"main-syllabus.pdf\",\n      \"fileContent\": \"JVBERi0xLjQKJcOkw7zDtsO...\",\n      \"fileType\": \"application/pdf\"\n    },\n    {\n      \"fileName\": \"supplementary-notes.docx\",\n      \"fileContent\": \"UEsDBBQAAAAIAA...\",\n      \"fileType\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\"\n    },\n    {\n      \"fileName\": \"concept-diagram.png\",\n      \"fileContent\": \"iVBORw0KGgoAAAANSUhEUgAA...\",\n      \"fileType\": \"image/png\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/generate-questions",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "generate-questions"]
+        },
+        "description": "Generate questions from mixed content (text + files)"
+      },
+      "response": []
+    },
+    {
+      "name": "Test Unsupported File Type",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"syllabusContent\": \"Test content\",\n  \"preferences\": {\n    \"difficultyLevel\": \"Easy\",\n    \"validUntil\": \"2024-12-31T23:59:59Z\",\n    \"totalQuestions\": 5,\n    \"examDuration\": 30,\n    \"questionTypes\": [\n      {\n        \"type\": \"Objective\",\n        \"count\": 5\n      }\n    ]\n  },\n  \"attachments\": null,\n  \"files\": [\n    {\n      \"fileName\": \"document.txt\",\n      \"fileContent\": \"SGVsbG8gV29ybGQ=\",\n      \"fileType\": \"text/plain\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/generate-questions",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "generate-questions"]
+        },
+        "description": "Test error handling for unsupported file types"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Invitations (All Exams) - Fixed Route",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/invitations/all?page=1&pageSize=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "invitations", "all"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all invitations across all exams with pagination and filtering (uses invitations/all route)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Invitations with Filters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/invitations/all?page=1&pageSize=10&status=Sent&email=student@example.com&fromDate=2024-01-01&toDate=2024-12-31&examId={{exam_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "invitations", "all"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            },
+            {
+              "key": "status",
+              "value": "Sent"
+            },
+            {
+              "key": "email",
+              "value": "student@example.com"
+            },
+            {
+              "key": "fromDate",
+              "value": "2024-01-01"
+            },
+            {
+              "key": "toDate",
+              "value": "2024-12-31"
+            },
+            {
+              "key": "examId",
+              "value": "{{exam_id}}"
+            }
+          ]
+        },
+        "description": "Get invitations with filters (status, email, date range, exam ID) - uses invitations/all route"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Invitations for Specific Exam",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/{{exam_id}}/invitations?page=1&pageSize=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "{{exam_id}}", "invitations"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get invitations for a specific exam with pagination and filtering"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Invitations for Specific Exam with Filters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/{{exam_id}}/invitations?page=1&pageSize=10&status=Sent&email=student@example.com&fromDate=2024-01-01&toDate=2024-12-31",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "{{exam_id}}", "invitations"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            },
+            {
+              "key": "status",
+              "value": "Sent"
+            },
+            {
+              "key": "email",
+              "value": "student@example.com"
+            },
+            {
+              "key": "fromDate",
+              "value": "2024-01-01"
+            },
+            {
+              "key": "toDate",
+              "value": "2024-12-31"
+            }
+          ]
+        },
+        "description": "Get invitations for a specific exam with filters (status, email, date range)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Invitation Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/exam/invitations/{{invitation_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "invitations", "{{invitation_id}}"]
+        },
+        "description": "Get specific invitation details by invitation ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Resend Invitation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customMessage\": \"Your invitation has been extended. Please complete the exam by the new deadline.\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/invitations/{{invitation_id}}/resend",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "invitations", "{{invitation_id}}", "resend"]
+        },
+        "description": "Resend invitation with extended validity (adds 24 hours)"
+      },
+      "response": []
+    },
+    {
+      "name": "Validate Invitation with Email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"{{invitation_token}}\",\n  \"userEmail\": \"student@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/exam/validate-invitation",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "validate-invitation"]
+        },
+        "description": "Validate invitation token with user email (for students)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Student Exams",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam/student/exams/all?page=1&pageSize=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "student", "exams", "all"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get list of exams assigned to the authenticated student"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Student Exam Details",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam/student/exams/{{exam_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "student", "exams", "{{exam_id}}"]
+        },
+        "description": "Get specific exam details for the authenticated student"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Student Exam Submission",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam/student/exams/{{exam_id}}/submission",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam", "student", "exams", "{{exam_id}}", "submission"]
+        },
+        "description": "Get student's submission for a specific exam"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Exam Statistics",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/{{exam_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "{{exam_id}}"]
+        },
+        "description": "Get comprehensive statistics for a specific exam"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Statistics by User Group",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/user-group/{{user_group_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "user-group", "{{user_group_id}}"]
+        },
+        "description": "Get statistics for all exams in a specific user group"
+      },
+      "response": []
+    },
+    {
+      "name": "Recalculate Exam Statistics",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/{{exam_id}}/recalculate",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "{{exam_id}}", "recalculate"]
+        },
+        "description": "Force recalculation of statistics for a specific exam (Admin/Teacher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Statistics Summary",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/summary",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "summary"]
+        },
+        "description": "Get overall statistics summary with optional month/year filtering (Admin/Teacher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Statistics Summary - All Time",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/summary",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "summary"]
+        },
+        "description": "Get all-time statistics summary without filtering (Admin/Teacher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Statistics Summary - Date Range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/summary?startDate=2025-08-01&endDate=2025-08-31",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "summary"],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "2025-08-01",
+              "description": "Start date (YYYY-MM-DD format)"
+            },
+            {
+              "key": "endDate",
+              "value": "2025-08-31",
+              "description": "End date (YYYY-MM-DD format)"
+            }
+          ]
+        },
+        "description": "Get statistics summary for specific date range (Admin/Teacher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Statistics Summary - Start Date Only",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/summary?startDate=2025-08-01",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "summary"],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "2025-08-01",
+              "description": "Start date (YYYY-MM-DD format)"
+            }
+          ]
+        },
+        "description": "Get statistics summary from start date onwards (Admin/Teacher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Statistics Summary - End Date Only",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/summary?endDate=2025-08-31",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "summary"],
+          "query": [
+            {
+              "key": "endDate",
+              "value": "2025-08-31",
+              "description": "End date (YYYY-MM-DD format)"
+            }
+          ]
+        },
+        "description": "Get statistics summary up to end date (Admin/Teacher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Statistics Summary - With Cache Busting",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/summary?startDate=2025-08-01&endDate=2025-08-31&t=1754056063873",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "summary"],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "2025-08-01",
+              "description": "Start date (YYYY-MM-DD format)"
+            },
+            {
+              "key": "endDate",
+              "value": "2025-08-31",
+              "description": "End date (YYYY-MM-DD format)"
+            },
+            {
+              "key": "t",
+              "value": "1754056063873",
+              "description": "Timestamp for cache busting"
+            }
+          ]
+        },
+        "description": "Get statistics summary with cache busting parameter (Admin/Teacher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Initialize Statistics for Existing Exams",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/initialize",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "initialize"]
+        },
+        "description": "Initialize statistics for all existing exams that don't have statistics yet (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Recalculate All Statistics",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/exam-statistics/recalculate-all",
+          "host": ["{{base_url}}"],
+          "path": ["api", "exam-statistics", "recalculate-all"]
+        },
+        "description": "Recalculate statistics for all existing exams (Admin only)"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5014",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "exam_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "submission_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "invitation_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "invitation_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_group_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+} 

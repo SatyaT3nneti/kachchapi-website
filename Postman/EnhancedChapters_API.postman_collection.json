@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "enhanced-chapters-api-collection",
+		"name": "Enhanced Chapters API",
+		"description": "API collection for enhanced chapter details with comprehensive content sections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Enhanced Chapter Details",
+			"item": [
+				{
+					"name": "Get Enhanced Chapter Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/enhanced/{{chapterId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "enhanced", "{{chapterId}}"]
+						}
+					},
+					"response": [],
+					"description": "Get comprehensive chapter details including overview, key concepts, examples, tips, did you know sections, summary, references, mind maps, quizzes, exercises, and projects. Requires authentication."
+				},
+				{
+					"name": "Get Basic Chapter Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/{{chapterId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "{{chapterId}}"]
+						}
+					},
+					"response": [],
+					"description": "Get basic chapter information without detailed content sections. No authentication required."
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "login"]
+						}
+					},
+					"response": [],
+					"description": "Login to get JWT token for enhanced chapter endpoints"
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\",\n  \"confirmPassword\": \"{{userPassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "register"]
+						}
+					},
+					"response": [],
+					"description": "Register a new user account"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5014",
+			"type": "string"
+		},
+		{
+			"key": "chapterId",
+			"value": "550e8400-e29b-41d4-a716-446655440000",
+			"type": "string",
+			"description": "UUID of the chapter to test with"
+		},
+		{
+			"key": "jwt_token",
+			"value": "",
+			"type": "string",
+			"description": "JWT token from login endpoint"
+		},
+		{
+			"key": "userEmail",
+			"value": "test@example.com",
+			"type": "string",
+			"description": "User email for authentication"
+		},
+		{
+			"key": "userPassword",
+			"value": "TestPassword123!",
+			"type": "string",
+			"description": "User password for authentication"
+		}
+	]
+} 

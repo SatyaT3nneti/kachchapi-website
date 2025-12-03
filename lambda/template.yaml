@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Kachchapi Send Email Lambda Function with API Gateway
+
+Parameters:
+  AdminEmail:
+    Type: String
+    Default: support@kachchapi.com
+    Description: Email address to receive callback requests
+  FromEmail:
+    Type: String
+    Default: support@kachchapi.com
+    Description: Verified SES email address to send from
+  FromName:
+    Type: String
+    Default: Kachchapi Support
+    Description: Display name for email sender
+  Region:
+    Type: String
+    Default: ap-south-2
+    Description: AWS region for SES
+    AllowedValues:
+      - ap-south-2
+      - us-east-1
+      - us-west-2
+      - eu-west-1
+
+Resources:
+  SendEmailFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: kachchapi-send-email
+      CodeUri: send-email/
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Timeout: 30
+      MemorySize: 256
+      Environment:
+        Variables:
+          KACHCHAPI_ADMIN_EMAIL: !Ref AdminEmail
+          AWS_SES_FROM_EMAIL: !Ref FromEmail
+          AWS_SES_FROM_NAME: !Ref FromName
+          AWS_REGION: !Ref Region
+      Policies:
+        - SESCrudPolicy:
+            IdentityName: !Ref FromEmail
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - logs:CreateLogGroup
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource: 'arn:aws:logs:*:*:*'
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /callback-request/send-email
+            Method: post
+            RestApiId: !Ref SendEmailApi
+            Cors:
+              AllowMethods: "'POST,OPTIONS'"
+              AllowHeaders: "'Content-Type,Authorization'"
+              AllowOrigin: "'*'"
+
+  SendEmailApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: kachchapi-send-email-api
+      StageName: prod
+      Cors:
+        AllowMethods: "'POST,OPTIONS'"
+        AllowHeaders: "'Content-Type,Authorization'"
+        AllowOrigin: "'*'"
+
+Outputs:
+  ApiUrl:
+    Description: API Gateway endpoint URL
+    Value: !Sub 'https://${SendEmailApi}.execute-api.${AWS::Region}.amazonaws.com/prod'
+  FunctionName:
+    Description: Lambda function name
+    Value: !Ref SendEmailFunction
+  FunctionArn:
+    Description: Lambda function ARN
+    Value: !GetAtt SendEmailFunction.Arn
+

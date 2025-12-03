@@ -1,0 +1,14 @@
+# Netlify redirects (if using Netlify)
+/*    /index.html   200
+
+# Handle leader routes specifically
+/leader/*    /index.html   200
+
+# Handle other React routes
+/about-us    /index.html   200
+/resources   /index.html   200
+/courses     /index.html   200
+/contact     /index.html   200
+/blog        /index.html   200
+
+

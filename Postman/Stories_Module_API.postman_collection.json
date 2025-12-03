@@ -1,0 +1,806 @@
+{
+  "info": {
+    "name": "Kachchapi Stories Module API",
+    "description": "Complete API collection for testing the Stories module with AWS S3 integration, video streaming, and analytics",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5014",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "story_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "Login to Get JWT Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@kachchapi.com\",\n  \"password\": \"Admin@123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "description": "Login with admin credentials to get JWT token. Copy the token from the response and set it in the 'jwt_token' variable."
+          },
+          "response": []
+        },
+        {
+          "name": "Register New User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"Test@123\",\n  \"phoneNumber\": \"+1234567890\",\n  \"dateOfBirth\": \"1990-01-01\",\n  \"gender\": \"Other\",\n  \"address\": \"123 Test Street\",\n  \"city\": \"Test City\",\n  \"state\": \"Test State\",\n  \"country\": \"Test Country\",\n  \"postalCode\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "register"]
+            },
+            "description": "Register a new user account for testing purposes."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🧪 AWS S3 Connection Test",
+      "item": [
+        {
+          "name": "Test S3 Connection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/test-s3-connection",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "test-s3-connection"]
+            },
+            "description": "Test if AWS S3 connection is working properly. This will list all your AWS buckets and confirm the connection."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📚 Stories Management",
+      "item": [
+        {
+          "name": "Create New Story",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Introduction to Chemistry\",\n  \"description\": \"Learn the basics of chemistry with this comprehensive video\",\n  \"category\": \"Science\",\n  \"subcategory\": \"Chemistry\",\n  \"tags\": [\"chemistry\", \"science\", \"education\"],\n  \"durationSeconds\": 1800,\n  \"fileSizeBytes\": 52428800,\n  \"isPremium\": false,\n  \"thumbnailUrl\": \"https://example.com/thumbnail.jpg\",\n  \"videoUrl\": \"https://example.com/video.mp4\",\n  \"metadata\": {\n    \"difficulty\": \"Beginner\",\n    \"targetAudience\": \"High School Students\",\n    \"prerequisites\": [\"Basic Math\"],\n    \"learningObjectives\": [\"Understand atomic structure\", \"Learn chemical bonding\"]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/stories",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "stories"]
+            },
+            "description": "Create a new story/video entry. The response will include the story ID - copy this to the 'story_id' variable for other requests."
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Stories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/stories?page=1&pageSize=10&category=Science&isPremium=false",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "stories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                },
+                {
+                  "key": "category",
+                  "value": "Science"
+                },
+                {
+                  "key": "isPremium",
+                  "value": "false"
+                }
+              ]
+            },
+            "description": "Get a paginated list of stories with optional filtering by category and premium status."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Story by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/stories/{{story_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "stories", "{{story_id}}"]
+            },
+            "description": "Get detailed information about a specific story by its ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Story",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Introduction to Chemistry - Updated\",\n  \"description\": \"Learn the basics of chemistry with this comprehensive video - Updated description\",\n  \"category\": \"Science\",\n  \"subcategory\": \"Chemistry\",\n  \"tags\": [\"chemistry\", \"science\", \"education\", \"updated\"],\n  \"durationSeconds\": 1800,\n  \"fileSizeBytes\": 52428800,\n  \"isPremium\": true,\n  \"thumbnailUrl\": \"https://example.com/thumbnail-updated.jpg\",\n  \"videoUrl\": \"https://example.com/video-updated.mp4\",\n  \"metadata\": {\n    \"difficulty\": \"Intermediate\",\n    \"targetAudience\": \"High School Students\",\n    \"prerequisites\": [\"Basic Math\", \"Basic Science\"],\n    \"learningObjectives\": [\"Understand atomic structure\", \"Learn chemical bonding\", \"Practice chemical equations\"]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/stories/{{story_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "stories", "{{story_id}}"]
+            },
+            "description": "Update an existing story with new information."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Story",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/stories/{{story_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "stories", "{{story_id}}"]
+            },
+            "description": "Delete a story. Use with caution as this action cannot be undone."
+          },
+          "response": []
+        },
+        {
+          "name": "Search Stories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/stories/search?query=chemistry&category=Science&page=1&pageSize=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "stories", "search"],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "chemistry"
+                },
+                {
+                  "key": "category",
+                  "category",
+                  "value": "Science"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Search for stories using keywords, categories, and other filters."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🎥 Video Streaming & Access",
+      "item": [
+        {
+          "name": "Get Secure Video URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storyId\": \"{{story_id}}\",\n  \"userAgent\": \"PostmanRuntime/7.32.3\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/secure-video-url",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "secure-video-url"]
+            },
+            "description": "Get a secure, time-limited URL for streaming a video. This endpoint validates user access and generates signed URLs."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Secure Thumbnail URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storyId\": \"{{story_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/secure-thumbnail-url",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "secure-thumbnail-url"]
+            },
+            "description": "Get a secure URL for accessing a video thumbnail image."
+          },
+          "response": []
+        },
+        {
+          "name": "Validate Video Access",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storyId\": \"{{story_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/validate-access",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "validate-access"]
+            },
+            "description": "Check if the current user has access to a specific video (for premium content validation)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📤 S3 File Upload",
+      "item": [
+        {
+          "name": "Get Video Upload URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"chemistry-intro.mp4\",\n  \"fileSize\": 52428800,\n  \"contentType\": \"video/mp4\",\n  \"metadata\": {\n    \"title\": \"Introduction to Chemistry\",\n    \"category\": \"Science\",\n    \"tags\": [\"chemistry\", \"education\"]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/video-upload-url",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "video-upload-url"]
+            },
+            "description": "Get a pre-signed URL for uploading a video file directly to S3. This allows secure client-side uploads."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Thumbnail Upload URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"chemistry-thumbnail.jpg\",\n  \"fileSize\": 1048576,\n  \"contentType\": \"image/jpeg\",\n  \"metadata\": {\n    \"title\": \"Chemistry Thumbnail\",\n    \"category\": \"Science\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/thumbnail-upload-url",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "thumbnail-upload-url"]
+            },
+            "description": "Get a pre-signed URL for uploading a thumbnail image directly to S3."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Video from S3",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/delete-video?videoKey=stories/chemistry-intro.mp4",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "delete-video"],
+              "query": [
+                {
+                  "key": "videoKey",
+                  "value": "stories/chemistry-intro.mp4"
+                }
+              ]
+            },
+            "description": "Delete a video file from S3 storage. The videoKey should be the S3 object key."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Thumbnail from S3",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/delete-thumbnail?thumbnailKey=thumbnails/chemistry-thumbnail.jpg",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "delete-thumbnail"],
+              "query": [
+                {
+                  "key": "thumbnailKey",
+                  "value": "thumbnails/chemistry-thumbnail.jpg"
+                }
+              ]
+            },
+            "description": "Delete a thumbnail image from S3 storage."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📊 User Progress Tracking",
+      "item": [
+        {
+          "name": "Start Watching Story",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storyId\": \"{{story_id}}\",\n  \"startTime\": \"2024-01-01T10:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/start-watching",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "start-watching"]
+            },
+            "description": "Record that a user has started watching a story. This initializes progress tracking."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Watch Progress",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storyId\": \"{{story_id}}\",\n  \"currentTimeSeconds\": 300,\n  \"playbackPercentage\": 16.67,\n  \"isCompleted\": false,\n  \"quality\": \"720p\",\n  \"deviceType\": \"Desktop\",\n  \"browser\": \"Chrome\",\n  \"operatingSystem\": \"Windows\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/update-progress",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "update-progress"]
+            },
+            "description": "Update the user's watch progress for a story. This tracks how much of the video they've watched."
+          },
+          "response": []
+        },
+        {
+          "name": "Complete Story",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storyId\": \"{{story_id}}\",\n  \"completionTime\": \"2024-01-01T10:30:00Z\",\n  \"totalWatchTime\": 1800,\n  \"finalQuality\": \"720p\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/complete-story",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "complete-story"]
+            },
+            "description": "Mark a story as completed by the user. This finalizes the progress tracking."
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Progress",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/user-progress?page=1&pageSize=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "user-progress"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Get the current user's progress across all stories they've started watching."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Story Progress",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/story-progress/{{story_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "story-progress", "{{story_id}}"]
+            },
+            "description": "Get the current user's progress for a specific story."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📈 Analytics & Metrics",
+      "item": [
+        {
+          "name": "Get Video Analytics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/analytics/{{story_id}}?startDate=2024-01-01&endDate=2024-01-31",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "analytics", "{{story_id}}"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-01-31"
+                }
+              ]
+            },
+            "description": "Get detailed analytics for a specific video, including view counts, completion rates, and engagement metrics."
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Engagement Metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/engagement-metrics?startDate=2024-01-01&endDate=2024-01-31&category=Science",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "engagement-metrics"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-01-31"
+                },
+                {
+                  "key": "category",
+                  "value": "Science"
+                }
+              ]
+            },
+            "description": "Get aggregated engagement metrics across multiple videos, useful for content performance analysis."
+          },
+          "response": []
+        },
+        {
+          "name": "Track Video Access",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storyId\": \"{{story_id}}\",\n  \"accessType\": \"Video\",\n  \"ipAddress\": \"192.168.1.1\",\n  \"userAgent\": \"PostmanRuntime/7.32.3\",\n  \"referrer\": \"https://example.com\",\n  \"isSuccessful\": true,\n  \"responseTimeMs\": 150\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/track-access",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "track-access"]
+            },
+            "description": "Track when a user accesses a video. This helps with analytics and monitoring."
+          },
+          "response": []
+        },
+        {
+          "name": "Track Playback Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storyId\": \"{{story_id}}\",\n  \"eventType\": \"Play\",\n  \"currentTimeSeconds\": 0,\n  \"totalDurationSeconds\": 1800,\n  \"playbackPercentage\": 0.0,\n  \"quality\": \"720p\",\n  \"deviceType\": \"Desktop\",\n  \"browser\": \"Chrome\",\n  \"operatingSystem\": \"Windows\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/track-playback",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "track-playback"]
+            },
+            "description": "Track playback events like play, pause, seek, etc. This provides detailed user behavior analytics."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "💳 Subscription Management",
+      "item": [
+        {
+          "name": "Create Subscription",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"planType\": \"Premium\",\n  \"subscriptionStatus\": \"Active\",\n  \"startDate\": \"2024-01-01T00:00:00Z\",\n  \"endDate\": \"2024-02-01T00:00:00Z\",\n  \"amount\": 9.99,\n  \"currency\": \"USD\",\n  \"paymentMethod\": \"Credit Card\",\n  \"autoRenew\": true,\n  \"features\": \"Premium videos, Offline access, Priority support\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/subscriptions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "subscriptions"]
+            },
+            "description": "Create a new subscription for the current user. This enables access to premium content."
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/subscriptions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "subscriptions"]
+            },
+            "description": "Get all subscriptions for the current user."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Subscription",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"planType\": \"Pro\",\n  \"amount\": 19.99,\n  \"autoRenew\": false,\n  \"cancelledAt\": \"2024-01-15T00:00:00Z\",\n  \"cancellationReason\": \"Upgrading to Pro plan\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/subscriptions/{{subscription_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "subscriptions", "{{subscription_id}}"]
+            },
+            "description": "Update an existing subscription (e.g., change plan, cancel auto-renewal)."
+          },
+          "response": []
+        },
+        {
+          "name": "Check Premium Access",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storyId\": \"{{story_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/check-premium-access",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "check-premium-access"]
+            },
+            "description": "Check if the current user has premium access to a specific story."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🔍 File Validation",
+      "item": [
+        {
+          "name": "Validate Video File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"test-video.mp4\",\n  \"fileSize\": 52428800,\n  \"contentType\": \"video/mp4\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/validate-video",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "validate-video"]
+            },
+            "description": "Validate a video file before upload. Checks file format, size, and other requirements."
+          },
+          "response": []
+        },
+        {
+          "name": "Validate Thumbnail File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"test-thumbnail.jpg\",\n  \"fileSize\": 1048576,\n  \"contentType\": \"image/jpeg\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/VideoStreaming/validate-thumbnail",
+              "host": ["{{base_url}}"],
+              "path": ["api", "VideoStreaming", "validate-thumbnail"]
+            },
+            "description": "Validate a thumbnail image before upload. Checks format, size, and dimensions."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "exec": [
+          "// Auto-extract story_id from Create Story response",
+          "if (pm.response.code === 200 || pm.response.code === 201) {",
+          "    const response = pm.response.json();",
+          "    if (response.storyId) {",
+          "        pm.collectionVariables.set('story_id', response.storyId);",
+          "        console.log('Story ID set to:', response.storyId);",
+          "    }",
+          "}",
+          "",
+          "// Auto-extract user_id from login response",
+          "if (pm.response.code === 200 && pm.request.url.path.includes('login')) {",
+          "    const response = pm.response.json();",
+          "    if (response.user && response.user.id) {",
+          "        pm.collectionVariables.set('user_id', response.user.id);",
+          "        console.log('User ID set to:', response.user.id);",
+          "    }",
+          "}",
+          "",
+          "// Log response for debugging",
+          "console.log('Response Status:', pm.response.status);",
+          "console.log('Response Body:', pm.response.text());"
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ]
+}

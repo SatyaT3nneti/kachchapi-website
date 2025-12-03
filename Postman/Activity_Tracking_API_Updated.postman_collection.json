@@ -1,0 +1,811 @@
+{
+	"info": {
+		"_postman_id": "activity-tracking-api-collection-updated",
+		"name": "Activity Tracking API - Updated",
+		"description": "Updated Activity Tracking API with granular filtering and module-specific endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Core Activity Endpoints",
+			"item": [
+				{
+					"name": "Get All Activities (Granular = false)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity?page=1&pageSize=20&granular=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "false"}
+							]
+						},
+						"description": "Get activities with granular filtering (only creation/update activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Activities (Granular = true)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity?page=1&pageSize=20&granular=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "true"}
+							]
+						},
+						"description": "Get all activities with detailed history"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Activity Timeline (Granular = false)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/timeline?page=1&pageSize=20&granular=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "timeline"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "false"}
+							]
+						},
+						"description": "Get activity timeline (only creation/update activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Activity Timeline (Granular = true)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/timeline?page=1&pageSize=20&granular=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "timeline"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "true"}
+							]
+						},
+						"description": "Get activity timeline (all activities)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Module-Specific Activities",
+			"item": [
+				{
+					"name": "Get User Management Activities (Granular = false)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/user-management?page=1&pageSize=20&granular=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "user-management"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "false"}
+							]
+						},
+						"description": "Get user management activities (only creation/update activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Management Activities (Granular = true)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/user-management?page=1&pageSize=20&granular=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "user-management"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "true"}
+							]
+						},
+						"description": "Get user management activities (all activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Exam Activities (Granular = false)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/exams?page=1&pageSize=20&granular=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "exams"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "false"}
+							]
+						},
+						"description": "Get exam activities (only creation/update activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Exam Activities (Granular = true)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/exams?page=1&pageSize=20&granular=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "exams"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "true"}
+							]
+						},
+						"description": "Get exam activities (all activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Submission Activities (Granular = false)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/submissions?page=1&pageSize=20&granular=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "submissions"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "false"}
+							]
+						},
+						"description": "Get submission activities (only creation/update activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Submission Activities (Granular = true)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/submissions?page=1&pageSize=20&granular=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "submissions"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "true"}
+							]
+						},
+						"description": "Get submission activities (all activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Report Activities (Granular = false)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/reports?page=1&pageSize=20&granular=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "reports"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "false"}
+							]
+						},
+						"description": "Get report activities (only creation/update activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Report Activities (Granular = true)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/reports?page=1&pageSize=20&granular=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "reports"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "true"}
+							]
+						},
+						"description": "Get report activities (all activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invitation Activities (Granular = false)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/invitations?page=1&pageSize=20&granular=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "invitations"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "false"}
+							]
+						},
+						"description": "Get invitation activities (only creation/update activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invitation Activities (Granular = true)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/invitations?page=1&pageSize=20&granular=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "invitations"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "true"}
+							]
+						},
+						"description": "Get invitation activities (all activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student Submission Activities (Granular = false)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/student-submissions?page=1&pageSize=20&granular=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "student-submissions"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "false"}
+							]
+						},
+						"description": "Get student submission activities (only creation/update activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student Submission Activities (Granular = true)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/student-submissions?page=1&pageSize=20&granular=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "student-submissions"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "true"}
+							]
+						},
+						"description": "Get student submission activities (all activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Authentication Activities (Granular = false)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/authentication?page=1&pageSize=20&granular=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "authentication"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "false"}
+							]
+						},
+						"description": "Get authentication activities (only creation/update activities)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Authentication Activities (Granular = true)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/authentication?page=1&pageSize=20&granular=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "authentication"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"},
+								{"key": "granular", "value": "true"}
+							]
+						},
+						"description": "Get authentication activities (all activities)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Activity Summary & Dashboard",
+			"item": [
+				{
+					"name": "Get Activity Summary",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/summary",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "summary"]
+						},
+						"description": "Get activity summary for dashboard widgets"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recent Activities",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/recent?count=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "recent"],
+							"query": [{"key": "count", "value": "10"}]
+						},
+						"description": "Get recent activities for dashboard widget"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Today's Activities",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/today?count=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "today"],
+							"query": [{"key": "count", "value": "20"}]
+						},
+						"description": "Get today's activities"
+					},
+					"response": []
+				},
+				{
+					"name": "Get This Week's Activities",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/this-week?count=50",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "this-week"],
+							"query": [{"key": "count", "value": "50"}]
+						},
+						"description": "Get this week's activities"
+					},
+					"response": []
+				},
+				{
+					"name": "Get This Month's Activities",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/this-month?count=100",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "this-month"],
+							"query": [{"key": "count", "value": "100"}]
+						},
+						"description": "Get this month's activities"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Activity Statistics",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/statistics?fromDate=2025-01-01&toDate=2025-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "statistics"],
+							"query": [
+								{"key": "fromDate", "value": "2025-01-01"},
+								{"key": "toDate", "value": "2025-12-31"}
+							]
+						},
+						"description": "Get activity statistics for date range"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User-Specific Activities",
+			"item": [
+				{
+					"name": "Get User Activities by ID",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/user/{{user_id}}?page=1&pageSize=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "user", "{{user_id}}"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"}
+							]
+						},
+						"description": "Get activities for a specific user by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Activities by Email",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/user/email/admin@kachchapi.com?page=1&pageSize=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "user", "email", "admin@kachchapi.com"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"}
+							]
+						},
+						"description": "Get activities for a specific user by email"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Activity Summary by ID",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/user/{{user_id}}/summary",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "user", "{{user_id}}", "summary"]
+						},
+						"description": "Get activity summary for a specific user by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Activity Summary by Email",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/user/email/admin@kachchapi.com/summary",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "user", "email", "admin@kachchapi.com", "summary"]
+						},
+						"description": "Get activity summary for a specific user by email"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Activities by User",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/user/admin@kachchapi.com/search?searchTerm=exam&page=1&pageSize=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "user", "admin@kachchapi.com", "search"],
+							"query": [
+								{"key": "searchTerm", "value": "exam"},
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"}
+							]
+						},
+						"description": "Search activities for a specific user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resource-Specific Activities",
+			"item": [
+				{
+					"name": "Get Resource Activities",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/resource/Exam/{{exam_id}}?page=1&pageSize=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "resource", "Exam", "{{exam_id}}"],
+							"query": [
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"}
+							]
+						},
+						"description": "Get activities for a specific resource"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Activities by Resource",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/resource/Exam/{{exam_id}}/search?searchTerm=created&page=1&pageSize=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "resource", "Exam", "{{exam_id}}", "search"],
+							"query": [
+								{"key": "searchTerm", "value": "created"},
+								{"key": "page", "value": "1"},
+								{"key": "pageSize", "value": "20"}
+							]
+						},
+						"description": "Search activities for a specific resource"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Activity Breakdowns & Analytics",
+			"item": [
+				{
+					"name": "Get Category Breakdown",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/breakdown/category?fromDate=2025-01-01&toDate=2025-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "breakdown", "category"],
+							"query": [
+								{"key": "fromDate", "value": "2025-01-01"},
+								{"key": "toDate", "value": "2025-12-31"}
+							]
+						},
+						"description": "Get activity breakdown by category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Type Breakdown by Category",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/breakdown/type/Exams?fromDate=2025-01-01&toDate=2025-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "breakdown", "type", "Exams"],
+							"query": [
+								{"key": "fromDate", "value": "2025-01-01"},
+								{"key": "toDate", "value": "2025-12-31"}
+							]
+						},
+						"description": "Get activity breakdown by type for a specific category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Severity Breakdown",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/breakdown/severity?fromDate=2025-01-01&toDate=2025-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "breakdown", "severity"],
+							"query": [
+								{"key": "fromDate", "value": "2025-01-01"},
+								{"key": "toDate", "value": "2025-12-31"}
+							]
+						},
+						"description": "Get activity breakdown by severity"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Daily Activity",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/breakdown/daily?fromDate=2025-01-01&toDate=2025-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "breakdown", "daily"],
+							"query": [
+								{"key": "fromDate", "value": "2025-01-01"},
+								{"key": "toDate", "value": "2025-12-31"}
+							]
+						},
+						"description": "Get daily activity breakdown"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Hourly Activity",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/breakdown/hourly/2025-01-03",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "breakdown", "hourly", "2025-01-03"]
+						},
+						"description": "Get hourly activity breakdown for a specific date"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Activity Management",
+			"item": [
+				{
+					"name": "Get Total Activity Count",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/count",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "count"]
+						},
+						"description": "Get total number of activities"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Earliest Activity Date",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/earliest-date",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "earliest-date"]
+						},
+						"description": "Get the earliest activity date"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Latest Activity Date",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/latest-date",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "latest-date"]
+						},
+						"description": "Get the latest activity date"
+					},
+					"response": []
+				},
+				{
+					"name": "Export Activities",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"},
+							{"key": "Content-Type", "value": "application/json", "type": "text"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fromDate\": \"2025-01-01\",\n  \"toDate\": \"2025-12-31\",\n  \"format\": \"json\",\n  \"includeDetails\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/activity/export",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "export"]
+						},
+						"description": "Export activities to file"
+					},
+					"response": []
+				},
+				{
+					"name": "Cleanup Old Activities",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/cleanup?daysToKeep=365",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "cleanup"],
+							"query": [{"key": "daysToKeep", "value": "365"}]
+						},
+						"description": "Cleanup activities older than specified days (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Archive Activities",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"}],
+						"url": {
+							"raw": "{{base_url}}/api/activity/archive?cutoffDate=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "archive"],
+							"query": [{"key": "cutoffDate", "value": "2024-12-31"}]
+						},
+						"description": "Archive activities before cutoff date (Admin only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Log Activity",
+			"item": [
+				{
+					"name": "Log Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Authorization", "value": "Bearer {{auth_token}}", "type": "text"},
+							{"key": "Content-Type", "value": "application/json", "type": "text"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category\": \"Exams\",\n  \"type\": \"ExamCreated\",\n  \"title\": \"Exam Created\",\n  \"description\": \"A new exam was created successfully\",\n  \"severity\": \"Info\",\n  \"resourceType\": \"Exam\",\n  \"resourceId\": \"{{exam_id}}\",\n  \"resourceName\": \"Test Exam\",\n  \"details\": {\n    \"examId\": \"{{exam_id}}\",\n    \"createdBy\": \"admin@kachchapi.com\",\n    \"creationTime\": \"2025-01-03T10:00:00Z\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/activity/log",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activity", "log"]
+						},
+						"description": "Log a new activity manually"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{"key": "base_url", "value": "http://localhost:5014", "type": "string"},
+		{"key": "auth_token", "value": "your_jwt_token_here", "type": "string"},
+		{"key": "activity_id", "value": "sample-activity-id", "type": "string"},
+		{"key": "user_id", "value": "sample-user-id", "type": "string"},
+		{"key": "exam_id", "value": "sample-exam-id", "type": "string"}
+	]
+} 

@@ -1,0 +1,136 @@
+{
+  "info": {
+    "name": "Kachchapi Institute API",
+    "description": "CRUD endpoints for Institute management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Organization (Simplified)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"personalInformation\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@school.com\"\n  },\n  \"organizationInformation\": {\n    \"organizationName\": \"Test School\",\n    \"organizationType\": \"private\",\n    \"addressLine1\": \"123 Main St\",\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"zipCode\": \"10001\",\n    \"country\": \"USA\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/institutes/create-organization",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "institutes", "create-organization"]
+        },
+        "description": "Creates a new organization with a School Admin user. This endpoint uses the simplified structure with only essential fields."
+      }
+    },
+    {
+      "name": "Get All Institutes (Paginated)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/institutes?pageNumber=1&pageSize=10",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "institutes"],
+          "query": [
+            { "key": "pageNumber", "value": "1" },
+            { "key": "pageSize", "value": "10" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Institute by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/institutes/{{instituteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "institutes", "{{instituteId}}"]
+        }
+      }
+    },
+    {
+      "name": "Create Institute",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"instituteName\": \"ABC School\",\n  \"instituteAddress\": \"123 Main Street, City, State 12345\",\n  \"status\": \"Active\",\n  \"organizationType\": \"public\",\n  \"addressLine1\": \"123 Main Street\",\n  \"city\": \"City\",\n  \"state\": \"State\",\n  \"zipCode\": \"12345\",\n  \"country\": \"USA\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/institutes",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "institutes"]
+        }
+      }
+    },
+    {
+      "name": "Update Institute",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"instituteName\": \"ABC School Updated\",\n  \"instituteAddress\": \"456 New Street, City, State 12345\",\n  \"status\": \"Active\",\n  \"organizationType\": \"public\",\n  \"addressLine1\": \"456 New Street\",\n  \"city\": \"City\",\n  \"state\": \"State\",\n  \"zipCode\": \"12345\",\n  \"country\": \"USA\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/institutes/{{instituteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "institutes", "{{instituteId}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Institute",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/institutes/{{instituteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "institutes", "{{instituteId}}"]
+        }
+      }
+    },
+    {
+      "name": "Search Institutes",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"filters\": [\n    {\n      \"column\": \"instituteName\",\n      \"operator\": \"contains\",\n      \"value\": \"School\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/institutes/search",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "institutes", "search"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5014" },
+    { "key": "token", "value": "" },
+    { "key": "instituteId", "value": "" }
+  ]
+}

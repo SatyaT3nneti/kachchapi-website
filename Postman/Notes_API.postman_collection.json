@@ -1,0 +1,125 @@
+{
+  "info": {
+    "_postman_id": "notes-api-collection-001",
+    "name": "Notes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Note",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"category\": \"chapter\",\n  \"title\": \"Key Concepts\",\n  \"content\": \"<p>My notes here</p>\",\n  \"chapterId\": \"{{chapterId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/notes",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Notes",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/notes?category=chapter&chapterId={{chapterId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes"],
+          "query": [
+            { "key": "category", "value": "chapter" },
+            { "key": "chapterId", "value": "{{chapterId}}" }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Note By Id",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "{{noteId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Note",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated Title\",\n  \"content\": \"<p>Updated content</p>\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "{{noteId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Note",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "{{noteId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Notes For Entity (chapter/subject/project)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/notes/for-entity?chapterId={{chapterId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notes", "for-entity"],
+          "query": [
+            { "key": "chapterId", "value": "{{chapterId}}", "disabled": false },
+            { "key": "subjectId", "value": "{{subjectId}}", "disabled": true },
+            { "key": "projectId", "value": "{{projectId}}", "disabled": true }
+          ]
+        },
+        "description": "Returns all notes for the given entity. Exactly one of chapterId, subjectId, or projectId must be provided as a query parameter."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5014" },
+    { "key": "token", "value": "" },
+    { "key": "chapterId", "value": "" },
+    { "key": "noteId", "value": "" }
+  ]
+} 

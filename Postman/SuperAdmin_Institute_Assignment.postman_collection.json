@@ -1,0 +1,282 @@
+{
+  "info": {
+    "name": "SuperAdmin Institute Assignment",
+    "description": "Collection for testing SuperAdmin automatic assignment to institutes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://localhost:7001",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "your_jwt_token_here",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Login as SuperAdmin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@kachchapi.com\",\n  \"password\": \"your_password_here\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/Auth/login",
+          "host": ["{{base_url}}"],
+          "path": ["api", "Auth", "login"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "    const response = pm.response.json();",
+              "    if (response.success && response.data && response.data.token) {",
+              "        pm.collectionVariables.set('auth_token', response.data.token);",
+              "        console.log('Token saved:', response.data.token);",
+              "    }",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Get Current SuperAdmin Institute Assignments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/Organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "Organizations"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "3. Manually Assign SuperAdmins to All Institutes",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/Institutes/assign-superadmins",
+          "host": ["{{base_url}}"],
+          "path": ["api", "Institutes", "assign-superadmins"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has success property', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('success');",
+              "});",
+              "",
+              "if (pm.response.code === 200) {",
+              "    const response = pm.response.json();",
+              "    console.log('Assignment result:', response);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Verify SuperAdmin Institute Assignments After Assignment",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/Organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "Organizations"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "if (pm.response.code === 200) {",
+              "    const response = pm.response.json();",
+              "    if (response.success && response.organizations) {",
+              "        console.log('Total institutes assigned:', response.organizations.length);",
+              "        response.organizations.forEach((org, index) => {",
+              "            console.log(`${index + 1}. ${org.instituteName} (${org.instituteId})`);",
+              "        });",
+              "    }",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Create New Institute (Test Auto-Assignment)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"instituteName\": \"Test Auto-Assignment Institute\",\n  \"instituteAddress\": \"123 Test Street, Test City, Test State 12345\",\n  \"status\": \"Active\",\n  \"organizationType\": \"School\",\n  \"addressLine1\": \"123 Test Street\",\n  \"city\": \"Test City\",\n  \"state\": \"Test State\",\n  \"zipCode\": \"12345\",\n  \"country\": \"Test Country\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/Institutes",
+          "host": ["{{base_url}}"],
+          "path": ["api", "Institutes"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201', function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "if (pm.response.code === 201) {",
+              "    const response = pm.response.json();",
+              "    console.log('New institute created:', response);",
+              "    pm.collectionVariables.set('new_institute_id', response.instituteId);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Verify SuperAdmin Assignment to New Institute",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/Organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "Organizations"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "if (pm.response.code === 200) {",
+              "    const response = pm.response.json();",
+              "    if (response.success && response.organizations) {",
+              "        const newInstitute = response.organizations.find(org => org.instituteId === pm.collectionVariables.get('new_institute_id'));",
+              "        if (newInstitute) {",
+              "            console.log('New institute found in SuperAdmin organizations:', newInstitute);",
+              "            pm.test('New institute is assigned to SuperAdmin', function () {",
+              "                pm.expect(newInstitute).to.not.be.undefined;",
+              "            });",
+              "        } else {",
+              "            console.log('New institute not found in SuperAdmin organizations');",
+              "        }",
+              "    }",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Get All Institutes (Admin View)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/Institutes?pageNumber=1&pageSize=50",
+          "host": ["{{base_url}}"],
+          "path": ["api", "Institutes"],
+          "query": [
+            {
+              "key": "pageNumber",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "50"
+            }
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "if (pm.response.code === 200) {",
+              "    const response = pm.response.json();",
+              "    console.log('Total institutes:', response.totalCount);",
+              "    console.log('Institutes on this page:', response.items.length);",
+              "    response.items.forEach((institute, index) => {",
+              "        console.log(`${index + 1}. ${institute.instituteName} (${institute.status})`);",
+              "    });",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}

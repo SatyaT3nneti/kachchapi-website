@@ -2,29 +2,168 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/favicon.svg" />
+    <link rel="alternate icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="theme-color" content="#7030A0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#7030A0" media="(prefers-color-scheme: dark)" />
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Kachchapi - AI Skills Training & Industry-Ready Software Development Courses</title>
+    <meta name="title" content="Kachchapi - AI Skills Training & Industry-Ready Software Development Courses" />
+    <meta name="description" content="Master AI skills, machine learning, and software development with industry-ready training. Learn from experienced professionals with project-based learning, interview preparation, and career guidance. Get future-ready with Gen AI and software development skills." />
+    <meta name="keywords" content="AI skills training, machine learning courses, software development training, industry-ready skills, AI training online, Gen AI courses, data science training, deep learning courses, interview preparation, career guidance, project-based learning, online tech training, software engineering courses, AI certification, programming bootcamp" />
+    <meta name="author" content="Kachchapi Technologies" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://demo.kachchapi.com/" />
+    <meta property="og:title" content="Kachchapi - AI Skills Training & Industry-Ready Software Development Courses" />
+    <meta property="og:description" content="Master AI skills, machine learning, and software development with industry-ready training. Learn from experienced professionals with project-based learning, interview preparation, and career guidance." />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+    <meta property="og:site_name" content="Kachchapi" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://demo.kachchapi.com/" />
+    <meta name="twitter:title" content="Kachchapi - AI Skills Training & Industry-Ready Software Development Courses" />
+    <meta name="twitter:description" content="Master AI skills, machine learning, and software development with industry-ready training. Learn from experienced professionals." />
+    <meta name="twitter:image" content="%PUBLIC_URL%/og-image.jpg" />
+    
+    <!-- Additional SEO -->
+    <meta name="geo.region" content="IN-AP" />
+    <meta name="geo.placename" content="Visakhapatnam" />
+    <meta name="geo.position" content="17.6868;83.2185" />
+    <meta name="ICBM" content="17.6868, 83.2185" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://demo.kachchapi.com/" />
+    
+    <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+    
+    <!-- Manifest -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    
+    <!-- Structured Data for Educational Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Kachchapi",
+      "alternateName": "Kachchapi Technologies",
+      "url": "https://demo.kachchapi.com",
+      "logo": "https://demo.kachchapi.com/logo-white.svg",
+      "description": "Kachchapi provides AI skills training, machine learning courses, and industry-ready software development training. Learn from experienced professionals with project-based learning, interview preparation, and career guidance.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ahub, Andhra University North Gate, Andhra University, Maddilapalem",
+        "addressLocality": "Visakhapatnam",
+        "addressRegion": "Andhra Pradesh",
+        "postalCode": "530013",
+        "addressCountry": "IN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-93912-56768",
+        "contactType": "Customer Service",
+        "email": "support@kachchapi.com",
+        "areaServed": "IN",
+        "availableLanguage": ["English", "Hindi", "Telugu"]
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/kachchapi",
+        "https://www.facebook.com/kachchapi",
+        "https://twitter.com/kachchapi"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "name": "AI Skills Training and Software Development Courses",
+        "description": "Comprehensive training in AI, machine learning, and software development with industry-ready skills",
+        "category": "Education"
+      }
+    }
+    </script>
+    
+    <!-- Structured Data for Course -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "AI Skills Training & Software Development",
+      "description": "Master AI skills, machine learning, and software development with industry-ready training. Learn Gen AI, deep learning, data science, and software engineering through project-based learning.",
+      "provider": {
+        "@type": "EducationalOrganization",
+        "name": "Kachchapi",
+        "sameAs": "https://demo.kachchapi.com"
+      },
+      "courseCode": "AI-SD-2024",
+      "educationalCredentialAwarded": "Certificate",
+      "teaches": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Deep Learning",
+        "Software Development",
+        "Data Science",
+        "Gen AI",
+        "System Design",
+        "Data Structures and Algorithms",
+        "Interview Preparation"
+      ],
+      "timeRequired": "P11M15D",
+      "coursePrerequisites": "Basic programming knowledge recommended",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student"
+      },
+      "inLanguage": "en",
+      "isAccessibleForFree": false,
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "INR"
+      }
+    }
+    </script>
+    
+    <!-- Structured Data for FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What AI skills and training programs does Kachchapi offer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kachchapi offers comprehensive AI skills training including machine learning, deep learning, Gen AI, data science, and software development. Our programs include project-based training, interview preparation, career guidance, and industry-ready skill development."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How can I learn industry-ready AI and software development skills?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kachchapi provides hands-on, project-based learning with real-world projects in AI, ML, and software development. Our curriculum is designed to make you industry-ready with practical experience, interview preparation, and career guidance from experienced professionals."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What online training options are available for AI skills?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kachchapi offers live online classes with 24/7 AI support. Our training includes AI skills training, machine learning courses, software development training, and interview preparation programs designed for working professionals and students."
+        }
+      }]
+    }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

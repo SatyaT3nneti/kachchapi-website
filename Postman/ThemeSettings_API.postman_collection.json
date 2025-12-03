@@ -1,0 +1,471 @@
+{
+	"info": {
+		"_postman_id": "theme-settings-collection",
+		"name": "Kachchapi Theme Settings API",
+		"description": "Complete API collection for managing user theme settings in the Kachchapi educational platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login - Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@kachchapi.com\",\n  \"password\": \"Test@1234\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"srushti@kachchapi.com\",\n  \"password\": \"Test@1234\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Theme Settings (Current User)",
+			"item": [
+				{
+					"name": "Get My Theme Settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/my-settings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"my-settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create My Theme Settings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"themeMode\": \"dark\",\n  \"isMonochrome\": false,\n  \"themeLayout\": \"main-layout\",\n  \"cardSkin\": \"shadow\",\n  \"primaryColor\": \"purple\",\n  \"lightColor\": \"gray\",\n  \"darkColor\": \"navy\",\n  \"notificationPosition\": \"top-right\",\n  \"notificationIsExpanded\": true,\n  \"notificationVisibleToasts\": 3\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/my-settings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"my-settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update My Theme Settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"themeMode\": \"light\",\n  \"primaryColor\": \"green\",\n  \"notificationPosition\": \"bottom-left\",\n  \"notificationVisibleToasts\": 5\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/my-settings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"my-settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete My Theme Settings",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/my-settings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"my-settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Default Theme Settings",
+			"item": [
+				{
+					"name": "Get Default Theme Settings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/default",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"default"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Theme Settings Management",
+			"item": [
+				{
+					"name": "Get User Theme Settings (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Theme Settings (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"themeMode\": \"system\",\n  \"isMonochrome\": true,\n  \"themeLayout\": \"sideblock\",\n  \"cardSkin\": \"bordered\",\n  \"primaryColor\": \"indigo\",\n  \"lightColor\": \"neutral\",\n  \"darkColor\": \"mirage\",\n  \"notificationPosition\": \"top-center\",\n  \"notificationIsExpanded\": false,\n  \"notificationVisibleToasts\": 2\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Theme Settings (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"themeMode\": \"dark\",\n  \"primaryColor\": \"rose\",\n  \"darkColor\": \"black\",\n  \"notificationPosition\": \"bottom-center\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Theme Settings (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sample Theme Configurations",
+			"item": [
+				{
+					"name": "Light Theme Configuration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"themeMode\": \"light\",\n  \"isMonochrome\": false,\n  \"themeLayout\": \"main-layout\",\n  \"cardSkin\": \"shadow\",\n  \"primaryColor\": \"blue\",\n  \"lightColor\": \"slate\",\n  \"darkColor\": \"cinder\",\n  \"notificationPosition\": \"bottom-right\",\n  \"notificationIsExpanded\": false,\n  \"notificationVisibleToasts\": 4\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/my-settings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"my-settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dark Theme Configuration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"themeMode\": \"dark\",\n  \"isMonochrome\": false,\n  \"themeLayout\": \"sideblock\",\n  \"cardSkin\": \"bordered\",\n  \"primaryColor\": \"purple\",\n  \"lightColor\": \"gray\",\n  \"darkColor\": \"navy\",\n  \"notificationPosition\": \"top-right\",\n  \"notificationIsExpanded\": true,\n  \"notificationVisibleToasts\": 3\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/my-settings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"my-settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Monochrome Theme Configuration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"themeMode\": \"system\",\n  \"isMonochrome\": true,\n  \"themeLayout\": \"main-layout\",\n  \"cardSkin\": \"bordered\",\n  \"primaryColor\": \"gray\",\n  \"lightColor\": \"neutral\",\n  \"darkColor\": \"black\",\n  \"notificationPosition\": \"bottom-left\",\n  \"notificationIsExpanded\": false,\n  \"notificationVisibleToasts\": 5\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/themesettings/my-settings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"themesettings",
+								"my-settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:7001",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "",
+			"type": "string"
+		}
+	]
+} 

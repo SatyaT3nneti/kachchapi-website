@@ -1,3 +1,21 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt for Kachchapi Website
+
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow admin or private areas if any
+Disallow: /admin/
+Disallow: /private/
+
+# Allow all search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Sitemap location
+Sitemap: https://demo.kachchapi.com/sitemap.xml

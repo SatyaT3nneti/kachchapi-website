@@ -1,0 +1,107 @@
+{
+  "info": {
+    "_postman_id": "mindmaps-api-collection",
+    "name": "Mindmaps API",
+    "description": "API collection for mindmap functionality including chapter mindmaps and individual mindmap viewing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Chapter Mindmaps",
+      "item": [
+        {
+          "name": "Get Chapter Mindmaps",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/chapters/{{chapterId}}/mindmaps",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chapters", "{{chapterId}}", "mindmaps"]
+            }
+          },
+          "response": [],
+          "description": "Get all mindmaps for a specific chapter. Returns a list of mindmap thumbnails and metadata."
+        }
+      ]
+    },
+    {
+      "name": "Individual Mindmap",
+      "item": [
+        {
+          "name": "Get Mindmap by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/chapters/mindmaps/{{mindMapId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chapters", "mindmaps", "{{mindMapId}}"]
+            }
+          },
+          "response": [],
+          "description": "Get a specific mindmap by ID. Returns detailed mindmap data including D3.js JSON structure."
+        }
+      ]
+    },
+    {
+      "name": "Enhanced Chapter with Mindmaps",
+      "item": [
+        {
+          "name": "Get Enhanced Chapter Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/chapters/enhanced/{{chapterId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chapters", "enhanced", "{{chapterId}}"]
+            }
+          },
+          "response": [],
+          "description": "Get comprehensive chapter details including mindmaps, quizzes, exercises, and other content."
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:7001",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "chapterId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "mindMapId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+} 

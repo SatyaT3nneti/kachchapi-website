@@ -1,0 +1,241 @@
+{
+  "info": {
+    "name": "UserGroup API",
+    "description": "APIs for managing user groups and group memberships",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5014",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Create User Group",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Engineering Department\",\n  \"description\": \"Software engineering team\",\n  \"isPublic\": false\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/user-groups",
+          "host": ["{{base_url}}"],
+          "path": ["api", "user-groups"]
+        },
+        "description": "Create a new user group"
+      },
+      "response": []
+    },
+    {
+      "name": "Get User Group",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/usergroup/{userGroupId}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "usergroup", "{userGroupId}"],
+          "variable": [
+            {
+              "key": "userGroupId",
+              "value": "",
+              "description": "User Group ID"
+            }
+          ]
+        },
+        "description": "Get a specific user group by ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Get User Groups List",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/user-groups?page=1&pageSize=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "user-groups"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get list of all user groups"
+      },
+      "response": []
+    },
+    {
+      "name": "Update User Group",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Engineering Department\",\n  \"description\": \"Updated software engineering team description\",\n  \"isPublic\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/usergroup/{userGroupId}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "usergroup", "{userGroupId}"],
+          "variable": [
+            {
+              "key": "userGroupId",
+              "value": "",
+              "description": "User Group ID"
+            }
+          ]
+        },
+        "description": "Update a user group"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User Group",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/usergroup/{userGroupId}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "usergroup", "{userGroupId}"],
+          "variable": [
+            {
+              "key": "userGroupId",
+              "value": "",
+              "description": "User Group ID"
+            }
+          ]
+        },
+        "description": "Delete a user group (only if no active members and no associated exams)"
+      },
+      "response": []
+    },
+    {
+      "name": "Add User to Group",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userGroupId\": \"{userGroupId}\",\n  \"userId\": \"{userId}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/user-groups/members",
+          "host": ["{{base_url}}"],
+          "path": ["api", "user-groups", "members"]
+        },
+        "description": "Add a user to a group"
+      },
+      "response": []
+    },
+    {
+      "name": "Remove User from Group",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userGroupId\": \"{userGroupId}\",\n  \"userId\": \"{userId}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/user-groups/members",
+          "host": ["{{base_url}}"],
+          "path": ["api", "user-groups", "members"]
+        },
+        "description": "Remove a user from a group"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Group Members",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/user-groups/{userGroupId}/members?page=1&pageSize=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "user-groups", "{userGroupId}", "members"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "10"
+            }
+          ],
+          "variable": [
+            {
+              "key": "userGroupId",
+              "value": "",
+              "description": "User Group ID"
+            }
+          ]
+        },
+        "description": "Get members of a specific user group"
+      },
+      "response": []
+    },
+    {
+      "name": "Get My User Groups",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/user-groups/my-groups",
+          "host": ["{{base_url}}"],
+          "path": ["api", "user-groups", "my-groups"]
+        },
+        "description": "Get user groups for the current authenticated user"
+      },
+      "response": []
+    }
+  ]
+} 

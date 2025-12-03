@@ -1,0 +1,439 @@
+{
+  "info": {
+    "name": "AI Learning Assistant API",
+    "description": "Collection for testing the AI Learning Assistant API endpoints with OpenAI integration. This API provides intelligent, contextual learning support with conversation memory and personalized responses.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5014",
+      "description": "Base URL for the API server"
+    },
+    {
+      "key": "jwt_token",
+      "value": "your-jwt-token-here",
+      "description": "JWT authentication token obtained from login"
+    },
+    {
+      "key": "chapter_id",
+      "value": "2849731a-03ed-49bd-a7b7-3332841a0a85",
+      "description": "UUID of the chapter being studied (e.g., Physics Chapter 3: Motion in a Straight Line)"
+    },
+    {
+      "key": "subject_id",
+      "value": "5faf5249-a4c2-4ecf-a71c-c2b53c7195ac",
+      "description": "UUID of the subject (e.g., Physics, Mathematics, Chemistry)"
+    },
+    {
+      "key": "session_id",
+      "value": "session-guid-here",
+      "description": "Learning session ID returned from session creation"
+    },
+    {
+      "key": "user_id",
+      "value": "your-user-guid-here",
+      "description": "Current authenticated user's UUID"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔐 Authentication Setup",
+      "description": "First, you need to authenticate to get a JWT token. Use the login endpoint from the Auth collection to obtain a valid token, then update the 'jwt_token' variable in this collection.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/auth/login",
+          "host": ["{{base_url}}"],
+          "path": ["api", "auth", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "📚 Ask Question (Main Endpoint)",
+      "description": "Ask a question to the AI with full learning context. This is the primary endpoint that provides intelligent, contextual responses.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"Can you explain Newton's First Law of Motion?\",\n  \"chapterId\": \"{{chapter_id}}\",\n  \"subjectId\": \"{{subject_id}}\",\n  \"additionalContext\": \"I'm having trouble understanding the concept of inertia\",\n  \"questionType\": \"concept\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/ai-learning-assistant/ask",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai-learning-assistant", "ask"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Test successful response",
+              "pm.test('Question asked successfully', function () {",
+              "    pm.expect(pm.response.code).to.equal(200);",
+              "});",
+              "",
+              "// Test response structure",
+              "pm.test('Response has correct structure', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('response');",
+              "    pm.expect(response).to.have.property('markdownResponse');",
+              "    pm.expect(response).to.have.property('conversationId');",
+              "    pm.expect(response).to.have.property('suggestedFollowUpQuestions');",
+              "});",
+              "",
+              "// Store conversation ID for future requests",
+              "if (pm.response.code === 200) {",
+              "    const response = pm.response.json();",
+              "    pm.collectionVariables.set('conversation_id', response.conversationId);",
+              "    console.log('Conversation ID stored:', response.conversationId);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "📖 Get Conversation History",
+      "description": "Retrieve the complete conversation history for a specific chapter. This helps maintain context across learning sessions.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/ai-learning-assistant/conversation/{{chapter_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai-learning-assistant", "conversation", "{{chapter_id}}"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Conversation history retrieved', function () {",
+              "    pm.expect(pm.response.code).to.equal(200);",
+              "});",
+              "",
+              "pm.test('History has correct structure', function () {",
+              "    const history = pm.response.json();",
+              "    pm.expect(history).to.have.property('messages');",
+              "    pm.expect(history).to.have.property('conversationId');",
+              "    pm.expect(history).to.have.property('chapterId');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "🎯 Get/Create Learning Session",
+      "description": "Get or create a learning session for a specific chapter and subject. Sessions maintain conversation context and track learning progress.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/ai-learning-assistant/session/{{chapter_id}}/subject/{{subject_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai-learning-assistant", "session", "{{chapter_id}}", "subject", "{{subject_id}}"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Learning session retrieved/created', function () {",
+              "    pm.expect(pm.response.code).to.equal(200);",
+              "});",
+              "",
+              "pm.test('Session has correct structure', function () {",
+              "    const session = pm.response.json();",
+              "    pm.expect(session).to.have.property('sessionId');",
+              "    pm.expect(session).to.have.property('chapterId');",
+              "    pm.expect(session).to.have.property('subjectId');",
+              "    pm.expect(session).to.have.property('isActive');",
+              "});",
+              "",
+              "// Store session ID for future requests",
+              "if (pm.response.code === 200) {",
+              "    const session = pm.response.json();",
+              "    pm.collectionVariables.set('session_id', session.sessionId);",
+              "    console.log('Session ID stored:', session.sessionId);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "👤 Get User Learning Profile",
+      "description": "Retrieve the current user's learning profile including age, educational level, learning style, and career goals.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/ai-learning-assistant/profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai-learning-assistant", "profile"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Profile retrieved successfully', function () {",
+              "    pm.expect(pm.response.code).to.equal(200);",
+              "});",
+              "",
+              "pm.test('Profile has required fields', function () {",
+              "    const profile = pm.response.json();",
+              "    pm.expect(profile).to.have.property('ageGroup');",
+              "    pm.expect(profile).to.have.property('educationalLevel');",
+              "    pm.expect(profile).to.have.property('preferredLearningStyle');",
+              "    pm.expect(profile).to.have.property('proficiencyLevel');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "✏️ Update Learning Profile",
+      "description": "Update the current user's learning profile to personalize AI responses and learning recommendations.",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ageGroup\": 17,\n  \"educationalLevel\": \"Class XII\",\n  \"learningGoals\": [\n    \"Master advanced concepts\",\n    \"Prepare for competitive exams\",\n    \"Develop problem-solving skills\"\n  ],\n  \"preferredLearningStyle\": \"kinesthetic\",\n  \"proficiencyLevel\": \"advanced\",\n  \"interests\": [\n    \"Physics\",\n    \"Mathematics\",\n    \"Computer Science\"\n  ],\n  \"careerAspiration\": \"Computer Science Engineering\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/ai-learning-assistant/profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai-learning-assistant", "profile"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Profile updated successfully', function () {",
+              "    pm.expect(pm.response.code).to.equal(200);",
+              "});",
+              "",
+              "pm.test('Update confirmation received', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('message');",
+              "    pm.expect(response.message).to.include('successfully');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "💡 Get Suggested Questions",
+      "description": "Get contextual follow-up questions based on the current learning session to enhance understanding.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/ai-learning-assistant/suggestions/{{chapter_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai-learning-assistant", "suggestions", "{{chapter_id}}"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Suggestions retrieved successfully', function () {",
+              "    pm.expect(pm.response.code).to.equal(200);",
+              "});",
+              "",
+              "pm.test('Suggestions are provided', function () {",
+              "    const suggestions = pm.response.json();",
+              "    pm.expect(suggestions).to.be.an('array');",
+              "    pm.expect(suggestions.length).to.be.greaterThan(0);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔚 End Learning Session",
+      "description": "End an active learning session. This helps track session duration and learning analytics.",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/ai-learning-assistant/session/{{session_id}}/end",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai-learning-assistant", "session", "{{session_id}}", "end"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Session ended successfully', function () {",
+              "    pm.expect(pm.response.code).to.equal(200);",
+              "});",
+              "",
+              "pm.test('End confirmation received', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('message');",
+              "    pm.expect(response.message).to.include('successfully');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "📊 Get Learning Analytics",
+      "description": "Get comprehensive learning analytics including session metrics, question patterns, and learning progress.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/ai-learning-assistant/analytics?fromDate=2024-01-01&toDate=2024-01-31",
+          "host": ["{{base_url}}"],
+          "path": ["api", "ai-learning-assistant", "analytics"],
+          "query": [
+            {
+              "key": "fromDate",
+              "value": "2024-01-01",
+              "description": "Start date for analytics (YYYY-MM-DD format)"
+            },
+            {
+              "key": "toDate",
+              "value": "2024-01-31",
+              "description": "End date for analytics (YYYY-MM-DD format)"
+            }
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Analytics retrieved successfully', function () {",
+              "    pm.expect(pm.response.code).to.equal(200);",
+              "});",
+              "",
+              "pm.test('Analytics data is provided', function () {",
+              "    const analytics = pm.response.json();",
+              "    pm.expect(analytics).to.have.property('totalSessions');",
+              "    pm.expect(analytics).to.have.property('totalQuestions');",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set JWT token from environment variable",
+          "if (pm.environment.get('jwt_token')) {",
+          "    pm.collectionVariables.set('jwt_token', pm.environment.get('jwt_token'));",
+          "}",
+          "",
+          "// Log current context for debugging",
+          "console.log('Current Context:');",
+          "console.log('- Chapter ID:', pm.collectionVariables.get('chapter_id'));",
+          "console.log('- Subject ID:', pm.collectionVariables.get('subject_id'));",
+          "console.log('- Session ID:', pm.collectionVariables.get('session_id'));",
+          "console.log('- User ID:', pm.collectionVariables.get('user_id'));"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Common test for all endpoints",
+          "pm.test('Response time is acceptable', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(10000);",
+          "});",
+          "",
+          "pm.test('Response has valid JSON format', function () {",
+          "    pm.response.to.have.jsonBody();",
+          "});",
+          "",
+          "// Test for authentication errors",
+          "pm.test('Not unauthorized', function () {",
+          "    pm.expect(pm.response.code).to.not.equal(401);",
+          "});",
+          "",
+          "// Test for server errors",
+          "pm.test('No server errors', function () {",
+          "    pm.expect(pm.response.code).to.be.below(500);",
+          "});"
+        ]
+      }
+    }
+  ]
+}

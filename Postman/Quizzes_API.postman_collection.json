@@ -1,0 +1,122 @@
+{
+  "info": {
+    "_postman_id": "quizzes-api-collection",
+    "name": "Quizzes API",
+    "description": "API collection for quiz functionality including chapter quizzes and individual quiz viewing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Chapter Quizzes",
+      "item": [
+        {
+          "name": "Get Chapter Quizzes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/chapters/{{chapterId}}/quizzes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chapters", "{{chapterId}}", "quizzes"]
+            }
+          },
+          "response": [],
+          "description": "Get all quizzes for a specific chapter. Returns a list of quizzes with metadata including difficulty, time limits, and question counts."
+        }
+      ]
+    },
+    {
+      "name": "Individual Quiz",
+      "item": [
+        {
+          "name": "Get Quiz by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/chapters/quizzes/{{quizId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chapters", "quizzes", "{{quizId}}"]
+            }
+          },
+          "response": [],
+          "description": "Get a specific quiz by ID. Returns detailed quiz data including all questions, options, correct answers, explanations, and feedback messages."
+        }
+      ]
+    },
+    {
+      "name": "Enhanced Chapter with Quizzes",
+      "item": [
+        {
+          "name": "Get Enhanced Chapter Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/chapters/enhanced/{{chapterId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chapters", "enhanced", "{{chapterId}}"]
+            }
+          },
+          "response": [],
+          "description": "Get comprehensive chapter details including quizzes, mindmaps, exercises, and other content."
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:7001",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "chapterId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "quizId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+} 

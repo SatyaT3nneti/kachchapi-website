@@ -1,0 +1,424 @@
+{
+	"info": {
+		"_postman_id": "cache-api-collection",
+		"name": "Cache API",
+		"description": "API endpoints for Redis cache management and cached content retrieval",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cache Management",
+			"item": [
+				{
+					"name": "Clear All Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cache/clear-all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cache",
+								"clear-all"
+							]
+						}
+					}
+				},
+				{
+					"name": "Clear Subjects Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cache/clear-subjects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cache",
+								"clear-subjects"
+							]
+						}
+					}
+				},
+				{
+					"name": "Clear Chapters Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cache/clear-chapters",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cache",
+								"clear-chapters"
+							]
+						}
+					}
+				},
+				{
+					"name": "Clear Grades Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cache/clear-grades",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cache",
+								"clear-grades"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Cached Subjects",
+			"item": [
+				{
+					"name": "Get All Cached Subjects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subjects/cached/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subjects",
+								"cached",
+								"all"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Subjects by Grade",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subjects/cached/by-grade/{{grade_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subjects",
+								"cached",
+								"by-grade",
+								"{{grade_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Subject by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subjects/cached/{{subject_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subjects",
+								"cached",
+								"{{subject_id}}"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Cached Chapters",
+			"item": [
+				{
+					"name": "Get All Cached Chapters",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chapters/cached/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chapters",
+								"cached",
+								"all"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Chapters by Grade",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chapters/cached/by-grade/{{grade_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chapters",
+								"cached",
+								"by-grade",
+								"{{grade_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Chapters by Subject",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chapters/cached/by-subject/{{subject_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chapters",
+								"cached",
+								"by-subject",
+								"{{subject_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Chapters by Grade and Subject",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chapters/cached/by-grade/{{grade_id}}/subject/{{subject_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chapters",
+								"cached",
+								"by-grade",
+								"{{grade_id}}",
+								"subject",
+								"{{subject_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Chapter by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chapters/cached/{{chapter_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chapters",
+								"cached",
+								"{{chapter_id}}"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Cached Grades",
+			"item": [
+				{
+					"name": "Get All Cached Grades",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/grades/cached/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"grades",
+								"cached",
+								"all"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Grade by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/grades/cached/{{grade_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"grades",
+								"cached",
+								"{{grade_id}}"
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5014"
+		},
+		{
+			"key": "jwt_token",
+			"value": "your-jwt-token-here"
+		},
+		{
+			"key": "grade_id",
+			"value": "your-grade-id-here"
+		},
+		{
+			"key": "subject_id",
+			"value": "your-subject-id-here"
+		},
+		{
+			"key": "chapter_id",
+			"value": "your-chapter-id-here"
+		}
+	]
+} 

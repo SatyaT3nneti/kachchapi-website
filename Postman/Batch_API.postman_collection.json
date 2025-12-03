@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "batch-api-collection",
+		"name": "Batch API",
+		"description": "Collection for Batch management APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Batches",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/batches?pageNumber=1&pageSize=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/batches/{{batch_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches",
+						"{{batch_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Batch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"batchName\": \"Class X - 2024\",\n  \"description\": \"Class X batch for academic year 2024-25\",\n  \"academicYear\": \"2024-25\",\n  \"startDate\": \"2024-06-01T00:00:00Z\",\n  \"endDate\": \"2025-05-31T00:00:00Z\",\n  \"capacity\": 30,\n  \"status\": \"Active\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/batches",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Batch",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"batchName\": \"Class X - 2024 Updated\",\n  \"description\": \"Updated description for Class X batch\",\n  \"academicYear\": \"2024-25\",\n  \"startDate\": \"2024-06-01T00:00:00Z\",\n  \"endDate\": \"2025-05-31T00:00:00Z\",\n  \"capacity\": 35,\n  \"status\": \"Active\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/batches/{{batch_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches",
+						"{{batch_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Batch",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/batches/{{batch_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches",
+						"{{batch_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch Students",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/batches/{{batch_id}}/students?pageNumber=1&pageSize=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches",
+						"{{batch_id}}",
+						"students"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Student to Batch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"batchId\": \"{{batch_id}}\",\n  \"studentId\": \"{{student_id}}\",\n  \"status\": \"Active\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/batches/students",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Student from Batch",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"batchId\": \"{{batch_id}}\",\n  \"studentId\": \"{{student_id}}\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/batches/students",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch Courses",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/batches/{{batch_id}}/courses?pageNumber=1&pageSize=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches",
+						"{{batch_id}}",
+						"courses"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Course to Batch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"batchId\": \"{{batch_id}}\",\n  \"courseId\": \"{{course_id}}\",\n  \"status\": \"Active\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/batches/courses",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Course from Batch",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"batchId\": \"{{batch_id}}\",\n  \"courseId\": \"{{course_id}}\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/batches/courses",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"batches",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5014",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "batch_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "student_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "course_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+} 

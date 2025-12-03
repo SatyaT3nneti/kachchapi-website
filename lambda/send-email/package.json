@@ -1,0 +1,17 @@
+{
+  "name": "kachchapi-send-email-lambda",
+  "version": "1.0.0",
+  "description": "AWS Lambda function to send callback request emails via AWS SES",
+  "main": "index.js",
+  "scripts": {
+    "package": "zip -r function.zip . -x '*.git*' '*.zip' 'package-lock.json' 'README.md' '*.md'",
+    "deploy": "aws lambda update-function-code --function-name kachchapi-send-email --zip-file fileb://function.zip"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1691.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
+

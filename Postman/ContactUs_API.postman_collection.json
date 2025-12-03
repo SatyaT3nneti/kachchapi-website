@@ -1,0 +1,220 @@
+{
+  "info": {
+    "_postman_id": "contactus-api-collection",
+    "name": "Contact Us API",
+    "description": "API collection for Contact Us functionality including public submission and admin management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Public Endpoints",
+      "item": [
+        {
+          "name": "Submit Contact Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phoneNumber\": \"+1234567890\",\n  \"subject\": \"General Inquiry\",\n  \"requestBody\": \"I would like to know more about your educational platform and how it can benefit our students.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/contactus/submit",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "contactus", "submit"]
+            }
+          },
+          "response": [],
+          "description": "Submit a new contact request. This endpoint is public and does not require authentication. Automatically sends an acknowledgement email to the user."
+        }
+      ]
+    },
+    {
+      "name": "Admin Management",
+      "item": [
+        {
+          "name": "Get All Contact Requests",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/contactus?pageNumber=1&pageSize=10&status=Pending&priority=High",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "contactus"],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10",
+                  "description": "Number of items per page (max 100)"
+                },
+                {
+                  "key": "status",
+                  "value": "Pending",
+                  "description": "Filter by status (Pending, In Progress, Resolved, Closed)"
+                },
+                {
+                  "key": "priority",
+                  "value": "High",
+                  "description": "Filter by priority (Low, Medium, High, Urgent)"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "description": "Get all contact requests with pagination and filtering. Requires 'manage-support' policy."
+        },
+        {
+          "name": "Get Contact Request by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/contactus/{{contactRequestId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "contactus", "{{contactRequestId}}"]
+            }
+          },
+          "response": [],
+          "description": "Get a specific contact request by ID. Requires 'manage-support' policy."
+        },
+        {
+          "name": "Update Contact Request",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"In Progress\",\n  \"priority\": \"High\",\n  \"assignedTo\": \"{{adminUserId}}\",\n  \"responseNotes\": \"Assigned to support team for investigation.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/contactus/{{contactRequestId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "contactus", "{{contactRequestId}}"]
+            }
+          },
+          "response": [],
+          "description": "Update contact request status, priority, assignment, or add response notes. Requires 'manage-support' policy."
+        },
+        {
+          "name": "Delete Contact Request",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/contactus/{{contactRequestId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "contactus", "{{contactRequestId}}"]
+            }
+          },
+          "response": [],
+          "description": "Delete a contact request. Requires Admin or SuperAdmin role."
+        },
+        {
+          "name": "Get Pending Requests Count",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/contactus/pending/count",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "contactus", "pending", "count"]
+            }
+          },
+          "response": [],
+          "description": "Get count of pending contact requests. Requires 'manage-support' policy."
+        },
+        {
+          "name": "Resend Acknowledgement Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/contactus/{{contactRequestId}}/resend-email",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "contactus", "{{contactRequestId}}", "resend-email"]
+            }
+          },
+          "response": [],
+          "description": "Resend acknowledgement email for a contact request. Requires 'manage-support' policy."
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5014",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string",
+      "description": "JWT token for authenticated endpoints"
+    },
+    {
+      "key": "contactRequestId",
+      "value": "",
+      "type": "string",
+      "description": "ID of the contact request to work with"
+    },
+    {
+      "key": "adminUserId",
+      "value": "",
+      "type": "string",
+      "description": "ID of the admin user to assign the request to"
+    }
+  ]
+}

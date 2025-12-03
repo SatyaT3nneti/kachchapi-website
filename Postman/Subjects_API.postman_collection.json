@@ -1,0 +1,329 @@
+{
+	"info": {
+		"_postman_id": "subjects-api-collection",
+		"name": "Subjects API",
+		"description": "Complete CRUD operations for subject management including grade relationships",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login to Get Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"admin@kachchapi.com\",\n  \"password\": \"Admin@123\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/auth/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Subjects (Basic)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/subjects?pageNumber=1&pageSize=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"subjects"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Subjects with Grades",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/subjects/with-grades?pageNumber=1&pageSize=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"subjects",
+						"with-grades"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Subjects by Grade",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/subjects/by-grade/{{grade_id}}?pageNumber=1&pageSize=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"subjects",
+						"by-grade",
+						"{{grade_id}}"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Subject by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/subjects/{{subject_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"subjects",
+						"{{subject_id}}"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Subject with Grades by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/subjects/{{subject_id}}/with-grades",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"subjects",
+						"{{subject_id}}",
+						"with-grades"
+					]
+				}
+			}
+		},
+		{
+			"name": "Create Subject",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"subjectName\": \"Mathematics\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/subjects",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"subjects"
+					]
+				}
+			}
+		},
+		{
+			"name": "Update Subject",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"subjectName\": \"Advanced Mathematics\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/subjects/{{subject_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"subjects",
+						"{{subject_id}}"
+					]
+				}
+			}
+		},
+		{
+			"name": "Delete Subject",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/subjects/{{subject_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"subjects",
+						"{{subject_id}}"
+					]
+				}
+			}
+		},
+		{
+			"name": "Search Subjects",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"filters\": [\n    {\n      \"column\": \"subjectName\",\n      \"operator\": \"contains\",\n      \"value\": \"Math\"\n    }\n  ],\n  \"sortBy\": \"subjectName\",\n  \"sortDescending\": false\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/subjects/search",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"subjects",
+						"search"
+					]
+				}
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5014"
+		},
+		{
+			"key": "jwt_token",
+			"value": "your_jwt_token_here"
+		},
+		{
+			"key": "subject_id",
+			"value": "subject_id_here"
+		},
+		{
+			"key": "grade_id",
+			"value": "grade_id_here"
+		}
+	]
+} 

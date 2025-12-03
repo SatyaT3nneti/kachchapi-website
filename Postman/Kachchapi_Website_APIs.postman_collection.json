@@ -1,0 +1,500 @@
+{
+	"info": {
+		"_postman_id": "kachchapi-website-apis",
+		"name": "Kachchapi Website APIs",
+		"description": "Complete collection of all website APIs for the Kachchapi Leaders platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "kachchapi-website"
+	},
+	"item": [
+		{
+			"name": "Leaders - List",
+			"item": [
+				{
+					"name": "Get All Leaders (Basic)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"]
+						},
+						"description": "Get a basic list of all active leaders with default pagination"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Leaders with Pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders?page=1&pageSize=5",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Get leaders with custom pagination (page 1, 5 items per page)"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Leaders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders?search=Kalam",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"],
+							"query": [
+								{
+									"key": "search",
+									"value": "Kalam"
+								}
+							]
+						},
+						"description": "Search for leaders by name, title, contribution, or description"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Key Area",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders?keyArea=Science",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"],
+							"query": [
+								{
+									"key": "keyArea",
+									"value": "Science"
+								}
+							]
+						},
+						"description": "Filter leaders by key area"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Nationality",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders?nationality=Indian",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"],
+							"query": [
+								{
+									"key": "nationality",
+									"value": "Indian"
+								}
+							]
+						},
+						"description": "Filter leaders by nationality"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Time Period",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders?timePeriod=20th Century",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"],
+							"query": [
+								{
+									"key": "timePeriod",
+									"value": "20th Century"
+								}
+							]
+						},
+						"description": "Filter leaders by time period"
+					},
+					"response": []
+				},
+				{
+					"name": "Sort Leaders by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders?sortBy=name&sortOrder=asc",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "sortOrder",
+									"value": "asc"
+								}
+							]
+						},
+						"description": "Sort leaders by name in ascending order"
+					},
+					"response": []
+				},
+				{
+					"name": "Sort Leaders by Birth Year",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders?sortBy=birth_year&sortOrder=desc",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "birth_year"
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc"
+								}
+							]
+						},
+						"description": "Sort leaders by birth year in descending order"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Inactive Leaders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders?isActive=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"],
+							"query": [
+								{
+									"key": "isActive",
+									"value": "false"
+								}
+							]
+						},
+						"description": "Get inactive leaders (soft deleted)"
+					},
+					"response": []
+				},
+				{
+					"name": "Complex Filter Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders?search=science&keyArea=Science&nationality=Indian&sortBy=birth_year&sortOrder=desc&page=1&pageSize=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"],
+							"query": [
+								{
+									"key": "search",
+									"value": "science"
+								},
+								{
+									"key": "keyArea",
+									"value": "Science"
+								},
+								{
+									"key": "nationality",
+									"value": "Indian"
+								},
+								{
+									"key": "sortBy",
+									"value": "birth_year"
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Complex filter example combining search, key area, nationality, and sorting"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for listing and filtering leaders"
+		},
+		{
+			"name": "Leaders - Individual",
+			"item": [
+				{
+					"name": "Get Leader by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders/{{leader_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders", "{{leader_id}}"]
+						},
+						"description": "Get detailed information about a specific leader by their ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Leader by Slug",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders/slug/{{leader_slug}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders", "slug", "{{leader_slug}}"]
+						},
+						"description": "Get detailed information about a specific leader by their slug (currently accepts GUID)"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for getting individual leader details"
+		},
+		{
+			"name": "Leaders - Filters",
+			"item": [
+				{
+					"name": "Get All Filters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders/filters",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders", "filters"]
+						},
+						"description": "Get all available filters (key areas, nationalities, time periods) in one request"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Key Areas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders/filters/key-areas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders", "filters", "key-areas"]
+						},
+						"description": "Get list of available key areas for filtering"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Nationalities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders/filters/nationalities",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders", "filters", "nationalities"]
+						},
+						"description": "Get list of available nationalities for filtering"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Time Periods",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders/filters/time-periods",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders", "filters", "time-periods"]
+						},
+						"description": "Get list of available time periods for filtering"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for getting available filter options"
+		},
+		{
+			"name": "Leaders - CRUD Operations",
+			"item": [
+				{
+					"name": "Create Leader",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Albert Einstein\",\n  \"title\": \"Theoretical Physicist\",\n  \"contribution\": \"Developed the theory of relativity and won the Nobel Prize in Physics\",\n  \"imageUrl\": \"https://example.com/einstein.jpg\",\n  \"imageData\": null,\n  \"shortDescription\": \"German-born theoretical physicist who developed the theory of relativity\",\n  \"fullDescription\": \"Albert Einstein was a German-born theoretical physicist who is widely held to be one of the greatest and most influential scientists of all time. Best known for developing the theory of relativity, Einstein also made important contributions to quantum mechanics.\",\n  \"birthYear\": 1879,\n  \"deathYear\": 1955,\n  \"nationality\": \"German-American\",\n  \"education\": \"Swiss Federal Polytechnic\",\n  \"impact\": \"Revolutionized our understanding of space, time, and gravity\",\n  \"rank\": 1,\n  \"isActive\": true,\n  \"achievements\": [\n    \"Nobel Prize in Physics (1921)\",\n    \"Theory of Relativity\",\n    \"Mass-Energy Equivalence (E=mc²)\"\n  ],\n  \"keyAreas\": [\n    \"Physics\",\n    \"Mathematics\",\n    \"Philosophy\"\n  ],\n  \"notableWorks\": [\n    {\n      \"workTitle\": \"On the Electrodynamics of Moving Bodies\",\n      \"workType\": \"Scientific Paper\",\n      \"publicationYear\": 1905,\n      \"description\": \"Introduced the special theory of relativity\"\n    },\n    {\n      \"workTitle\": \"The Foundation of the General Theory of Relativity\",\n      \"workType\": \"Scientific Paper\",\n      \"publicationYear\": 1916,\n      \"description\": \"Presented the general theory of relativity\"\n    }\n  ],\n  \"quotes\": [\n    \"Imagination is more important than knowledge.\",\n    \"The important thing is not to stop questioning.\",\n    \"Try not to become a person of success, but rather try to become a person of value.\"\n  ],\n  \"timeline\": [\n    {\n      \"year\": 1879,\n      \"event\": \"Born in Ulm, Germany\",\n      \"description\": \"Born to Hermann and Pauline Einstein\"\n    },\n    {\n      \"year\": 1905,\n      \"event\": \"Annus Mirabilis Papers\",\n      \"description\": \"Published four groundbreaking papers including special relativity\"\n    },\n    {\n      \"year\": 1921,\n      \"event\": \"Nobel Prize in Physics\",\n      \"description\": \"Awarded for his explanation of the photoelectric effect\"\n    }\n  ],\n  \"awards\": [\n    {\n      \"awardName\": \"Nobel Prize in Physics\",\n      \"awardYear\": 1921,\n      \"organization\": \"Royal Swedish Academy of Sciences\",\n      \"description\": \"For services to Theoretical Physics, and especially for his discovery of the law of the photoelectric effect\"\n    }\n  ],\n  \"educationalValue\": {\n    \"leadershipLessons\": [\n      \"Question everything and think independently\",\n      \"Persevere through challenges and failures\",\n      \"Collaborate with others while maintaining your own ideas\"\n    ],\n    \"scientificContributions\": [\n      \"Revolutionized physics with relativity theory\",\n      \"Advanced quantum mechanics understanding\",\n      \"Influenced modern cosmology and astrophysics\"\n    ],\n    \"lifeValues\": [\n      \"Intellectual curiosity and lifelong learning\",\n      \"Humility in the face of the unknown\",\n      \"Commitment to peace and social justice\"\n    ]\n  },\n  \"relatedLeaders\": []\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"]
+						},
+						"description": "Create a new leader with all related information"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Leader",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Albert Einstein (Updated)\",\n  \"title\": \"Theoretical Physicist & Nobel Laureate\",\n  \"contribution\": \"Developed the theory of relativity and won the Nobel Prize in Physics for photoelectric effect\",\n  \"imageUrl\": \"https://example.com/einstein-updated.jpg\",\n  \"imageData\": null,\n  \"shortDescription\": \"German-born theoretical physicist who developed the theory of relativity (Updated)\",\n  \"fullDescription\": \"Albert Einstein was a German-born theoretical physicist who is widely held to be one of the greatest and most influential scientists of all time. Best known for developing the theory of relativity, Einstein also made important contributions to quantum mechanics. (Updated description)\",\n  \"birthYear\": 1879,\n  \"deathYear\": 1955,\n  \"nationality\": \"German-American\",\n  \"education\": \"Swiss Federal Polytechnic\",\n  \"impact\": \"Revolutionized our understanding of space, time, and gravity\",\n  \"rank\": 1,\n  \"isActive\": true,\n  \"achievements\": [\n    \"Nobel Prize in Physics (1921)\",\n    \"Theory of Relativity\",\n    \"Mass-Energy Equivalence (E=mc²)\",\n    \"Bose-Einstein Statistics\"\n  ],\n  \"keyAreas\": [\n    \"Physics\",\n    \"Mathematics\",\n    \"Philosophy\",\n    \"Cosmology\"\n  ],\n  \"notableWorks\": [\n    {\n      \"workTitle\": \"On the Electrodynamics of Moving Bodies\",\n      \"workType\": \"Scientific Paper\",\n      \"publicationYear\": 1905,\n      \"description\": \"Introduced the special theory of relativity\"\n    },\n    {\n      \"workTitle\": \"The Foundation of the General Theory of Relativity\",\n      \"workType\": \"Scientific Paper\",\n      \"publicationYear\": 1916,\n      \"description\": \"Presented the general theory of relativity\"\n    },\n    {\n      \"workTitle\": \"The Meaning of Relativity\",\n      \"workType\": \"Book\",\n      \"publicationYear\": 1922,\n      \"description\": \"Popular explanation of relativity theory\"\n    }\n  ],\n  \"quotes\": [\n    \"Imagination is more important than knowledge.\",\n    \"The important thing is not to stop questioning.\",\n    \"Try not to become a person of success, but rather try to become a person of value.\",\n    \"Life is like riding a bicycle. To keep your balance, you must keep moving.\"\n  ],\n  \"timeline\": [\n    {\n      \"year\": 1879,\n      \"event\": \"Born in Ulm, Germany\",\n      \"description\": \"Born to Hermann and Pauline Einstein\"\n    },\n    {\n      \"year\": 1905,\n      \"event\": \"Annus Mirabilis Papers\",\n      \"description\": \"Published four groundbreaking papers including special relativity\"\n    },\n    {\n      \"year\": 1921,\n      \"event\": \"Nobel Prize in Physics\",\n      \"description\": \"Awarded for his explanation of the photoelectric effect\"\n    },\n    {\n      \"year\": 1955,\n      \"event\": \"Death\",\n      \"description\": \"Died in Princeton, New Jersey\"\n    }\n  ],\n  \"awards\": [\n    {\n      \"awardName\": \"Nobel Prize in Physics\",\n      \"awardYear\": 1921,\n      \"organization\": \"Royal Swedish Academy of Sciences\",\n      \"description\": \"For services to Theoretical Physics, and especially for his discovery of the law of the photoelectric effect\"\n    },\n    {\n      \"awardName\": \"Time Person of the Century\",\n      \"awardYear\": 1999,\n      \"organization\": \"Time Magazine\",\n      \"description\": \"Named Person of the Century by Time magazine\"\n    }\n  ],\n  \"educationalValue\": {\n    \"leadershipLessons\": [\n      \"Question everything and think independently\",\n      \"Persevere through challenges and failures\",\n      \"Collaborate with others while maintaining your own ideas\",\n      \"Never stop learning and exploring new ideas\"\n    ],\n    \"scientificContributions\": [\n      \"Revolutionized physics with relativity theory\",\n      \"Advanced quantum mechanics understanding\",\n      \"Influenced modern cosmology and astrophysics\",\n      \"Contributed to unified field theory\"\n    ],\n    \"lifeValues\": [\n      \"Intellectual curiosity and lifelong learning\",\n      \"Humility in the face of the unknown\",\n      \"Commitment to peace and social justice\",\n      \"Value creativity and imagination\"\n    ]\n  },\n  \"relatedLeaders\": []\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders/{{leader_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders", "{{leader_id}}"]
+						},
+						"description": "Update an existing leader with new information"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Leader",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders/{{leader_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders", "{{leader_id}}"]
+						},
+						"description": "Soft delete a leader (sets IsActive to false)"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD operations for managing leaders"
+		},
+		{
+			"name": "Sample Data Examples",
+			"item": [
+				{
+					"name": "Create APJ Abdul Kalam",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Dr. A.P.J. Abdul Kalam\",\n  \"title\": \"Missile Man of India\",\n  \"contribution\": \"Former President of India and aerospace scientist who played a key role in India's civilian space program and military missile development\",\n  \"imageUrl\": \"https://example.com/kalam.jpg\",\n  \"imageData\": null,\n  \"shortDescription\": \"Former President of India and renowned aerospace scientist\",\n  \"fullDescription\": \"Dr. A.P.J. Abdul Kalam was an Indian aerospace scientist and politician who served as the 11th President of India from 2002 to 2007. He was known as the 'Missile Man of India' for his work on the development of ballistic missile and launch vehicle technology.\",\n  \"birthYear\": 1931,\n  \"deathYear\": 2015,\n  \"nationality\": \"Indian\",\n  \"education\": \"Madras Institute of Technology\",\n  \"impact\": \"Inspired millions of young Indians to pursue science and technology\",\n  \"rank\": 1,\n  \"isActive\": true,\n  \"achievements\": [\n    \"11th President of India (2002-2007)\",\n    \"Bharat Ratna (1997)\",\n    \"Padma Vibhushan (1990)\",\n    \"Padma Bhushan (1981)\"\n  ],\n  \"keyAreas\": [\n    \"Aerospace Engineering\",\n    \"Defense Technology\",\n    \"Education\",\n    \"Leadership\"\n  ],\n  \"notableWorks\": [\n    {\n      \"workTitle\": \"Wings of Fire\",\n      \"workType\": \"Autobiography\",\n      \"publicationYear\": 1999,\n      \"description\": \"An autobiography of Dr. Kalam\"\n    },\n    {\n      \"workTitle\": \"Ignited Minds\",\n      \"workType\": \"Book\",\n      \"publicationYear\": 2002,\n      \"description\": \"Unleashing the power within India\"\n    }\n  ],\n  \"quotes\": [\n    \"Dream, dream, dream. Dreams transform into thoughts and thoughts result in action.\",\n    \"If you want to shine like a sun, first burn like a sun.\",\n    \"The best brains of the nation may be found on the last benches of the classroom.\"\n  ],\n  \"timeline\": [\n    {\n      \"year\": 1931,\n      \"event\": \"Born in Rameswaram, Tamil Nadu\",\n      \"description\": \"Born to Jainulabdeen and Ashiamma\"\n    },\n    {\n      \"year\": 2002,\n      \"event\": \"Elected President of India\",\n      \"description\": \"Became the 11th President of India\"\n    },\n    {\n      \"year\": 2015,\n      \"event\": \"Death\",\n      \"description\": \"Died while delivering a lecture at IIM Shillong\"\n    }\n  ],\n  \"awards\": [\n    {\n      \"awardName\": \"Bharat Ratna\",\n      \"awardYear\": 1997,\n      \"organization\": \"Government of India\",\n      \"description\": \"India's highest civilian honor\"\n    },\n    {\n      \"awardName\": \"Padma Vibhushan\",\n      \"awardYear\": 1990,\n      \"organization\": \"Government of India\",\n      \"description\": \"Second highest civilian honor\"\n    }\n  ],\n  \"educationalValue\": {\n    \"leadershipLessons\": [\n      \"Lead by example and inspire others\",\n      \"Never give up on your dreams\",\n      \"Education is the most powerful weapon\"\n    ],\n    \"scientificContributions\": [\n      \"Developed India's first satellite launch vehicle\",\n      \"Contributed to missile technology development\",\n      \"Advanced aerospace engineering in India\"\n    ],\n    \"lifeValues\": [\n      \"Simplicity and humility\",\n      \"Dedication to nation building\",\n      \"Belief in the power of youth\"\n    ]\n  },\n  \"relatedLeaders\": []\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"]
+						},
+						"description": "Create Dr. A.P.J. Abdul Kalam as a sample leader"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Marie Curie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Marie Curie\",\n  \"title\": \"First Woman to Win a Nobel Prize\",\n  \"contribution\": \"Pioneering research on radioactivity and the first person to win Nobel Prizes in two different sciences\",\n  \"imageUrl\": \"https://example.com/curie.jpg\",\n  \"imageData\": null,\n  \"shortDescription\": \"Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity\",\n  \"fullDescription\": \"Marie Curie was a Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity. She was the first woman to win a Nobel Prize, the first person and the only woman to win the Nobel Prize twice, and the only person to win the Nobel Prize in two different scientific fields.\",\n  \"birthYear\": 1867,\n  \"deathYear\": 1934,\n  \"nationality\": \"Polish-French\",\n  \"education\": \"Sorbonne University\",\n  \"impact\": \"Pioneered the field of radioactivity and inspired women in science\",\n  \"rank\": 1,\n  \"isActive\": true,\n  \"achievements\": [\n    \"First woman to win a Nobel Prize (1903)\",\n    \"First person to win Nobel Prizes in two different sciences\",\n    \"Discovered radium and polonium\",\n    \"First woman to become a professor at the University of Paris\"\n  ],\n  \"keyAreas\": [\n    \"Physics\",\n    \"Chemistry\",\n    \"Radioactivity\",\n    \"Women in Science\"\n  ],\n  \"notableWorks\": [\n    {\n      \"workTitle\": \"Research on Radioactive Substances\",\n      \"workType\": \"Scientific Research\",\n      \"publicationYear\": 1903,\n      \"description\": \"Pioneering work on radioactivity\"\n    },\n    {\n      \"workTitle\": \"Treatise on Radioactivity\",\n      \"workType\": \"Scientific Book\",\n      \"publicationYear\": 1910,\n      \"description\": \"Comprehensive study of radioactivity\"\n    }\n  ],\n  \"quotes\": [\n    \"Nothing in life is to be feared, it is only to be understood.\",\n    \"Be less curious about people and more curious about ideas.\",\n    \"I was taught that the way of progress was neither swift nor easy.\"\n  ],\n  \"timeline\": [\n    {\n      \"year\": 1867,\n      \"event\": \"Born in Warsaw, Poland\",\n      \"description\": \"Born to Władysław and Bronisława Skłodowski\"\n    },\n    {\n      \"year\": 1903,\n      \"event\": \"First Nobel Prize in Physics\",\n      \"description\": \"Shared with Pierre Curie and Henri Becquerel\"\n    },\n    {\n      \"year\": 1911,\n      \"event\": \"Second Nobel Prize in Chemistry\",\n      \"description\": \"For her discovery of radium and polonium\"\n    },\n    {\n      \"year\": 1934,\n      \"event\": \"Death\",\n      \"description\": \"Died from aplastic anemia caused by radiation exposure\"\n    }\n  ],\n  \"awards\": [\n    {\n      \"awardName\": \"Nobel Prize in Physics\",\n      \"awardYear\": 1903,\n      \"organization\": \"Royal Swedish Academy of Sciences\",\n      \"description\": \"For their joint researches on the radiation phenomena discovered by Professor Henri Becquerel\"\n    },\n    {\n      \"awardName\": \"Nobel Prize in Chemistry\",\n      \"awardYear\": 1911,\n      \"organization\": \"Royal Swedish Academy of Sciences\",\n      \"description\": \"For her discovery of radium and polonium\"\n    }\n  ],\n  \"educationalValue\": {\n    \"leadershipLessons\": [\n      \"Break barriers and challenge stereotypes\",\n      \"Pursue knowledge with determination\",\n      \"Collaborate and share knowledge\"\n    ],\n    \"scientificContributions\": [\n      \"Pioneered the field of radioactivity\",\n      \"Discovered radium and polonium\",\n      \"Developed techniques for isolating radioactive isotopes\"\n    ],\n    \"lifeValues\": [\n      \"Gender equality in science\",\n      \"Dedication to research and discovery\",\n      \"Courage in the face of adversity\"\n    ]\n  },\n  \"relatedLeaders\": []\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/website/leaders",
+							"host": ["{{base_url}}"],
+							"path": ["api", "website", "leaders"]
+						},
+						"description": "Create Marie Curie as a sample leader"
+					},
+					"response": []
+				}
+			],
+			"description": "Sample data examples for creating leaders"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5014",
+			"type": "string"
+		},
+		{
+			"key": "leader_id",
+			"value": "abcacfe9-a8a4-4f4d-b9e1-d7b20486479a",
+			"type": "string",
+			"description": "Sample leader ID for testing individual leader endpoints"
+		},
+		{
+			"key": "leader_slug",
+			"value": "abcacfe9-a8a4-4f4d-b9e1-d7b20486479a",
+			"type": "string",
+			"description": "Sample leader slug (currently accepts GUID) for testing slug endpoints"
+		}
+	]
+}

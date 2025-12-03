@@ -1,0 +1,1040 @@
+{
+	"info": {
+		"_postman_id": "kachchapi-api-collection",
+		"name": "Kachchapi API",
+		"description": "Complete API collection for Kachchapi educational platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "Get All Students (Paginated)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/students?pageNumber=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "students"],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Student by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/students/{{studentId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "students", "{{studentId}}"]
+						}
+					}
+				},
+				{
+					"name": "Create Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"studentRegistrationId\": \"STU001\",\n  \"dateOfBirth\": \"2005-01-15\",\n  \"gender\": \"M\",\n  \"parentGuardianName\": \"Jane Doe\",\n  \"instituteId\": \"{{instituteId}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/students",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "students"]
+						}
+					}
+				},
+				{
+					"name": "Update Student",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"John Updated\",\n  \"lastName\": \"Doe Updated\",\n  \"email\": \"john.updated@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/students/{{studentId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "students", "{{studentId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete Student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/students/{{studentId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "students", "{{studentId}}"]
+						}
+					}
+				},
+				{
+					"name": "Search Students",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"sortBy\": \"firstName\",\n  \"sortDescending\": false,\n  \"filters\": [\n    {\n      \"column\": \"firstName\",\n      \"operator\": \"contains\",\n      \"value\": \"John\"\n    },\n    {\n      \"column\": \"email\",\n      \"operator\": \"endswith\",\n      \"value\": \"@example.com\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/students/search",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "students", "search"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Institutes",
+			"item": [
+				{
+					"name": "Get All Institutes (Paginated)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/institutes?pageNumber=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "institutes"],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Institute by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/institutes/{{instituteId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "institutes", "{{instituteId}}"]
+						}
+					}
+				},
+				{
+					"name": "Create Institute",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"instituteName\": \"ABC School\",\n  \"instituteAddress\": \"123 Main Street, City, State 12345\",\n  \"institutePhone\": \"+1-555-123-4567\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/institutes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "institutes"]
+						}
+					}
+				},
+				{
+					"name": "Update Institute",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"instituteName\": \"ABC School Updated\",\n  \"instituteAddress\": \"456 New Street, City, State 12345\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/institutes/{{instituteId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "institutes", "{{instituteId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete Institute",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/institutes/{{instituteId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "institutes", "{{instituteId}}"]
+						}
+					}
+				},
+				{
+					"name": "Search Institutes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"filters\": [\n    {\n      \"column\": \"instituteName\",\n      \"operator\": \"contains\",\n      \"value\": \"School\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/institutes/search",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "institutes", "search"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Grades",
+			"item": [
+				{
+					"name": "Get All Grades (Paginated)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/grades?pageNumber=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades"],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Grade by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/grades/{{gradeId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades", "{{gradeId}}"]
+						}
+					}
+				},
+				{
+					"name": "Create Grade",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"gradeName\": \"Grade 10\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/grades",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades"]
+						}
+					}
+				},
+				{
+					"name": "Update Grade",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"gradeName\": \"Grade 10 Updated\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/grades/{{gradeId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades", "{{gradeId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete Grade",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/grades/{{gradeId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades", "{{gradeId}}"]
+						}
+					}
+				},
+				{
+					"name": "Search Grades",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"filters\": [\n    {\n      \"column\": \"gradeName\",\n      \"operator\": \"contains\",\n      \"value\": \"Grade\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/grades/search",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades", "search"]
+						}
+					}
+				},
+				{
+					"name": "Get All Cached Grades",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/grades/cached/all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades", "cached", "all"]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Grade by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/grades/cached/{{gradeId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades", "cached", "{{gradeId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Subjects",
+			"item": [
+				{
+					"name": "Get All Subjects (Paginated)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/subjects?pageNumber=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "subjects"],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Subject by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/subjects/{{subjectId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "subjects", "{{subjectId}}"]
+						}
+					}
+				},
+				{
+					"name": "Create Subject",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"subjectName\": \"Mathematics\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/subjects",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "subjects"]
+						}
+					}
+				},
+				{
+					"name": "Update Subject",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"subjectName\": \"Advanced Mathematics\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/subjects/{{subjectId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "subjects", "{{subjectId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete Subject",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/subjects/{{subjectId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "subjects", "{{subjectId}}"]
+						}
+					}
+				},
+				{
+					"name": "Search Subjects",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"filters\": [\n    {\n      \"column\": \"subjectName\",\n      \"operator\": \"contains\",\n      \"value\": \"Math\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/subjects/search",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "subjects", "search"]
+						}
+					}
+				},
+				{
+					"name": "Get All Cached Subjects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/subjects/cached/all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "subjects", "cached", "all"]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Subjects by Grade",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/subjects/cached/by-grade/{{gradeId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "subjects", "cached", "by-grade", "{{gradeId}}"]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Subject by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/subjects/cached/{{subjectId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "subjects", "cached", "{{subjectId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Get All Projects (Paginated)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/projects?pageNumber=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "projects"],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Project by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/projects/{{projectId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "projects", "{{projectId}}"]
+						}
+					}
+				},
+				{
+					"name": "Create Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"projectName\": \"Science Fair Project\",\n  \"projectDescription\": \"A comprehensive science project for students\",\n  \"gradeId\": \"{{gradeId}}\",\n  \"subjectId\": \"{{subjectId}}\",\n  \"chapterId\": \"{{chapterId}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/projects",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "projects"]
+						}
+					}
+				},
+				{
+					"name": "Update Project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"projectName\": \"Updated Science Fair Project\",\n  \"projectDescription\": \"An updated comprehensive science project for students\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/projects/{{projectId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "projects", "{{projectId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete Project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/projects/{{projectId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "projects", "{{projectId}}"]
+						}
+					}
+				},
+				{
+					"name": "Search Projects",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"filters\": [\n    {\n      \"column\": \"projectName\",\n      \"operator\": \"contains\",\n      \"value\": \"Science\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/projects/search",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "projects", "search"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Cache Management",
+			"item": [
+				{
+					"name": "Clear All Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cache/clear-all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "cache", "clear-all"]
+						}
+					}
+				},
+				{
+					"name": "Clear Subjects Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cache/clear-subjects",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "cache", "clear-subjects"]
+						}
+					}
+				},
+				{
+					"name": "Clear Chapters Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cache/clear-chapters",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "cache", "clear-chapters"]
+						}
+					}
+				},
+				{
+					"name": "Clear Grades Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cache/clear-grades",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "cache", "clear-grades"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Chapters",
+			"item": [
+				{
+					"name": "Get All Chapters (Paginated)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters?pageNumber=1&pageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters"],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Chapter by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/{{chapterId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "{{chapterId}}"]
+						}
+					}
+				},
+				{
+					"name": "Get Enhanced Chapter Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/enhanced/{{chapterId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "enhanced", "{{chapterId}}"]
+						}
+					},
+					"response": [],
+					"description": "Get comprehensive chapter details including overview, key concepts, examples, tips, did you know sections, summary, references, mind maps, quizzes, exercises, and projects. Requires authentication."
+				},
+				{
+					"name": "Create Chapter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"gradeId\": \"{{gradeId}}\",\n  \"subjectId\": \"{{subjectId}}\",\n  \"status\": \"Active\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters"]
+						}
+					}
+				},
+				{
+					"name": "Update Chapter",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"Completed\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/{{chapterId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "{{chapterId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete Chapter",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/{{chapterId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "{{chapterId}}"]
+						}
+					}
+				},
+				{
+					"name": "Search Chapters",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pageNumber\": 1,\n  \"pageSize\": 10,\n  \"filters\": [\n    {\n      \"column\": \"status\",\n      \"operator\": \"equals\",\n      \"value\": \"Active\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/search",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "search"]
+						}
+					}
+				},
+				{
+					"name": "Get All Cached Chapters",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/cached/all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "cached", "all"]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Chapters by Grade",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/cached/by-grade/{{gradeId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "cached", "by-grade", "{{gradeId}}"]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Chapters by Subject",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/cached/by-subject/{{subjectId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "cached", "by-subject", "{{subjectId}}"]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Chapters by Grade and Subject",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/cached/by-grade/{{gradeId}}/subject/{{subjectId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "cached", "by-grade", "{{gradeId}}", "subject", "{{subjectId}}"]
+						}
+					}
+				},
+				{
+					"name": "Get Cached Chapter by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/chapters/cached/{{chapterId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "chapters", "cached", "{{chapterId}}"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:7001",
+			"type": "string"
+		},
+		{
+			"key": "studentId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "instituteId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "gradeId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "subjectId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "projectId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "chapterId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "jwtToken",
+			"value": "",
+			"type": "string",
+			"description": "JWT token from login/authentication endpoint"
+		},
+		{
+			"key": "jwt_token",
+			"value": "",
+			"type": "string",
+			"description": "JWT token for cached endpoints (same as jwtToken)"
+		}
+	]
+} 

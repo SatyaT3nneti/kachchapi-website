@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "chapter-progress-api-collection",
+		"name": "Chapter Progress API",
+		"description": "Collection for testing Chapter Progress API endpoints with user authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Start Chapter Learning",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chapterId\": \"{{chapter_id}}\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/ChapterProgress/start-learning",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"ChapterProgress",
+						"start-learning"
+					]
+				},
+				"description": "Start learning a chapter for the authenticated student. Creates a new progress entry with 'In Progress' status. The student is identified from the JWT token."
+			},
+			"response": []
+		},
+		{
+			"name": "Complete Chapter",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"chapterId\": \"{{chapter_id}}\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/ChapterProgress/complete",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"ChapterProgress",
+						"complete"
+					]
+				},
+				"description": "Mark a chapter as completed for the authenticated student. The student is identified from the JWT token."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student Chapters with Progress",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/ChapterProgress/chapters?gradeId={{grade_id}}&subjectId={{subject_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"ChapterProgress",
+						"chapters"
+					],
+					"query": [
+						{
+							"key": "gradeId",
+							"value": "{{grade_id}}",
+							"description": "Filter by grade (optional)"
+						},
+						{
+							"key": "subjectId",
+							"value": "{{subject_id}}",
+							"description": "Filter by subject (optional)"
+						}
+					]
+				},
+				"description": "Get all chapters for the authenticated student with their progress status, ordered by priority (In Progress, Completed, Open). Only shows chapters relevant to the student's enrolled grade-subject combinations."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific Chapter Progress",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/ChapterProgress/chapter/{{chapter_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"ChapterProgress",
+						"chapter",
+						"{{chapter_id}}"
+					]
+				},
+				"description": "Get progress for a specific chapter for the authenticated student."
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Student Progress",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/ChapterProgress/progress",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"ChapterProgress",
+						"progress"
+					]
+				},
+				"description": "Get all progress entries for the authenticated student."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student Progress Percentage",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/ChapterProgress/progress-percentage",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"ChapterProgress",
+						"progress-percentage"
+					]
+				},
+				"description": "Get progress percentage for the authenticated student across all subjects. Returns overall completion percentage and breakdown by subject."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Welcome Back Progress",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/ChapterProgress/welcome-back-progress",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"ChapterProgress",
+						"welcome-back-progress"
+					]
+				},
+				"description": "Get welcome back progress for dashboard. Returns progress percentage with indicator (Excellent, Good, etc.) and color for UI components."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://localhost:7001",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "your_jwt_token_here",
+			"type": "string",
+			"description": "JWT token from login/authentication endpoint"
+		},
+		{
+			"key": "chapter_id",
+			"value": "chapter_uuid_here",
+			"type": "string",
+			"description": "UUID of the chapter to work with"
+		},
+		{
+			"key": "grade_id",
+			"value": "grade_uuid_here",
+			"type": "string",
+			"description": "UUID of the grade to filter by (optional)"
+		},
+		{
+			"key": "subject_id",
+			"value": "subject_uuid_here",
+			"type": "string",
+			"description": "UUID of the subject to filter by (optional)"
+		}
+	]
+} 

@@ -1,13 +1,116 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 120%; /* Scale to match deployed version at 110% zoom */
+  }
+  
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Retina Display Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* Ensure crisp rendering on high-DPI displays */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom logo styles */
+.logo-fallback {
+  display: none;
+}
+
+.logo-fallback.show {
+  display: block;
+}
+
+/* Logo with primary brand color filter */
+.logo-primary {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(89%) saturate(1500%) hue-rotate(253deg) brightness(75%) contrast(100%);
+}
+
+/* Logo and title layout */
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Text truncation utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth scrolling for single-page layout */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth FAQ expansion */
+details {
+  overflow: hidden;
+}
+
+details summary {
+  list-style: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::marker {
+  display: none;
+}
+
+details summary::after {
+  content: '+';
+  float: right;
+  font-weight: bold;
+  color: #ef4444;
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform 0.3s ease-in-out;
+}
+
+details[open] summary::after {
+  content: '−';
+  transform: rotate(0deg);
+}
+
+details > div {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+  opacity: 0;
+  padding-top: 0;
+}
+
+details[open] > div {
+  max-height: 500px;
+  opacity: 1;
+  padding-top: 1rem;
 }
