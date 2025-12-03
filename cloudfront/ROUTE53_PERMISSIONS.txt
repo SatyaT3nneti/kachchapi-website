@@ -1,0 +1,29 @@
+IAM PERMISSIONS FOR ROUTE 53 DNS MANAGEMENT
+==========================================
+
+QUICKEST OPTION:
+Attach managed policy: AmazonRoute53FullAccess
+
+OR ADD THESE SPECIFIC PERMISSIONS:
+
+- route53:CreateHostedZone
+- route53:DeleteHostedZone
+- route53:GetHostedZone
+- route53:ListHostedZones
+- route53:ListHostedZonesByName
+- route53:ChangeResourceRecordSets
+- route53:GetChange
+- route53:ListResourceRecordSets
+- route53:GetHostedZoneCount
+
+HOW TO ADD:
+1. AWS Console → IAM → Users → [Your User]
+2. Add permissions → Attach policies directly
+3. Search: AmazonRoute53FullAccess
+4. Attach
+
+OR via CLI:
+aws iam attach-user-policy \
+  --user-name YOUR_IAM_USERNAME \
+  --policy-arn arn:aws:iam::aws:policy/AmazonRoute53FullAccess
+

@@ -1,8 +1,15 @@
 import React from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onServiceClick?: (serviceTitle: string) => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onServiceClick }) => {
   const quickLinks = [
-    'Home', 'About Us', 'Programs', 'Contact'
+    { name: 'Home', href: '#home' },
+    { name: 'About Us', href: '#about' },
+    { name: 'Programs', href: '#programs' },
+    { name: 'Contact', href: '#contact' }
   ];
 
   const otherLinks = [
@@ -55,9 +62,19 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a href="#" className="text-white hover:text-primary-500 transition-colors text-xs flex items-center font-montserrat">
+                  <a 
+                    href={link.href} 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const element = document.querySelector(link.href);
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                    className="text-white hover:text-primary-500 transition-colors text-xs flex items-center font-montserrat cursor-pointer"
+                  >
                     <span className="mr-2">»</span>
-                    {link}
+                    {link.name}
                   </a>
                 </li>
               ))}
@@ -72,7 +89,16 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {otherLinks.map((item, index) => (
                 <li key={index}>
-                  <a href="#" className="text-white hover:text-primary-500 transition-colors text-xs flex items-center font-montserrat">
+                  <a 
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (onServiceClick) {
+                        onServiceClick(item);
+                      }
+                    }}
+                    className="text-white hover:text-primary-500 transition-colors text-xs flex items-center font-montserrat cursor-pointer"
+                  >
                     <span className="mr-2">»</span>
                     {item}
                   </a>

@@ -1,0 +1,37 @@
+═══════════════════════════════════════════════════════════════
+  SSL CERTIFICATE DNS VALIDATION RECORDS
+═══════════════════════════════════════════════════════════════
+
+⚠️  IMPORTANT: Add these DNS records FIRST to validate your SSL certificate
+   Certificate ARN: arn:aws:acm:us-east-1:323041436850:certificate/c111ff7d-a099-4216-9e50-8d29a58fd1b4
+
+═══════════════════════════════════════════════════════════════
+
+📝 DNS RECORDS TO ADD IN YOUR DNS PROVIDER (GoDaddy, etc.):
+
+Record 1 - For kachchapi.com:
+   Type: CNAME
+   Name: _fef9e0c8de2e73c0aae41269d1e991bb
+   Value: _95c9d597a60ed349720b558de7c329d1.jkddzztszm.acm-validations.aws.
+   TTL: 3600
+
+Record 2 - For www.kachchapi.com (optional):
+   Type: CNAME
+   Name: _d04d60eeacc3d51abb7d562115513344.www
+   Value: _f1df6513326944c0407652355df0517c.jkddzztszm.acm-validations.aws.
+   TTL: 3600
+
+═══════════════════════════════════════════════════════════════
+
+📍 WHERE TO ADD:
+   - GoDaddy: My Products → kachchapi.com → DNS → Add Record
+   - Route 53: Hosted Zones → kachchapi.com → Create Record
+   - Other: DNS Management section of your domain registrar
+
+═══════════════════════════════════════════════════════════════
+
+⏱️  After adding these records, wait 5-30 minutes for validation.
+   Then the CloudFront distribution can be created.
+
+═══════════════════════════════════════════════════════════════
+

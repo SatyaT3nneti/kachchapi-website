@@ -25,6 +25,7 @@
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "framer-motion": "^12.23.12",
+    "pdfkit": "^0.17.2",
     "qrcode": "^1.5.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -42,6 +43,9 @@
     "test": "react-scripts test",
     "test:email": "node test-email.js",
     "server": "node server.js",
+    "generate-pdf": "node scripts/generate-course-matrix-pdf.js",
+    "deploy:demo": "bash cloudfront/deploy-cloudfront.sh",
+    "deploy:production": "bash cloudfront/deploy-production.sh",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

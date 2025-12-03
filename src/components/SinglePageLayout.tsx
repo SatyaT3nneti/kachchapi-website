@@ -2,12 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaptopCode, faUserTie, faRoute, faUsers, faGraduationCap, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import LiveDemoModal from './LiveDemoModal';
+import ServiceModal from './ServiceModal';
 import HeaderSinglePage from './HeaderSinglePage';
 import Footer from './Footer';
 import { sendDemoSessionEmail } from '../services/emailService';
 
 const SinglePageLayout: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<{
+    title: string;
+    description: string;
+    duration: string;
+    level: string;
+    details?: string[];
+    benefits?: string[];
+  } | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
   const [expandedCourses, setExpandedCourses] = useState<number[]>([]);
   const [formData, setFormData] = useState({
@@ -18,6 +28,7 @@ const SinglePageLayout: React.FC = () => {
   });
   const [isSubmittingDemo, setIsSubmittingDemo] = useState(false);
   const [demoSubmitStatus, setDemoSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' });
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -114,40 +125,124 @@ const SinglePageLayout: React.FC = () => {
 
   const programs = [
     {
-      title: 'AI & Machine Learning Project-Based Training',
+      title: 'Project-Based Training',
       description: 'Hands-on project-based learning in AI/ML, Gen AI, software development, web development, and mobile development. Build industry-ready skills through real-world projects.',
       duration: '3-12 months',
-      level: 'All Levels'
+      level: 'All Levels',
+      details: [
+        'Real-world project development across multiple technologies',
+        'Industry-standard tools and frameworks',
+        'Portfolio building with 5+ completed projects',
+        'Code reviews and best practices',
+        'Git version control and collaboration',
+        'Deployment and DevOps basics'
+      ],
+      benefits: [
+        'Build a strong portfolio of projects',
+        'Gain hands-on experience with industry tools',
+        'Learn from experienced mentors',
+        'Get ready for job interviews'
+      ]
     },
     {
-      title: 'Tech Interview Preparation for AI & Software Roles',
+      title: 'Interview Preparation',
       description: 'Comprehensive interview coaching for AI, machine learning, and software engineering positions. Technical assessments, coding practice, system design, and mock interviews.',
       duration: '2-6 months',
-      level: 'All Levels'
+      level: 'All Levels',
+      details: [
+        'Technical coding assessments and practice',
+        'System design interview preparation',
+        'Mock interviews with industry experts',
+        'Behavioral interview coaching',
+        'Resume and LinkedIn optimization',
+        'Salary negotiation guidance'
+      ],
+      benefits: [
+        'Ace technical interviews',
+        'Build confidence through practice',
+        'Get personalized feedback',
+        'Land your dream job'
+      ]
     },
     {
-      title: 'Career Guidance for AI & Tech Professionals',
+      title: 'Career Guidance',
       description: 'Personalized career counseling and roadmap development for AI, machine learning, and software development careers. Professional goal setting and industry insights.',
       duration: 'Ongoing',
-      level: 'All Levels'
+      level: 'All Levels',
+      details: [
+        'Personalized career roadmap',
+        'Industry trend analysis',
+        'Skill gap assessment',
+        'Professional goal setting',
+        'Career transition support',
+        'Networking opportunities'
+      ],
+      benefits: [
+        'Clear career path forward',
+        'Industry insights and trends',
+        'Personalized guidance',
+        'Long-term career support'
+      ]
     },
     {
-      title: 'Leadership Coaching for Tech Leaders',
+      title: 'Leadership Coaching',
       description: 'Develop essential leadership skills, team management, and communication abilities for tech leadership roles in AI and software development organizations.',
       duration: '3-6 months',
-      level: 'Intermediate to Advanced'
+      level: 'Intermediate to Advanced',
+      details: [
+        'Leadership fundamentals and principles',
+        'Team management strategies',
+        'Effective communication techniques',
+        'Conflict resolution skills',
+        'Decision-making frameworks',
+        'Building high-performing teams'
+      ],
+      benefits: [
+        'Advance to leadership roles',
+        'Manage teams effectively',
+        'Improve communication skills',
+        'Drive organizational success'
+      ]
     },
     {
       title: 'Academic Project Mentorship',
       description: 'Expert guidance and mentorship for academic projects, research work, and thesis development',
       duration: '3-12 months',
-      level: 'All Levels'
+      level: 'All Levels',
+      details: [
+        'Project ideation and planning',
+        'Research methodology guidance',
+        'Technical implementation support',
+        'Thesis writing assistance',
+        'Code review and optimization',
+        'Presentation preparation'
+      ],
+      benefits: [
+        'Complete projects successfully',
+        'Learn research methodologies',
+        'Get expert guidance',
+        'Excel in academics'
+      ]
     },
     {
       title: 'Corporate Training',
       description: 'Comprehensive technical training programs for corporate teams to enhance skills and productivity',
       duration: 'Flexible',
-      level: 'All Levels'
+      level: 'All Levels',
+      details: [
+        'Customized curriculum for teams',
+        'On-site or remote training options',
+        'Hands-on workshops and labs',
+        'Industry-relevant content',
+        'Team-based projects',
+        'Post-training support'
+      ],
+      benefits: [
+        'Upskill your entire team',
+        'Increase productivity',
+        'Stay competitive',
+        'Flexible scheduling'
+      ]
     }
   ];
 
@@ -188,6 +283,38 @@ const SinglePageLayout: React.FC = () => {
     {
       question: 'How do I get started?',
       answer: 'Book a free live demo with our advisor to get a personalized career roadmap and learn more about our programs.'
+    },
+    {
+      question: 'Can I take multiple courses in combination?',
+      answer: 'Yes! You can combine multiple courses from different categories (AI/ML, Backend Development, Frontend Development, etc.) to create a customized learning path that matches your career goals. For example, you can combine Python, Machine Learning, and Backend Development courses to build full-stack AI applications.'
+    },
+    {
+      question: 'Are the courses customizable based on my needs?',
+      answer: 'Absolutely! Our curriculum is flexible and can be customized to fit your specific learning objectives, industry requirements, or career goals. You can select individual courses, combine courses from different levels, or follow a complete level-based program. Contact our advisors to discuss your customized learning path.'
+    },
+    {
+      question: 'Can I mix courses from Beginner, Intermediate, and Advanced levels?',
+      answer: 'Yes, you can mix courses across different levels based on your prior knowledge and learning goals. For instance, if you\'re already familiar with Python basics, you can start with Intermediate-level AI/ML courses while taking Beginner-level courses in other areas like Backend Development. Our advisors will help you create the optimal combination.'
+    },
+    {
+      question: 'How do course combinations work for project-based learning?',
+      answer: 'When you combine multiple courses, you\'ll work on integrated projects that apply concepts from all your selected courses. For example, combining LLMs, Backend Development, and Frontend Development courses will result in a comprehensive project building a full-stack AI application with LLM integration, giving you end-to-end industry experience.'
+    },
+    {
+      question: 'Can I customize the curriculum for my organization or team?',
+      answer: 'Yes, we offer customized corporate training programs. Organizations can select specific courses, combine them based on team requirements, and we\'ll tailor the curriculum, projects, and delivery schedule to fit your business needs. Contact us to discuss enterprise training solutions.'
+    },
+    {
+      question: 'What are some of the job roles that they can expect if they complete these courses?',
+      answer: 'Upon successful completion of our courses, you can pursue various roles including: AI/ML Engineer, Machine Learning Engineer, Deep Learning Engineer, LLM Engineer, Data Scientist, Backend Developer, Full-Stack Developer, Software Engineer, Python Developer, MLOps Engineer, AI Research Scientist, NLP Engineer, Computer Vision Engineer, Data Engineer, and DevOps Engineer. The specific roles depend on the course combinations you choose.'
+    },
+    {
+      question: 'What are the industries that are looking for these roles?',
+      answer: 'These roles are in high demand across multiple industries including: Technology & Software (FAANG, startups, tech companies), Finance & Banking (FinTech, algorithmic trading, fraud detection), Healthcare (medical imaging, drug discovery, health analytics), E-commerce & Retail (recommendation systems, supply chain optimization), Automotive (autonomous vehicles, IoT), Manufacturing (predictive maintenance, quality control), Consulting (AI consulting, digital transformation), Education Technology, Government & Defense, Telecommunications, Energy & Utilities, and many more sectors undergoing digital transformation.'
+    },
+    {
+      question: 'Will there be a placement assistance provided on successful completion?',
+      answer: 'Yes, we provide comprehensive placement assistance to all students who successfully complete our courses. This includes resume building, interview preparation, mock interviews, job search guidance, networking opportunities, and connections with our industry partners. Our career support team works closely with you to help you land your dream job in AI, machine learning, and software development roles.'
     }
   ];
 
@@ -202,24 +329,35 @@ const SinglePageLayout: React.FC = () => {
           courses: [
             {
               id: 1,
+              title: 'Python',
+              duration: '3 Months',
+              description: 'Master Python programming fundamentals, syntax, data structures, and libraries for AI/ML.',
+              topics: [
+                'Python Basics & Syntax', 'Data Types & Variables', 'Control Flow (if/else, loops)', 'Functions & Modules',
+                'Data Structures (Lists, Tuples, Dictionaries, Sets)', 'Object-Oriented Programming (OOP)',
+                'NumPy Fundamentals', 'Pandas for Data Analysis', 'Matplotlib & Seaborn for Visualization',
+                'File I/O Operations', 'Exception Handling', 'Python Standard Library'
+              ]
+            },
+            {
+              id: 2,
               title: 'Introduction to Machine Learning',
               duration: '3 Months',
               description: 'Learn the fundamentals of machine learning, data preprocessing, and basic algorithms.',
               topics: [
                 'Introduction to ML', 'Data Preprocessing', 'Linear Regression', 'Logistic Regression',
                 'Decision Trees', 'Random Forest', 'K-Means Clustering', 'Model Evaluation',
-                'Cross-Validation', 'Feature Engineering', 'Python for ML', 'NumPy & Pandas'
+                'Cross-Validation', 'Feature Engineering', 'Overfitting & Regularization', 'Python for ML', 'NumPy & Pandas'
               ]
             },
             {
-              id: 2,
-              title: 'Deep Learning Basics',
+              id: 3,
+              title: 'Deep Learning',
               duration: '2.5 Months',
-              description: 'Introduction to neural networks, backpropagation, and basic deep learning concepts.',
+              description: 'Introduction to neural networks and fundamental deep learning concepts.',
               topics: [
-                'Neural Networks Basics', 'Activation Functions', 'Backpropagation', 'Gradient Descent',
-                'TensorFlow/Keras', 'Convolutional Neural Networks (CNN)', 'Recurrent Neural Networks (RNN)',
-                'Overfitting & Regularization'
+                'Neural Networks Basics', 'Activation Functions', 'Gradient Descent', 'PyTorch Basics',
+                'Basic Model Training'
               ]
             }
           ]
@@ -229,7 +367,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'IoT',
           courses: [
             {
-              id: 3,
+              id: 4,
               title: 'IoT Fundamentals',
               duration: '3 Months',
               description: 'Learn the basics of IoT, sensors, microcontrollers, and embedded systems.',
@@ -240,7 +378,7 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 4,
+              id: 5,
               title: 'Embedded Systems Programming',
               duration: '2.5 Months',
               description: 'Programming microcontrollers and building basic IoT applications.',
@@ -256,7 +394,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'Cybersecurity',
           courses: [
             {
-              id: 5,
+              id: 6,
               title: 'Cybersecurity Fundamentals',
               duration: '3 Months',
               description: 'Introduction to cybersecurity, threats, vulnerabilities, and basic security practices.',
@@ -267,7 +405,7 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 6,
+              id: 7,
               title: 'Network Security',
               duration: '2.5 Months',
               description: 'Learn network security protocols, VPNs, and secure communication.',
@@ -283,7 +421,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'Web and Mobile Development',
           courses: [
             {
-              id: 7,
+              id: 8,
               title: 'Frontend Development',
               duration: '3 Months',
               description: 'Build responsive web applications using HTML, CSS, JavaScript, and modern frameworks.',
@@ -294,7 +432,18 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 8,
+              id: 9,
+              title: 'Backend Development',
+              duration: '3 Months',
+              description: 'Learn server-side programming, APIs, databases, and backend architecture fundamentals.',
+              topics: [
+                'Introduction to Server-Side Programming', 'Node.js & Express', 'Java / Python / C#','Database Fundamentals (SQL)', 'RESTful API Design', 
+                'MongoDB Basics', 'Authentication & Authorization', 'API Documentation', 'Error Handling',
+                'Middleware Concepts', 'Basic Security Practices'
+              ]
+            },
+            {
+              id: 10,
               title: 'Mobile App Development',
               duration: '2.5 Months',
               description: 'Develop mobile applications for iOS and Android platforms.',
@@ -310,7 +459,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'Data Engineering',
           courses: [
             {
-              id: 9,
+              id: 11,
               title: 'Data Engineering Fundamentals',
               duration: '3 Months',
               description: 'Introduction to data pipelines, ETL processes, and data warehousing.',
@@ -321,13 +470,13 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 10,
+              id: 12,
               title: 'Big Data Basics',
               duration: '2.5 Months',
               description: 'Introduction to big data technologies and distributed computing.',
               topics: [
-                'Big Data Concepts', 'Hadoop Ecosystem', 'Apache Spark Basics', 'NoSQL Databases',
-                'Data Lake Concepts', 'Streaming Data Basics', 'Cloud Data Platforms'
+                'Big Data Concepts & pySpark', 'Apache Spark Basics', 'NoSQL Databases',
+                'Data Lake Concepts', 'Streaming Data Basics (Kafka & Flink)', 'Cloud Data Platforms'
               ]
             }
           ]
@@ -343,6 +492,18 @@ const SinglePageLayout: React.FC = () => {
           courses: [
             {
               id: 11,
+              title: 'Python',
+              duration: '3 Months',
+              description: 'Master advanced Python programming, design patterns, and ML/AI frameworks.',
+              topics: [
+                'Advanced OOP Concepts', 'Decorators & Generators', 'Context Managers', 'Concurrency & Parallelism',
+                'Async/Await Programming', 'Scikit-learn Advanced', 'TensorFlow & PyTorch',
+                'Natural Language Processing (NLTK, spaCy)', 'Computer Vision (OpenCV)', 'ML Pipeline Development',
+                'Testing (pytest)', 'Performance Optimization'
+              ]
+            },
+            {
+              id: 12,
               title: 'Advanced Machine Learning',
               duration: '3 Months',
               description: 'Deep dive into advanced ML algorithms, ensemble methods, and model optimization.',
@@ -353,14 +514,27 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 12,
-              title: 'Deep Learning Applications',
+              id: 13,
+              title: 'Deep Learning',
               duration: '2.5 Months',
-              description: 'Build real-world applications using deep learning frameworks.',
+              description: 'Master intermediate deep learning concepts and neural network architectures.',
               topics: [
+                'Backpropagation', 'Convolutional Neural Networks (CNN)', 'PyTorch Intermediate',
                 'Advanced CNN Architectures', 'Transfer Learning', 'Object Detection', 'Image Segmentation',
-                'Sequence Models (LSTM, GRU)', 'Attention Mechanisms', 'Transformers Basics',
-                'Model Deployment', 'TensorFlow Serving'
+                'Model Deployment'
+              ]
+            },
+            {
+              id: 14,
+              title: 'LLMs',
+              duration: '3 Months',
+              description: 'Master Large Language Models, from basics to building production applications.',
+              topics: [
+                'LLM Basics & Architecture (GPT, Transformer, Seq2Seq, Attention Mechanisms, Positional Embeddings, Tokenization - BPE, SentencePiece, tiktoken)',
+                'Using Paid LLMs (OpenAI ChatGPT, Anthropic Claude, xAI Grok, Google Gemini, Mistral AI - APIs, Pricing, Context Limits, Safety Constraints)',
+                'Open-Source LLMs (LLaMA, Mistral, Gemma, Qwen, Phi - Running Locally with Ollama, LM Studio, HuggingFace Transformers, Quantization 8-bit/4-bit/QLoRA)',
+                'Prompt Engineering (Zero-shot, One-shot, Few-shot, Chain of Thought, Self-consistency, ReAct, Tree-of-Thought, RAG Prompting, Safety)',
+                'Basics of RAG (Vector Embeddings, Vector Databases - Milvus, ChromaDB, FAISS, RAG Pipeline - Chunking, Indexing, Retrieval, Augmentation, RAG Evaluation)'
               ]
             }
           ]
@@ -370,7 +544,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'IoT',
           courses: [
             {
-              id: 13,
+              id: 14,
               title: 'Advanced IoT Development',
               duration: '3 Months',
               description: 'Build complex IoT systems with cloud integration and data analytics.',
@@ -381,7 +555,7 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 14,
+              id: 15,
               title: 'IoT Protocols & Standards',
               duration: '2.5 Months',
               description: 'Master IoT communication protocols and industry standards.',
@@ -397,7 +571,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'Cybersecurity',
           courses: [
             {
-              id: 15,
+              id: 16,
               title: 'Penetration Testing',
               duration: '3 Months',
               description: 'Learn ethical hacking, vulnerability assessment, and penetration testing techniques.',
@@ -408,7 +582,7 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 16,
+              id: 17,
               title: 'Secure Coding Practices',
               duration: '2.5 Months',
               description: 'Develop secure applications following best practices and security standards.',
@@ -424,7 +598,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'Web and Mobile Development',
           courses: [
             {
-              id: 17,
+              id: 18,
               title: 'Full-Stack Development',
               duration: '3 Months',
               description: 'Build complete web applications with frontend and backend integration.',
@@ -435,7 +609,18 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 18,
+              id: 19,
+              title: 'Backend Development',
+              duration: '3 Months',
+              description: 'Master advanced backend development, APIs, databases, and server architecture.',
+              topics: [
+                'Advanced Node.js & Express', 'Advanced Java/ Python/ C#', 'GraphQL APIs', 'Database Optimization', 'Caching Strategies (Redis)',
+                'Message Queues (RabbitMQ, Kafka)', 'Microservices Architecture', 'API Gateway', 'Serverless Functions',
+                'Database Migrations', 'Advanced Security (OAuth, RBAC)'
+              ]
+            },
+            {
+              id: 20,
               title: 'Advanced Mobile Development',
               duration: '2.5 Months',
               description: 'Build production-ready mobile applications with advanced features.',
@@ -452,7 +637,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'Data Engineering',
           courses: [
             {
-              id: 19,
+              id: 21,
               title: 'Data Pipeline Development',
               duration: '3 Months',
               description: 'Build scalable data pipelines using modern tools and frameworks.',
@@ -463,7 +648,7 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 20,
+              id: 22,
               title: 'Streaming Data Processing',
               duration: '2.5 Months',
               description: 'Process real-time data streams using Kafka, Spark Streaming, and Flink.',
@@ -486,17 +671,43 @@ const SinglePageLayout: React.FC = () => {
           courses: [
             {
               id: 21,
-              title: 'Advanced Deep Learning',
+              title: 'Python',
+              duration: '3 Months',
+              description: 'Master expert-level Python programming for AI/ML engineering and production systems.',
+              topics: [
+                'Advanced Python Internals', 'Cython & Performance', 'Distributed Systems with Python',
+                'MLOps with Python', 'Model Serving (FastAPI, Flask)', 'Feature Engineering Pipelines',
+                'Model Monitoring & Observability', 'Distributed ML Training', 'AutoML Frameworks',
+                'Production ML Systems', 'CI/CD for ML', 'Model Governance & Compliance'
+              ]
+            },
+            {
+              id: 22,
+              title: 'Deep Learning',
               duration: '3 Months',
               description: 'Master advanced deep learning architectures and cutting-edge AI techniques.',
               topics: [
+                'Recurrent Neural Networks (RNN)', 'LSTM & GRU Networks', 'PyTorch Advanced',
                 'Transformer Architectures', 'BERT, GPT Models', 'Computer Vision Advanced',
                 'Generative Adversarial Networks (GANs)', 'Reinforcement Learning', 'AutoML',
                 'Model Optimization & Quantization', 'Distributed Training', 'MLOps'
               ]
             },
             {
-              id: 22,
+              id: 24,
+              title: 'LLMs',
+              duration: '3 Months',
+              description: 'Advanced LLM techniques for production deployment and enterprise applications.',
+              topics: [
+                'LLM Finetuning (Full Finetuning, LoRA/QLoRA, Adapter-based Training, Instruction Tuning, RLAIF/RLHF Basics, Training Pipelines, Dataset Cleaning, Evaluation)',
+                'LLM Agents (Planning, Tool Use, Memory, Feedback Loops, LangChain, LlamaIndex, CrewAI, AutoGen, Multi-agent Workflows, Expert Agents, Supervisor-worker Pattern)',
+                'Advanced RAG & Hybrid RAG (Multi-vector RAG, Cross-encoder Rerankers, Hybrid Search - Keyword + Semantic, Knowledge Graph + RAG, RAGAS, TruLens, DeepEval, Hallucination Control)',
+                'Deployment & Monitoring (CPU/GPU/Multi-GPU Deployment, Cloud - AWS/Azure/GCP, vLLM, TGI, llama.cpp, FastAPI-based Serving, LangSmith, OpenTelemetry, Latency, Token Throughput, Cost Monitoring)',
+                'Benchmarking LLMs (MMLU, MT Bench, HELM, BigBench, Custom Task Benchmarking, Human vs Automated Evaluation, Leaderboards - HuggingFace, LMSys, ArenaHard)'
+              ]
+            },
+            {
+              id: 23,
               title: 'AI Production Systems',
               duration: '2.5 Months',
               description: 'Deploy and maintain AI systems in production environments.',
@@ -512,7 +723,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'IoT',
           courses: [
             {
-              id: 23,
+              id: 24,
               title: 'IoT Architecture & Design',
               duration: '3 Months',
               description: 'Design and implement enterprise-grade IoT solutions.',
@@ -523,7 +734,7 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 24,
+              id: 25,
               title: 'IoT Project Implementation',
               duration: '2.5 Months',
               description: 'End-to-end IoT project development and deployment.',
@@ -540,7 +751,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'Cybersecurity',
           courses: [
             {
-              id: 25,
+              id: 26,
               title: 'Advanced Security Operations',
               duration: '3 Months',
               description: 'Master security operations, incident response, and threat intelligence.',
@@ -551,7 +762,7 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 26,
+              id: 27,
               title: 'Security Architecture',
               duration: '2.5 Months',
               description: 'Design and implement comprehensive security architectures.',
@@ -568,7 +779,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'Web and Mobile Development',
           courses: [
             {
-              id: 27,
+              id: 28,
               title: 'Enterprise Web Applications',
               duration: '3 Months',
               description: 'Build scalable, enterprise-grade web applications.',
@@ -579,7 +790,19 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 28,
+              id: 29,
+              title: 'Backend Development',
+              duration: '3 Months',
+              description: 'Design and implement enterprise-level backend systems and architectures.',
+              topics: [
+                'System Design & Architecture', 'Distributed Systems', 'High Availability & Fault Tolerance',
+                'Database Scaling & Replication', 'Message Brokers & Event Streaming', 'Container Orchestration (Kubernetes)',
+                'Service Mesh (Istio)', 'Observability (Monitoring, Logging, Tracing)', 'Performance Engineering',
+                'Backend Security Best Practices'
+              ]
+            },
+            {
+              id: 30,
               title: 'Native Mobile Development',
               duration: '2.5 Months',
               description: 'Develop high-performance native mobile applications.',
@@ -596,7 +819,7 @@ const SinglePageLayout: React.FC = () => {
           title: 'Data Engineering',
           courses: [
             {
-              id: 29,
+              id: 31,
               title: 'Advanced Data Engineering',
               duration: '3 Months',
               description: 'Build large-scale data engineering solutions and data platforms.',
@@ -607,7 +830,7 @@ const SinglePageLayout: React.FC = () => {
               ]
             },
             {
-              id: 30,
+              id: 32,
               title: 'Real-Time Data Systems',
               duration: '2.5 Months',
               description: 'Design and implement real-time data processing systems.',
@@ -631,7 +854,68 @@ const SinglePageLayout: React.FC = () => {
     );
   };
 
-  const currentCategories = curriculumData[selectedLevel].categories;
+  // Highlight matching text in search results
+  const highlightText = (text: string, query: string): React.ReactNode => {
+    if (!query.trim()) {
+      return text;
+    }
+
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const parts = text.split(regex);
+
+    return (
+      <>
+        {parts.map((part, index) => {
+          if (part.toLowerCase() === query.toLowerCase()) {
+            return (
+              <mark
+                key={index}
+                className="bg-accent-500 text-white px-1 rounded font-semibold"
+              >
+                {part}
+              </mark>
+            );
+          }
+          return <span key={index}>{part}</span>;
+        })}
+      </>
+    );
+  };
+
+  // Filter courses based on search query
+  const filterCourses = (categories: typeof curriculumData.beginner.categories): typeof curriculumData.beginner.categories => {
+    if (!searchQuery.trim()) {
+      return categories;
+    }
+
+    const query = searchQuery.toLowerCase().trim();
+    
+    return categories.map((category) => ({
+      ...category,
+      courses: category.courses.filter((course) => {
+        // Search in course title
+        if (course.title.toLowerCase().includes(query)) {
+          return true;
+        }
+        // Search in course description
+        if (course.description?.toLowerCase().includes(query)) {
+          return true;
+        }
+        // Search in course topics
+        if (course.topics?.some((topic: string) => topic.toLowerCase().includes(query))) {
+          return true;
+        }
+        return false;
+      })
+    })).filter((category) => category.courses.length > 0) as typeof curriculumData.beginner.categories; // Only show categories that have matching courses
+  };
+
+  const currentCategories = filterCourses(curriculumData[selectedLevel].categories);
+
+  // Clear search when level changes
+  useEffect(() => {
+    setSearchQuery('');
+  }, [selectedLevel]);
 
   // SEO: Update document title and meta description
   useEffect(() => {
@@ -646,11 +930,32 @@ const SinglePageLayout: React.FC = () => {
     <div className="min-h-screen bg-white">
       <HeaderSinglePage onOpenModal={() => setIsModalOpen(true)} />
       <LiveDemoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ServiceModal 
+        isOpen={isServiceModalOpen} 
+        onClose={() => setIsServiceModalOpen(false)} 
+        service={selectedService}
+      />
 
       {/* Hero Section with Form */}
       <section id="home" className="relative min-h-[500px] sm:min-h-[550px] flex flex-col lg:flex-row items-start overflow-visible bg-gradient-to-br from-dark-800 via-dark-700 to-dark-800 pb-8 lg:pb-24">
+        {/* Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{ minHeight: '100%' }}
+        >
+          <source src="/resources/hero_video.mp4" type="video/mp4" />
+          {/* Fallback gradient if video fails to load */}
+        </video>
+        
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-dark-800 bg-opacity-80 z-0"></div>
+        
         {/* Left side - Dark background with program information */}
-        <div className="w-full lg:w-1/2 text-white pt-8 pb-4 lg:pt-6 lg:pb-12 px-4 sm:px-6 lg:px-16 flex items-start relative">
+        <div className="w-full lg:w-1/2 text-white pt-8 pb-4 lg:pt-6 lg:pb-12 px-4 sm:px-6 lg:px-16 flex items-start relative z-10">
           {/* Background silhouette effect */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
@@ -851,7 +1156,10 @@ const SinglePageLayout: React.FC = () => {
                   <span>📊 {program.level}</span>
                 </div>
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => {
+                    setSelectedService(program);
+                    setIsServiceModalOpen(true);
+                  }}
                   className="text-primary-500 hover:text-primary-600 font-semibold text-sm"
                 >
                   Learn More →
@@ -874,18 +1182,18 @@ const SinglePageLayout: React.FC = () => {
           </div>
 
           {/* Level Selection Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10 md:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {(['beginner', 'intermediate', 'advanced'] as const).map((level) => (
               <button
                 key={level}
                 onClick={() => setSelectedLevel(level)}
-                className={`p-6 rounded-lg border-2 transition-all ${
+                className={`p-4 rounded-lg border-2 transition-all ${
                   selectedLevel === level
                     ? 'bg-accent-500 border-accent-500 text-white'
                     : 'bg-dark-800 border-dark-700 text-white hover:border-dark-600'
                 }`}
               >
-                <div className="flex items-center justify-center mb-4">
+                <div className="flex items-center justify-center mb-2">
                   <div className="flex items-end space-x-1">
                     {[1, 2, 3].map((bar, idx) => (
                       <div
@@ -897,22 +1205,92 @@ const SinglePageLayout: React.FC = () => {
                             ? 'bg-white'
                             : 'bg-gray-500'
                         }`}
-                        style={{ height: `${(idx + 1) * 8}px` }}
+                        style={{ height: `${(idx + 1) * 6}px` }}
                       />
                     ))}
                   </div>
                 </div>
-                <h3 className="text-lg font-normal mb-2 capitalize">{level}</h3>
-                <p className="text-sm opacity-90">{curriculumData[level].duration}</p>
+                <h3 className="text-base font-normal capitalize">{level}</h3>
               </button>
             ))}
           </div>
 
+          {/* Search Input Bar */}
+          <div className="mb-8 sm:mb-10 md:mb-12">
+            <div className="relative max-w-2xl mx-auto">
+              <input
+                type="text"
+                placeholder="Search courses by name, description, or topics..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-dark-800 border-2 border-dark-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500 focus:ring-opacity-50 transition-all font-sans text-sm sm:text-base"
+              />
+              <div className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2">
+                <svg
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-10 sm:right-12 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                  aria-label="Clear search"
+                >
+                  <svg
+                    className="w-5 h-5 sm:w-6 sm:h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              )}
+            </div>
+            {searchQuery && (
+              <p className="text-center text-gray-400 text-sm mt-3 font-sans">
+                {currentCategories.reduce((total: number, cat) => total + cat.courses.length, 0)} course(s) found
+              </p>
+            )}
+          </div>
+
+          {/* Important Note */}
+          <div className="mb-6 sm:mb-8 bg-accent-500 bg-opacity-10 border-l-4 border-accent-500 rounded-lg p-4 sm:p-5">
+            <div className="flex items-start">
+              <div className="flex-shrink-0 mr-3 mt-0.5">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-white font-bold text-sm sm:text-base mb-1 font-sans">Note</h3>
+                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-sans">
+                  Each course in this curriculum will be followed by a <span className="font-semibold text-accent-400">hands-on project</span> based on <span className="font-semibold text-accent-400">actual industry-related use cases</span>. This project-based approach ensures you gain practical, real-world experience and are ready to apply your skills in professional environments.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Categories Section */}
-          <div className="mb-6 sm:mb-8 space-y-6 sm:space-y-8">
+          <div className="mb-6 sm:mb-8 space-y-4 sm:space-y-6">
             {currentCategories.map((category) => (
-              <div key={category.id} className="mb-6 sm:mb-8">
-                <div className="flex items-center mb-4 sm:mb-6">
+              <div key={category.id} className="mb-4 sm:mb-6">
+                <div className="flex items-center mb-3 sm:mb-4">
                   <span className="text-white text-xl sm:text-2xl mr-2 sm:mr-3">✦</span>
                   <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white font-sans">
                     {category.title}
@@ -920,7 +1298,7 @@ const SinglePageLayout: React.FC = () => {
                 </div>
 
                 {/* Course Cards for this Category */}
-                <div className="space-y-3 sm:space-y-4">
+                <div className="space-y-2 sm:space-y-3">
                   {category.courses.map((course) => (
                     <div
                       key={course.id}
@@ -928,17 +1306,19 @@ const SinglePageLayout: React.FC = () => {
                     >
                       {/* Course Header */}
                       <div
-                        className="p-4 sm:p-6 cursor-pointer flex items-center justify-between hover:bg-dark-700 transition-colors"
+                        className="p-3 sm:p-4 cursor-pointer flex items-center justify-between hover:bg-dark-700 transition-colors"
                         onClick={() => toggleCourseExpansion(course.id)}
                       >
                         <div className="flex items-center flex-1 min-w-0">
-                          <span className="text-white text-lg sm:text-xl mr-2 sm:mr-4 flex-shrink-0">&lt; /&gt;</span>
+                          <span className="text-white text-base sm:text-lg mr-2 sm:mr-3 flex-shrink-0">&lt; /&gt;</span>
                           <div className="flex-1 min-w-0">
-                            <h4 className="text-base sm:text-lg font-bold text-white font-sans mb-1 break-words">
-                              {course.title}
+                            <h4 className="text-sm sm:text-base font-bold text-white font-sans mb-0.5 break-words">
+                              {searchQuery ? highlightText(course.title, searchQuery) : course.title}
                             </h4>
                             {course.description && (
-                              <p className="text-gray-400 text-xs sm:text-sm font-sans line-clamp-2">{course.description}</p>
+                              <p className="text-gray-400 text-xs font-sans line-clamp-2 mt-0.5">
+                                {searchQuery ? highlightText(course.description, searchQuery) : course.description}
+                              </p>
                             )}
                           </div>
                         </div>
@@ -963,16 +1343,16 @@ const SinglePageLayout: React.FC = () => {
 
                       {/* Expanded Content */}
                       {expandedCourses.includes(course.id) && course.topics && (
-                        <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-0 border-t border-dark-700">
-                          <div className="mt-3 sm:mt-4">
-                            <p className="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 font-sans">Topics covered:</p>
+                        <div className="px-3 sm:px-4 pb-3 sm:pb-4 pt-0 border-t border-dark-700">
+                          <div className="mt-2 sm:mt-3">
+                            <p className="text-gray-400 text-xs sm:text-sm mb-2 font-sans">Topics covered:</p>
                             <div className="flex flex-wrap gap-2">
                               {course.topics.map((topic: string, idx: number) => (
                                 <span
                                   key={idx}
                                   className="bg-dark-700 border border-dark-600 text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded font-sans"
                                 >
-                                  {topic}
+                                  {searchQuery ? highlightText(topic, searchQuery) : topic}
                                 </span>
                               ))}
                             </div>
@@ -1062,7 +1442,15 @@ const SinglePageLayout: React.FC = () => {
         </div>
       </section>
 
-      <Footer />
+      <Footer 
+        onServiceClick={(serviceTitle) => {
+          const service = programs.find(p => p.title === serviceTitle);
+          if (service) {
+            setSelectedService(service);
+            setIsServiceModalOpen(true);
+          }
+        }}
+      />
     </div>
   );
 };
