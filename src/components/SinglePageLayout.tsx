@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaptopCode, faUserTie, faRoute, faUsers, faGraduationCap, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import LiveDemoModal from './LiveDemoModal';
 import ServiceModal from './ServiceModal';
+import PrivacyPolicy from './PrivacyPolicy';
+import TermsOfService from './TermsOfService';
 import HeaderSinglePage from './HeaderSinglePage';
 import Footer from './Footer';
 import { sendDemoSessionEmail } from '../services/emailService';
@@ -10,6 +12,8 @@ import { sendDemoSessionEmail } from '../services/emailService';
 const SinglePageLayout: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
+  const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
+  const [isTermsOfServiceOpen, setIsTermsOfServiceOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<{
     title: string;
     description: string;
@@ -935,6 +939,14 @@ const SinglePageLayout: React.FC = () => {
         onClose={() => setIsServiceModalOpen(false)} 
         service={selectedService}
       />
+      <PrivacyPolicy
+        isOpen={isPrivacyPolicyOpen}
+        onClose={() => setIsPrivacyPolicyOpen(false)}
+      />
+      <TermsOfService
+        isOpen={isTermsOfServiceOpen}
+        onClose={() => setIsTermsOfServiceOpen(false)}
+      />
 
       {/* Hero Section with Form */}
       <section id="home" className="relative min-h-[500px] sm:min-h-[550px] flex flex-col lg:flex-row items-start overflow-visible bg-gradient-to-br from-dark-800 via-dark-700 to-dark-800 pb-24 lg:pb-24">
@@ -969,7 +981,7 @@ const SinglePageLayout: React.FC = () => {
 
             {/* Main Headline - SEO Optimized */}
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-normal mb-6 leading-tight font-sans">
-              <span className="text-primary-400 font-bold">Kachchapi</span> - Become <span className="text-primary-400">Future Ready</span> Software Developer with{' '}
+              Become <span className="text-primary-400">Future Ready</span> Software Developer with{' '}
               <span className="text-primary-400">AI Skills Training</span> - Industry-Ready Online Courses
             </h1>
 
@@ -1450,6 +1462,8 @@ const SinglePageLayout: React.FC = () => {
             setIsServiceModalOpen(true);
           }
         }}
+        onPrivacyPolicyClick={() => setIsPrivacyPolicyOpen(true)}
+        onTermsOfServiceClick={() => setIsTermsOfServiceOpen(true)}
       />
     </div>
   );

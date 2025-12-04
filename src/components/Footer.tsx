@@ -2,9 +2,11 @@ import React from 'react';
 
 interface FooterProps {
   onServiceClick?: (serviceTitle: string) => void;
+  onPrivacyPolicyClick?: () => void;
+  onTermsOfServiceClick?: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onServiceClick }) => {
+const Footer: React.FC<FooterProps> = ({ onServiceClick, onPrivacyPolicyClick, onTermsOfServiceClick }) => {
   const quickLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About Us', href: '#about' },
@@ -138,10 +140,24 @@ const Footer: React.FC<FooterProps> = ({ onServiceClick }) => {
               © 2025 Kachchapi. All rights reserved.
             </p>
             <div className="flex space-x-4 text-[10px] text-gray-500 font-montserrat">
-              <a href="#" className="hover:text-primary-500 transition-colors">
+              <a 
+                href="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  onPrivacyPolicyClick?.();
+                }}
+                className="hover:text-primary-500 transition-colors cursor-pointer"
+              >
                 Privacy Policy
               </a>
-              <a href="#" className="hover:text-primary-500 transition-colors">
+              <a 
+                href="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  onTermsOfServiceClick?.();
+                }}
+                className="hover:text-primary-500 transition-colors cursor-pointer"
+              >
                 Terms of Service
               </a>
             </div>
