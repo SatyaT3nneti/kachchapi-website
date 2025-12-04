@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { environment } from '../config/environment';
 
 interface SEOHeadProps {
   title?: string;
@@ -13,8 +14,10 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   description = 'Master AI skills, machine learning, and software development with industry-ready training. Learn from experienced professionals with project-based learning, interview preparation, and career guidance.',
   keywords = 'AI skills training, machine learning courses, software development training, industry-ready skills, AI training online, Gen AI courses, data science training, deep learning courses, interview preparation, career guidance, project-based learning, online tech training, software engineering courses, AI certification, programming bootcamp',
   ogImage = '/og-image.jpg',
-  canonicalUrl = 'https://demo.kachchapi.com/'
+  canonicalUrl
 }) => {
+  // Use environment config or current window location for canonical URL
+  const defaultCanonicalUrl = canonicalUrl || `${environment.website.baseUrl}/`;
   useEffect(() => {
     // Update document title
     document.title = title;
@@ -36,6 +39,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     updateMetaTag('og:title', title, 'property');
     updateMetaTag('og:description', description, 'property');
     updateMetaTag('og:image', ogImage, 'property');
+    updateMetaTag('og:url', defaultCanonicalUrl, 'property');
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', ogImage);
@@ -47,8 +51,8 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', canonicalUrl);
-  }, [title, description, keywords, ogImage, canonicalUrl]);
+    canonical.setAttribute('href', defaultCanonicalUrl);
+  }, [title, description, keywords, ogImage, defaultCanonicalUrl]);
 
   return null;
 };

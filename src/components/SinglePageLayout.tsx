@@ -937,7 +937,7 @@ const SinglePageLayout: React.FC = () => {
       />
 
       {/* Hero Section with Form */}
-      <section id="home" className="relative min-h-[500px] sm:min-h-[550px] flex flex-col lg:flex-row items-start overflow-visible bg-gradient-to-br from-dark-800 via-dark-700 to-dark-800 pb-8 lg:pb-24">
+      <section id="home" className="relative min-h-[500px] sm:min-h-[550px] flex flex-col lg:flex-row items-start overflow-visible bg-gradient-to-br from-dark-800 via-dark-700 to-dark-800 pb-24 lg:pb-24">
         {/* Video Background */}
         <video
           autoPlay
@@ -952,7 +952,7 @@ const SinglePageLayout: React.FC = () => {
         </video>
         
         {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-dark-800 bg-opacity-80 z-0"></div>
+        <div className="absolute inset-0 bg-dark-800 bg-opacity-90 z-0"></div>
         
         {/* Left side - Dark background with program information */}
         <div className="w-full lg:w-1/2 text-white pt-8 pb-4 lg:pt-6 lg:pb-12 px-4 sm:px-6 lg:px-16 flex items-start relative z-10">
@@ -969,7 +969,7 @@ const SinglePageLayout: React.FC = () => {
 
             {/* Main Headline - SEO Optimized */}
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-normal mb-6 leading-tight font-sans">
-              Become <span className="text-primary-400">Future Ready</span> Software Developer with{' '}
+              <span className="text-primary-400 font-bold">Kachchapi</span> - Become <span className="text-primary-400">Future Ready</span> Software Developer with{' '}
               <span className="text-primary-400">AI Skills Training</span> - Industry-Ready Online Courses
             </h1>
 
@@ -1101,8 +1101,8 @@ const SinglePageLayout: React.FC = () => {
           </div>
         </div>
 
-        {/* Program Details Card - Below form on mobile, overlapping on desktop */}
-        <div className="relative lg:absolute bottom-0 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:translate-y-1/2 w-full lg:w-[60%] mt-8 lg:mt-0 -mb-8 lg:mb-0 z-10 px-4 sm:px-6 lg:px-4">
+        {/* Program Details Card - Top half in Hero, bottom half outside on mobile */}
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-[60%] lg:translate-y-1/2 w-full lg:w-[60%] z-10 px-4 sm:px-6 lg:px-4">
           <div className="bg-white rounded-lg shadow-2xl overflow-hidden w-full max-w-[95%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-none mx-auto">
             {/* Top Bar with Purple Fill */}
             <div className="h-2 w-full" style={{
@@ -1114,7 +1114,7 @@ const SinglePageLayout: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-0 mb-0 md:mb-6">
                 <div className="border-b md:border-b-0 md:border-r border-gray-200 pb-4 md:pb-0 md:pr-6">
                   <h3 className="text-gray-500 text-xs uppercase mb-2 font-montserrat">WHO THIS IS FOR</h3>
-                  <p className="text-black-500 font-medium text-sm font-montserrat">Working Professionals</p>
+                  <p className="text-black-500 font-medium text-sm font-montserrat">Students & Working Professionals</p>
                 </div>
                 <div className="border-b md:border-b-0 md:border-r border-gray-200 pb-4 md:pb-0 md:pr-6 md:pl-6">
                     <h3 className="text-gray-500 text-xs uppercase mb-2 font-montserrat">READY TO MASTER</h3>
@@ -1133,14 +1133,14 @@ const SinglePageLayout: React.FC = () => {
       {/* Features Section */}
 
       {/* Programs Section */}
-      <section id="programs" className="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-white">
+      <section id="programs" className="pt-40 sm:pt-44 md:pt-48 lg:pt-32 pb-12 sm:pb-16 md:pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mb-3 sm:mb-4 font-sans px-4">
-              Our Programs & Services
+              Kachchapi Programs & Services
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-              Choose the program that fits your career goals
+              Choose the Kachchapi program that fits your career goals
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">

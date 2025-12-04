@@ -18,4 +18,4 @@ User-agent: Slurp
 Allow: /
 
 # Sitemap location
-Sitemap: https://demo.kachchapi.com/sitemap.xml
+Sitemap: https://kachchapi.com/sitemap.xml

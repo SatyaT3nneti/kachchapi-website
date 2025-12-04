@@ -31,7 +31,7 @@ const HeaderSinglePage: React.FC<HeaderSinglePageProps> = ({ onOpenModal }) => {
     { name: 'Home', sectionId: 'home' },
     { name: 'Curriculum', sectionId: 'curriculum' },
     { name: 'Programs', sectionId: 'programs' },
-    { name: 'Benefits', sectionId: 'benefits' },
+    // { name: 'Benefits', sectionId: 'benefits' }, // Hidden for now
     // { name: 'Testimonials', sectionId: 'testimonials' }, // Hidden for now
     { name: 'FAQ', sectionId: 'faq' }
   ];
@@ -82,7 +82,7 @@ const HeaderSinglePage: React.FC<HeaderSinglePageProps> = ({ onOpenModal }) => {
                 }}
               />
               <div className="flex flex-col items-start justify-center">
-                <h1 className="text-sm md:text-lg font-black text-white font-montserrat leading-tight">
+                <h1 className="text-sm md:text-lg font-black text-white font-montserrat leading-tight" itemProp="name">
                   KACHCHAPI
                 </h1>
                 <p className="text-[0.3rem] md:text-[0.4rem] text-gray-300 font-sans leading-tight mt-0.5">
