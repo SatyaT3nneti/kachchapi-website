@@ -567,7 +567,7 @@ const SinglePageLayout: React.FC = () => {
             {
               id: 34,
               title: 'Emerging Leaders (First-Time Managers)',
-              duration: '6 Months',
+              duration: '5 Days',
               description: 'Elevate your leadership capabilities with our premium coaching program designed exclusively for executives and senior leaders seeking transformational growth.',
               topics: [
                 'Verbal & Non-Verbal Communication', 'Communication Strategies', 'Listening Skills',
@@ -845,7 +845,7 @@ const SinglePageLayout: React.FC = () => {
             {
               id: 35,
               title: 'Mid-Level Leaders (Senior Managers)',
-              duration: '6 Months',
+              duration: '5 Days',
               description: 'Elevate your leadership capabilities with our premium coaching program designed exclusively for executives and senior leaders seeking transformational growth.',
               topics: [
                 'Ethical Communication', 'Cross-Cultural Communication', 'Negotiation & Persuasion Skills',
@@ -1126,7 +1126,7 @@ const SinglePageLayout: React.FC = () => {
             {
               id: 36,
               title: 'Top Executives (CXOs & Senior Leaders)',
-              duration: '6 Months',
+              duration: '5 Days',
               description: 'Elevate your leadership capabilities with our premium coaching program designed exclusively for executives and senior leaders seeking transformational growth.',
               topics: [
                 'Strategic Communication', 'Inter-Cultural Leadership', 'Vision & Narrative Building',
