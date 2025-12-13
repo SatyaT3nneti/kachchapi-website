@@ -4,9 +4,11 @@ import { sendCallbackRequestEmail, CallbackRequestData } from '../services/email
 interface LiveDemoModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onPrivacyPolicyClick?: () => void;
+  onTermsOfServiceClick?: () => void;
 }
 
-const LiveDemoModal: React.FC<LiveDemoModalProps> = ({ isOpen, onClose }) => {
+const LiveDemoModal: React.FC<LiveDemoModalProps> = ({ isOpen, onClose, onPrivacyPolicyClick, onTermsOfServiceClick }) => {
   const [formData, setFormData] = useState({
     email: '',
     fullName: '',
@@ -389,8 +391,27 @@ const LiveDemoModal: React.FC<LiveDemoModalProps> = ({ isOpen, onClose }) => {
               {/* Terms */}
               <p className="text-xs text-gray-500 font-montserrat">
                 By continuing, I have read and agree to Kachchapi's{' '}
-                <a href="#" className="text-accent-600 hover:underline">Terms</a> and{' '}
-                <a href="#" className="text-accent-600 hover:underline">Privacy Policy</a>.
+                <a 
+                  href="#" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onTermsOfServiceClick?.();
+                  }}
+                  className="text-accent-600 hover:underline cursor-pointer"
+                >
+                  Terms
+                </a>{' '}
+                and{' '}
+                <a 
+                  href="#" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onPrivacyPolicyClick?.();
+                  }}
+                  className="text-accent-600 hover:underline cursor-pointer"
+                >
+                  Privacy Policy
+                </a>.
               </p>
 
               {/* Submit Button */}

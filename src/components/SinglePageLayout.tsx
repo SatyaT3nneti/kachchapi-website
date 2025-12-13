@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaptopCode, faUserTie, faRoute, faUsers, faGraduationCap, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import LiveDemoModal from './LiveDemoModal';
@@ -33,6 +33,8 @@ const SinglePageLayout: React.FC = () => {
   const [isSubmittingDemo, setIsSubmittingDemo] = useState(false);
   const [demoSubmitStatus, setDemoSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' });
   const [searchQuery, setSearchQuery] = useState('');
+  const curriculumSectionRef = useRef<HTMLElement>(null);
+  const firstCourseRef = useRef<HTMLDivElement>(null);
 
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -341,6 +343,12 @@ const SinglePageLayout: React.FC = () => {
                 'Data Structures (Lists, Tuples, Dictionaries, Sets)', 'Object-Oriented Programming (OOP)',
                 'NumPy Fundamentals', 'Pandas for Data Analysis', 'Matplotlib & Seaborn for Visualization',
                 'File I/O Operations', 'Exception Handling', 'Python Standard Library'
+              ],
+              expectedOutcomes: [
+                'Write clean, efficient Python code for data analysis and AI/ML applications',
+                'Manipulate and analyze data using NumPy and Pandas libraries',
+                'Build object-oriented programs and reusable code modules',
+                'Create data visualizations and reports using Matplotlib and Seaborn'
               ]
             },
             {
@@ -352,6 +360,12 @@ const SinglePageLayout: React.FC = () => {
                 'Introduction to ML', 'Data Preprocessing', 'Linear Regression', 'Logistic Regression',
                 'Decision Trees', 'Random Forest', 'K-Means Clustering', 'Model Evaluation',
                 'Cross-Validation', 'Feature Engineering', 'Overfitting & Regularization', 'Python for ML', 'NumPy & Pandas'
+              ],
+              expectedOutcomes: [
+                'Build and evaluate machine learning models using supervised and unsupervised algorithms',
+                'Preprocess and clean data for ML applications',
+                'Apply feature engineering techniques to improve model performance',
+                'Understand model evaluation metrics and avoid overfitting'
               ]
             },
             {
@@ -362,6 +376,12 @@ const SinglePageLayout: React.FC = () => {
               topics: [
                 'Neural Networks Basics', 'Activation Functions', 'Gradient Descent', 'PyTorch Basics',
                 'Basic Model Training'
+              ],
+              expectedOutcomes: [
+                'Understand neural network architecture and how they learn',
+                'Build and train basic neural networks using PyTorch',
+                'Implement gradient descent and optimization algorithms',
+                'Create simple deep learning models for classification tasks'
               ]
             }
           ]
@@ -379,6 +399,12 @@ const SinglePageLayout: React.FC = () => {
                 'Introduction to IoT', 'Arduino Programming', 'Raspberry Pi Basics', 'Sensors & Actuators',
                 'Communication Protocols (MQTT, HTTP)', 'Data Collection', 'Basic Electronics',
                 'IoT Architecture', 'Cloud Integration Basics'
+              ],
+              expectedOutcomes: [
+                'Design and build basic IoT systems using Arduino and Raspberry Pi',
+                'Interface sensors and actuators with microcontrollers',
+                'Implement IoT communication protocols for data transmission',
+                'Create simple IoT applications with cloud connectivity'
               ]
             },
             {
@@ -389,6 +415,12 @@ const SinglePageLayout: React.FC = () => {
               topics: [
                 'C/C++ for Embedded Systems', 'GPIO Programming', 'Interrupts & Timers',
                 'Serial Communication', 'SPI & I2C Protocols', 'Power Management', 'Real-time Systems'
+              ],
+              expectedOutcomes: [
+                'Write efficient embedded code in C/C++ for microcontrollers',
+                'Implement real-time systems with interrupts and timers',
+                'Use communication protocols (SPI, I2C) for device interfacing',
+                'Optimize power consumption in embedded applications'
               ]
             }
           ]
@@ -406,6 +438,12 @@ const SinglePageLayout: React.FC = () => {
                 'Introduction to Cybersecurity', 'Threats & Vulnerabilities', 'Network Security Basics',
                 'Cryptography Fundamentals', 'Authentication & Authorization', 'Firewalls & IDS/IPS',
                 'Security Policies', 'Risk Assessment Basics', 'Ethical Hacking Introduction'
+              ],
+              expectedOutcomes: [
+                'Identify and assess cybersecurity threats and vulnerabilities',
+                'Implement basic security controls and policies',
+                'Understand cryptography principles and authentication mechanisms',
+                'Configure firewalls and intrusion detection systems'
               ]
             },
             {
@@ -416,6 +454,12 @@ const SinglePageLayout: React.FC = () => {
               topics: [
                 'Network Protocols Security', 'VPN Technologies', 'SSL/TLS', 'Wireless Security',
                 'Network Monitoring', 'Packet Analysis', 'Intrusion Detection'
+              ],
+              expectedOutcomes: [
+                'Secure network communications using VPN and SSL/TLS protocols',
+                'Monitor and analyze network traffic for security threats',
+                'Implement wireless security measures',
+                'Detect and respond to network intrusions'
               ]
             }
           ]
@@ -433,6 +477,12 @@ const SinglePageLayout: React.FC = () => {
                 'HTML5 & CSS3', 'JavaScript Fundamentals', 'DOM Manipulation', 'Responsive Design',
                 'React Basics', 'State Management', 'Component Architecture', 'API Integration',
                 'Build Tools (Webpack, Vite)', 'Version Control (Git)'
+              ],
+              expectedOutcomes: [
+                'Build responsive and interactive web applications using React',
+                'Implement modern UI/UX designs with HTML5, CSS3, and JavaScript',
+                'Manage application state and integrate with REST APIs',
+                'Use build tools and version control for professional development workflows'
               ]
             },
             {
@@ -444,6 +494,12 @@ const SinglePageLayout: React.FC = () => {
                 'Introduction to Server-Side Programming', 'Node.js & Express', 'Java / Python / C#','Database Fundamentals (SQL)', 'RESTful API Design', 
                 'MongoDB Basics', 'Authentication & Authorization', 'API Documentation', 'Error Handling',
                 'Middleware Concepts', 'Basic Security Practices'
+              ],
+              expectedOutcomes: [
+                'Build RESTful APIs and server-side applications',
+                'Design and implement database schemas using SQL and NoSQL',
+                'Implement authentication and authorization mechanisms',
+                'Create secure and scalable backend services'
               ]
             },
             {
@@ -454,6 +510,12 @@ const SinglePageLayout: React.FC = () => {
               topics: [
                 'React Native Basics', 'Mobile UI/UX Design', 'Navigation', 'State Management',
                 'API Integration', 'Native Modules', 'App Deployment', 'Performance Optimization'
+              ],
+              expectedOutcomes: [
+                'Build cross-platform mobile applications using React Native',
+                'Design intuitive mobile user interfaces and navigation flows',
+                'Integrate mobile apps with backend APIs and services',
+                'Deploy and optimize mobile applications for app stores'
               ]
             }
           ]
@@ -471,6 +533,12 @@ const SinglePageLayout: React.FC = () => {
                 'Introduction to Data Engineering', 'ETL Processes', 'Data Warehousing Concepts',
                 'SQL Fundamentals', 'Database Design', 'Data Modeling', 'Python for Data Engineering',
                 'Data Quality & Validation', 'Basic Data Pipelines'
+              ],
+              expectedOutcomes: [
+                'Design and implement ETL processes for data transformation',
+                'Build data warehouses and design efficient database schemas',
+                'Create data pipelines using Python and SQL',
+                'Ensure data quality and validation in data engineering workflows'
               ]
             },
             {
@@ -481,6 +549,33 @@ const SinglePageLayout: React.FC = () => {
               topics: [
                 'Big Data Concepts & pySpark', 'Apache Spark Basics', 'NoSQL Databases',
                 'Data Lake Concepts', 'Streaming Data Basics (Kafka & Flink)', 'Cloud Data Platforms'
+              ],
+              expectedOutcomes: [
+                'Process large-scale data using Apache Spark and pySpark',
+                'Work with NoSQL databases and data lake architectures',
+                'Implement streaming data pipelines with Kafka and Flink',
+                'Deploy big data solutions on cloud platforms'
+              ]
+            }
+          ]
+        },
+        {
+          id: 'executive-leadership',
+          title: 'Executive & Leadership Skills',
+          courses: [
+            {
+              id: 34,
+              title: 'Emerging Leaders (First-Time Managers)',
+              duration: '6 Months',
+              description: 'Elevate your leadership capabilities with our premium coaching program designed exclusively for executives and senior leaders seeking transformational growth.',
+              topics: [
+                'Verbal & Non-Verbal Communication', 'Communication Strategies', 'Listening Skills',
+                'Presentation Skills', 'Email & Business Writing Etiquette', 'Interpersonal Skills'
+              ],
+              expectedOutcomes: [
+                'Confidently manage teams with strong communication',
+                'Transition smoothly into leadership with credibility',
+                'Drive team performance with clarity and trust'
               ]
             }
           ]
@@ -504,6 +599,12 @@ const SinglePageLayout: React.FC = () => {
                 'Async/Await Programming', 'Scikit-learn Advanced', 'TensorFlow & PyTorch',
                 'Natural Language Processing (NLTK, spaCy)', 'Computer Vision (OpenCV)', 'ML Pipeline Development',
                 'Testing (pytest)', 'Performance Optimization'
+              ],
+              expectedOutcomes: [
+                'Write advanced Python code with design patterns and concurrency',
+                'Build ML pipelines using TensorFlow, PyTorch, and Scikit-learn',
+                'Implement NLP and computer vision applications',
+                'Optimize Python code performance and write comprehensive tests'
               ]
             },
             {
@@ -515,6 +616,12 @@ const SinglePageLayout: React.FC = () => {
                 'Ensemble Methods', 'Gradient Boosting (XGBoost, LightGBM)', 'Support Vector Machines',
                 'Dimensionality Reduction (PCA, t-SNE)', 'Hyperparameter Tuning', 'Model Selection',
                 'Time Series Analysis', 'Natural Language Processing Basics', 'Computer Vision Basics'
+              ],
+              expectedOutcomes: [
+                'Build high-performance ML models using ensemble methods and gradient boosting',
+                'Optimize models through hyperparameter tuning and feature engineering',
+                'Apply advanced techniques for time series, NLP, and computer vision',
+                'Select and evaluate models for production deployment'
               ]
             },
             {
@@ -526,6 +633,12 @@ const SinglePageLayout: React.FC = () => {
                 'Backpropagation', 'Convolutional Neural Networks (CNN)', 'PyTorch Intermediate',
                 'Advanced CNN Architectures', 'Transfer Learning', 'Object Detection', 'Image Segmentation',
                 'Model Deployment'
+              ],
+              expectedOutcomes: [
+                'Build and train CNN models for image classification and object detection',
+                'Implement transfer learning to leverage pre-trained models',
+                'Deploy deep learning models to production environments',
+                'Apply advanced CNN architectures for complex computer vision tasks'
               ]
             },
             {
@@ -539,6 +652,12 @@ const SinglePageLayout: React.FC = () => {
                 'Open-Source LLMs (LLaMA, Mistral, Gemma, Qwen, Phi - Running Locally with Ollama, LM Studio, HuggingFace Transformers, Quantization 8-bit/4-bit/QLoRA)',
                 'Prompt Engineering (Zero-shot, One-shot, Few-shot, Chain of Thought, Self-consistency, ReAct, Tree-of-Thought, RAG Prompting, Safety)',
                 'Basics of RAG (Vector Embeddings, Vector Databases - Milvus, ChromaDB, FAISS, RAG Pipeline - Chunking, Indexing, Retrieval, Augmentation, RAG Evaluation)'
+              ],
+              expectedOutcomes: [
+                'Understand LLM architecture and work with both paid and open-source models',
+                'Master advanced prompt engineering techniques for optimal results',
+                'Build RAG applications with vector databases and retrieval systems',
+                'Deploy LLM-powered applications in production environments'
               ]
             }
           ]
@@ -556,6 +675,12 @@ const SinglePageLayout: React.FC = () => {
                 'IoT Cloud Platforms (AWS IoT, Azure IoT)', 'Edge Computing', 'Fog Computing',
                 'IoT Data Analytics', 'Machine Learning on Edge', 'IoT Security', 'Device Management',
                 'Firmware Development', 'OTA Updates'
+              ],
+              expectedOutcomes: [
+                'Design and deploy enterprise IoT solutions on cloud platforms',
+                'Implement edge computing and ML models for IoT devices',
+                'Manage IoT device fleets and implement OTA updates',
+                'Build secure and scalable IoT architectures'
               ]
             },
             {
@@ -566,6 +691,12 @@ const SinglePageLayout: React.FC = () => {
               topics: [
                 'MQTT Advanced', 'CoAP', 'LoRaWAN', 'Zigbee', 'Bluetooth Low Energy (BLE)',
                 '5G for IoT', 'IoT Standards (IEEE, IETF)', 'Protocol Security'
+              ],
+              expectedOutcomes: [
+                'Implement advanced IoT communication protocols (MQTT, CoAP, LoRaWAN)',
+                'Design secure IoT networks using industry standards',
+                'Optimize IoT protocols for different use cases and environments',
+                'Ensure protocol-level security and compliance'
               ]
             }
           ]
@@ -583,6 +714,12 @@ const SinglePageLayout: React.FC = () => {
                 'Penetration Testing Methodology', 'Reconnaissance', 'Scanning & Enumeration',
                 'Exploitation Techniques', 'Post-Exploitation', 'Web Application Security',
                 'Network Penetration Testing', 'Report Writing', 'Tools (Metasploit, Burp Suite)'
+              ],
+              expectedOutcomes: [
+                'Conduct comprehensive penetration tests on networks and web applications',
+                'Identify and exploit security vulnerabilities ethically',
+                'Use professional tools like Metasploit and Burp Suite effectively',
+                'Document findings and provide actionable security recommendations'
               ]
             },
             {
@@ -593,6 +730,12 @@ const SinglePageLayout: React.FC = () => {
               topics: [
                 'OWASP Top 10', 'Secure Coding Principles', 'Input Validation', 'Authentication Security',
                 'Session Management', 'Cryptography Implementation', 'Security Testing', 'Code Review'
+              ],
+              expectedOutcomes: [
+                'Write secure code following OWASP guidelines and best practices',
+                'Implement robust authentication, authorization, and session management',
+                'Apply cryptography and input validation to prevent common vulnerabilities',
+                'Perform security testing and code reviews to identify security issues'
               ]
             }
           ]
@@ -610,6 +753,12 @@ const SinglePageLayout: React.FC = () => {
                 'Node.js & Express', 'RESTful APIs', 'Database Integration (MongoDB, PostgreSQL)',
                 'Authentication & Authorization (JWT)', 'State Management (Redux)', 'Testing (Jest, Cypress)',
                 'Deployment (Docker, AWS)', 'CI/CD Pipelines', 'Microservices Basics'
+              ],
+              expectedOutcomes: [
+                'Build end-to-end full-stack applications with frontend and backend integration',
+                'Implement authentication, state management, and database operations',
+                'Write comprehensive tests and deploy applications using Docker and CI/CD',
+                'Design and implement microservices architectures'
               ]
             },
             {
@@ -621,6 +770,12 @@ const SinglePageLayout: React.FC = () => {
                 'Advanced Node.js & Express', 'Advanced Java/ Python/ C#', 'GraphQL APIs', 'Database Optimization', 'Caching Strategies (Redis)',
                 'Message Queues (RabbitMQ, Kafka)', 'Microservices Architecture', 'API Gateway', 'Serverless Functions',
                 'Database Migrations', 'Advanced Security (OAuth, RBAC)'
+              ],
+              expectedOutcomes: [
+                'Design and build scalable backend systems with microservices architecture',
+                'Implement GraphQL and RESTful APIs with advanced security (OAuth, RBAC)',
+                'Optimize databases and implement caching strategies for high performance',
+                'Deploy serverless functions and manage message queues for distributed systems'
               ]
             },
             {
@@ -632,6 +787,12 @@ const SinglePageLayout: React.FC = () => {
                 'Advanced React Native', 'Native Module Development', 'Performance Optimization',
                 'Offline Capabilities', 'Push Notifications', 'In-App Purchases', 'Analytics Integration',
                 'App Store Optimization', 'Cross-Platform Architecture'
+              ],
+              expectedOutcomes: [
+                'Build high-performance mobile apps with advanced React Native features',
+                'Implement native modules, offline capabilities, and push notifications',
+                'Integrate analytics, in-app purchases, and optimize for app stores',
+                'Design scalable cross-platform mobile architectures'
               ]
             }
           ]
@@ -649,6 +810,12 @@ const SinglePageLayout: React.FC = () => {
                 'Apache Airflow', 'ETL/ELT Patterns', 'Data Orchestration', 'Workflow Management',
                 'Data Quality Frameworks', 'Error Handling & Retries', 'Monitoring & Alerting',
                 'Data Lineage', 'Schema Evolution'
+              ],
+              expectedOutcomes: [
+                'Design and build scalable data pipelines using Apache Airflow',
+                'Implement ETL/ELT patterns with data quality frameworks',
+                'Orchestrate complex workflows with monitoring and error handling',
+                'Manage data lineage and schema evolution in production systems'
               ]
             },
             {
@@ -660,6 +827,33 @@ const SinglePageLayout: React.FC = () => {
                 'Apache Kafka', 'Kafka Streams', 'Apache Spark Streaming', 'Apache Flink',
                 'Event-Driven Architecture', 'Stream Processing Patterns', 'Real-time Analytics',
                 'Data Streaming Best Practices'
+              ],
+              expectedOutcomes: [
+                'Build real-time streaming data pipelines with Kafka and Flink',
+                'Process high-volume data streams using Spark Streaming',
+                'Design event-driven architectures for real-time analytics',
+                'Implement best practices for streaming data processing'
+              ]
+            }
+          ]
+        },
+        {
+          id: 'executive-leadership',
+          title: 'Executive & Leadership Skills',
+          courses: [
+            {
+              id: 35,
+              title: 'Mid-Level Leaders (Senior Managers)',
+              duration: '6 Months',
+              description: 'Elevate your leadership capabilities with our premium coaching program designed exclusively for executives and senior leaders seeking transformational growth.',
+              topics: [
+                'Ethical Communication', 'Cross-Cultural Communication', 'Negotiation & Persuasion Skills',
+                'Decision-Making Communication', 'Conflict Management', 'Change Communication'
+              ],
+              expectedOutcomes: [
+                'Enhance leadership credibility across functions',
+                'Successfully manage diverse, multicultural teams',
+                'Strengthen decision-making impact at the organizational level'
               ]
             }
           ]
@@ -683,6 +877,12 @@ const SinglePageLayout: React.FC = () => {
                 'MLOps with Python', 'Model Serving (FastAPI, Flask)', 'Feature Engineering Pipelines',
                 'Model Monitoring & Observability', 'Distributed ML Training', 'AutoML Frameworks',
                 'Production ML Systems', 'CI/CD for ML', 'Model Governance & Compliance'
+              ],
+              expectedOutcomes: [
+                'Build production-grade ML systems with MLOps best practices',
+                'Optimize Python code performance using Cython and advanced techniques',
+                'Deploy and monitor ML models at scale with CI/CD pipelines',
+                'Implement distributed ML training and feature engineering pipelines'
               ]
             },
             {
@@ -695,6 +895,12 @@ const SinglePageLayout: React.FC = () => {
                 'Transformer Architectures', 'BERT, GPT Models', 'Computer Vision Advanced',
                 'Generative Adversarial Networks (GANs)', 'Reinforcement Learning', 'AutoML',
                 'Model Optimization & Quantization', 'Distributed Training', 'MLOps'
+              ],
+              expectedOutcomes: [
+                'Build and deploy advanced transformer models (BERT, GPT) for NLP tasks',
+                'Implement GANs, reinforcement learning, and advanced computer vision models',
+                'Optimize and quantize models for production deployment',
+                'Scale deep learning training across distributed systems'
               ]
             },
             {
@@ -708,6 +914,12 @@ const SinglePageLayout: React.FC = () => {
                 'Advanced RAG & Hybrid RAG (Multi-vector RAG, Cross-encoder Rerankers, Hybrid Search - Keyword + Semantic, Knowledge Graph + RAG, RAGAS, TruLens, DeepEval, Hallucination Control)',
                 'Deployment & Monitoring (CPU/GPU/Multi-GPU Deployment, Cloud - AWS/Azure/GCP, vLLM, TGI, llama.cpp, FastAPI-based Serving, LangSmith, OpenTelemetry, Latency, Token Throughput, Cost Monitoring)',
                 'Benchmarking LLMs (MMLU, MT Bench, HELM, BigBench, Custom Task Benchmarking, Human vs Automated Evaluation, Leaderboards - HuggingFace, LMSys, ArenaHard)'
+              ],
+              expectedOutcomes: [
+                'Fine-tune LLMs using advanced techniques (LoRA, QLoRA, RLHF) for custom applications',
+                'Build sophisticated LLM agents with planning, tool use, and multi-agent workflows',
+                'Implement production-ready RAG systems with advanced retrieval and evaluation',
+                'Deploy and monitor LLMs at scale with optimal performance and cost efficiency'
               ]
             },
             {
@@ -718,6 +930,12 @@ const SinglePageLayout: React.FC = () => {
               topics: [
                 'Model Serving', 'A/B Testing for ML', 'Model Monitoring', 'Feature Stores',
                 'MLOps Pipelines', 'Kubeflow', 'Model Versioning', 'Production Best Practices'
+              ],
+              expectedOutcomes: [
+                'Deploy and serve ML models in production with high availability',
+                'Implement MLOps pipelines with Kubeflow and CI/CD',
+                'Monitor models, manage feature stores, and conduct A/B testing',
+                'Maintain production ML systems with versioning and governance'
               ]
             }
           ]
@@ -735,6 +953,12 @@ const SinglePageLayout: React.FC = () => {
                 'IoT Architecture Patterns', 'Edge AI & ML', 'Digital Twins', 'IoT Analytics Platforms',
                 'Industrial IoT (IIoT)', 'Smart City Solutions', 'IoT Security Architecture',
                 'Scalability & Performance', 'IoT Standards & Compliance'
+              ],
+              expectedOutcomes: [
+                'Design enterprise IoT architectures with edge AI and digital twins',
+                'Build scalable Industrial IoT and Smart City solutions',
+                'Implement comprehensive IoT security architectures',
+                'Ensure compliance with IoT standards and regulations'
               ]
             },
             {
@@ -746,6 +970,12 @@ const SinglePageLayout: React.FC = () => {
                 'Project Planning & Architecture', 'Hardware Selection', 'Firmware Development',
                 'Cloud Integration', 'Data Analytics & Visualization', 'System Integration',
                 'Testing & Validation', 'Deployment & Maintenance'
+              ],
+              expectedOutcomes: [
+                'Lead end-to-end IoT project implementation from planning to deployment',
+                'Select optimal hardware and develop custom firmware solutions',
+                'Integrate IoT systems with cloud platforms and analytics',
+                'Manage IoT project lifecycle with testing, validation, and maintenance'
               ]
             }
           ]
@@ -763,6 +993,12 @@ const SinglePageLayout: React.FC = () => {
                 'Security Operations Center (SOC)', 'Incident Response', 'Threat Hunting',
                 'Security Information and Event Management (SIEM)', 'Threat Intelligence',
                 'Forensics & Investigation', 'Malware Analysis', 'Security Orchestration'
+              ],
+              expectedOutcomes: [
+                'Lead SOC operations and manage security incidents effectively',
+                'Conduct threat hunting and intelligence analysis',
+                'Perform digital forensics and malware analysis',
+                'Orchestrate security operations with automation and SIEM tools'
               ]
             },
             {
@@ -774,6 +1010,12 @@ const SinglePageLayout: React.FC = () => {
                 'Security Architecture Design', 'Zero Trust Architecture', 'Identity & Access Management',
                 'Security Compliance (ISO 27001, NIST)', 'Risk Management', 'Security Auditing',
                 'Cloud Security Architecture', 'DevSecOps'
+              ],
+              expectedOutcomes: [
+                'Design enterprise security architectures with Zero Trust principles',
+                'Implement comprehensive IAM and compliance frameworks (ISO 27001, NIST)',
+                'Build cloud security architectures and DevSecOps pipelines',
+                'Conduct security audits and risk management assessments'
               ]
             }
           ]
@@ -791,6 +1033,12 @@ const SinglePageLayout: React.FC = () => {
                 'Microservices Architecture', 'API Gateway', 'Service Mesh', 'Distributed Systems',
                 'Event-Driven Architecture', 'Caching Strategies', 'Load Balancing', 'Database Sharding',
                 'Performance Optimization', 'Scalability Patterns'
+              ],
+              expectedOutcomes: [
+                'Design and build enterprise-scale web applications with microservices',
+                'Implement distributed systems with API gateways and service mesh',
+                'Optimize performance with caching, load balancing, and database sharding',
+                'Apply scalability patterns for high-traffic applications'
               ]
             },
             {
@@ -803,6 +1051,12 @@ const SinglePageLayout: React.FC = () => {
                 'Database Scaling & Replication', 'Message Brokers & Event Streaming', 'Container Orchestration (Kubernetes)',
                 'Service Mesh (Istio)', 'Observability (Monitoring, Logging, Tracing)', 'Performance Engineering',
                 'Backend Security Best Practices'
+              ],
+              expectedOutcomes: [
+                'Design enterprise backend architectures with high availability and fault tolerance',
+                'Implement distributed systems with Kubernetes and service mesh',
+                'Build observability systems with monitoring, logging, and tracing',
+                'Optimize backend performance and implement security best practices'
               ]
             },
             {
@@ -814,6 +1068,12 @@ const SinglePageLayout: React.FC = () => {
                 'iOS Development (Swift)', 'Android Development (Kotlin)', 'Native Performance',
                 'Platform-Specific Features', 'App Architecture (MVVM, Clean Architecture)',
                 'Testing & QA', 'App Store Deployment', 'Performance Tuning'
+              ],
+              expectedOutcomes: [
+                'Build high-performance native iOS and Android applications',
+                'Implement clean architecture patterns (MVVM) for maintainable code',
+                'Optimize mobile app performance and leverage platform-specific features',
+                'Deploy apps to app stores with comprehensive testing and QA'
               ]
             }
           ]
@@ -831,6 +1091,12 @@ const SinglePageLayout: React.FC = () => {
                 'Data Lake Architecture', 'Data Mesh', 'Delta Lake', 'Data Cataloging',
                 'Data Governance', 'Data Quality Frameworks', 'Advanced ETL Patterns',
                 'Data Warehouse Modernization', 'Cloud Data Platforms (Snowflake, BigQuery)'
+              ],
+              expectedOutcomes: [
+                'Design and implement data lake and data mesh architectures',
+                'Build modern data platforms with Delta Lake and cloud data warehouses',
+                'Implement data governance, cataloging, and quality frameworks',
+                'Modernize legacy data warehouses to cloud platforms'
               ]
             },
             {
@@ -842,6 +1108,33 @@ const SinglePageLayout: React.FC = () => {
                 'Real-Time Analytics', 'Lambda & Kappa Architectures', 'Event Streaming',
                 'Change Data Capture (CDC)', 'Real-Time Dashboards', 'Streaming Analytics',
                 'Data Pipeline Optimization', 'Monitoring & Observability'
+              ],
+              expectedOutcomes: [
+                'Build real-time data processing systems with Lambda and Kappa architectures',
+                'Implement event streaming and change data capture (CDC)',
+                'Create real-time analytics dashboards and streaming analytics',
+                'Optimize data pipelines with monitoring and observability'
+              ]
+            }
+          ]
+        },
+        {
+          id: 'executive-leadership',
+          title: 'Executive & Leadership Skills',
+          courses: [
+            {
+              id: 36,
+              title: 'Top Executives (CXOs & Senior Leaders)',
+              duration: '6 Months',
+              description: 'Elevate your leadership capabilities with our premium coaching program designed exclusively for executives and senior leaders seeking transformational growth.',
+              topics: [
+                'Strategic Communication', 'Inter-Cultural Leadership', 'Vision & Narrative Building',
+                'Crisis Communication', 'Executive Presence & Influence', 'Leadership in Transformation'
+              ],
+              expectedOutcomes: [
+                'Lead with authority and global perspective',
+                'Inspire large-scale transformation and innovation',
+                'Build a leadership legacy that aligns with business growth'
               ]
             }
           ]
@@ -886,9 +1179,9 @@ const SinglePageLayout: React.FC = () => {
     );
   };
 
-  // Filter courses based on search query
+  // Filter courses based on search query (minimum 3 characters required)
   const filterCourses = (categories: typeof curriculumData.beginner.categories): typeof curriculumData.beginner.categories => {
-    if (!searchQuery.trim()) {
+    if (!searchQuery.trim() || searchQuery.trim().length < 3) {
       return categories;
     }
 
@@ -909,6 +1202,10 @@ const SinglePageLayout: React.FC = () => {
         if (course.topics?.some((topic: string) => topic.toLowerCase().includes(query))) {
           return true;
         }
+        // Search in expected outcomes
+        if ((course as any).expectedOutcomes?.some((outcome: string) => outcome.toLowerCase().includes(query))) {
+          return true;
+        }
         return false;
       })
     })).filter((category) => category.courses.length > 0) as typeof curriculumData.beginner.categories; // Only show categories that have matching courses
@@ -920,6 +1217,33 @@ const SinglePageLayout: React.FC = () => {
   useEffect(() => {
     setSearchQuery('');
   }, [selectedLevel]);
+
+  // Auto-scroll to first matching course when search results are found (minimum 3 characters required)
+  useEffect(() => {
+    if (searchQuery.trim() && searchQuery.trim().length >= 3) {
+      // Calculate total number of matching courses
+      const totalCourses = currentCategories.reduce((total: number, cat) => total + cat.courses.length, 0);
+      
+      // Only scroll if there are actual matching courses
+      if (totalCourses > 0) {
+        // Small delay to ensure DOM is updated with filtered results
+        setTimeout(() => {
+          if (firstCourseRef.current) {
+            firstCourseRef.current.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+          } else if (curriculumSectionRef.current) {
+            // Fallback to curriculum section if course ref not available
+            curriculumSectionRef.current.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start' 
+            });
+          }
+        }, 150);
+      }
+    }
+  }, [searchQuery, currentCategories]);
 
   // SEO: Update document title and meta description
   useEffect(() => {
@@ -933,7 +1257,12 @@ const SinglePageLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       <HeaderSinglePage onOpenModal={() => setIsModalOpen(true)} />
-      <LiveDemoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <LiveDemoModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+        onPrivacyPolicyClick={() => setIsPrivacyPolicyOpen(true)}
+        onTermsOfServiceClick={() => setIsTermsOfServiceOpen(true)}
+      />
       <ServiceModal 
         isOpen={isServiceModalOpen} 
         onClose={() => setIsServiceModalOpen(false)} 
@@ -1009,16 +1338,16 @@ const SinglePageLayout: React.FC = () => {
               </li>
               <li className="flex items-center text-sm">
                 <span className="text-primary-400 mr-2">◆</span>
-                Robotics
+                Executive and Leadership Skills
               </li>
             </ul>
 
             {/* Next Batch Information */}
-            <div className="mt-8">
+            {/*<div className="mt-8">
               <p className="text-sm">
                 Next batch starts in <span className="text-yellow-400 font-bold">DECEMBER</span>
               </p>
-            </div>
+            </div>*/}
           </div>
         </div>
 
@@ -1106,8 +1435,27 @@ const SinglePageLayout: React.FC = () => {
               {/* Disclaimer */}
             <p className="text-xs text-gray-500 font-sans">
               By creating an account I have read and agree to Kachchapi's{' '}
-              <a href="#" className="text-accent-600 hover:underline">Terms</a> and{' '}
-              <a href="#" className="text-accent-600 hover:underline">Privacy Policy</a>.
+              <a 
+                href="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsTermsOfServiceOpen(true);
+                }}
+                className="text-accent-600 hover:underline cursor-pointer"
+              >
+                Terms
+              </a>{' '}
+              and{' '}
+              <a 
+                href="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsPrivacyPolicyOpen(true);
+                }}
+                className="text-accent-600 hover:underline cursor-pointer"
+              >
+                Privacy Policy
+              </a>.
             </p>
             </form>
           </div>
@@ -1183,7 +1531,7 @@ const SinglePageLayout: React.FC = () => {
       </section>
 
       {/* Curriculum Section - SEO Optimized */}
-      <section id="curriculum" className="py-12 sm:py-16 md:py-20 bg-dark-900">
+      <section id="curriculum" ref={curriculumSectionRef} className="py-12 sm:py-16 md:py-20 bg-dark-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -1274,9 +1622,14 @@ const SinglePageLayout: React.FC = () => {
                 </button>
               )}
             </div>
-            {searchQuery && (
+            {searchQuery && searchQuery.trim().length >= 3 && (
               <p className="text-center text-gray-400 text-sm mt-3 font-sans">
                 {currentCategories.reduce((total: number, cat) => total + cat.courses.length, 0)} course(s) found
+              </p>
+            )}
+            {searchQuery && searchQuery.trim().length > 0 && searchQuery.trim().length < 3 && (
+              <p className="text-center text-gray-400 text-sm mt-3 font-sans">
+                Please enter at least 3 characters to search
               </p>
             )}
           </div>
@@ -1300,7 +1653,7 @@ const SinglePageLayout: React.FC = () => {
 
           {/* Categories Section */}
           <div className="mb-6 sm:mb-8 space-y-4 sm:space-y-6">
-            {currentCategories.map((category) => (
+            {currentCategories.map((category, categoryIndex) => (
               <div key={category.id} className="mb-4 sm:mb-6">
                 <div className="flex items-center mb-3 sm:mb-4">
                   <span className="text-white text-xl sm:text-2xl mr-2 sm:mr-3">✦</span>
@@ -1311,9 +1664,13 @@ const SinglePageLayout: React.FC = () => {
 
                 {/* Course Cards for this Category */}
                 <div className="space-y-2 sm:space-y-3">
-                  {category.courses.map((course) => (
+                  {category.courses.map((course, courseIndex) => {
+                    // Check if this is the first course across all categories
+                    const isFirstCourse = categoryIndex === 0 && courseIndex === 0;
+                    return (
                     <div
                       key={course.id}
+                        ref={isFirstCourse ? firstCourseRef : null}
                       className="bg-dark-800 border border-dark-700 rounded-lg overflow-hidden"
                     >
                       {/* Course Header */}
@@ -1325,11 +1682,11 @@ const SinglePageLayout: React.FC = () => {
                           <span className="text-white text-base sm:text-lg mr-2 sm:mr-3 flex-shrink-0">&lt; /&gt;</span>
                           <div className="flex-1 min-w-0">
                             <h4 className="text-sm sm:text-base font-bold text-white font-sans mb-0.5 break-words">
-                              {searchQuery ? highlightText(course.title, searchQuery) : course.title}
+                              {searchQuery && searchQuery.trim().length >= 3 ? highlightText(course.title, searchQuery) : course.title}
                             </h4>
                             {course.description && (
                               <p className="text-gray-400 text-xs font-sans line-clamp-2 mt-0.5">
-                                {searchQuery ? highlightText(course.description, searchQuery) : course.description}
+                                {searchQuery && searchQuery.trim().length >= 3 ? highlightText(course.description, searchQuery) : course.description}
                               </p>
                             )}
                           </div>
@@ -1354,25 +1711,43 @@ const SinglePageLayout: React.FC = () => {
                       </div>
 
                       {/* Expanded Content */}
-                      {expandedCourses.includes(course.id) && course.topics && (
+                      {expandedCourses.includes(course.id) && (course.topics || (course as any).expectedOutcomes) && (
                         <div className="px-3 sm:px-4 pb-3 sm:pb-4 pt-0 border-t border-dark-700">
-                          <div className="mt-2 sm:mt-3">
-                            <p className="text-gray-400 text-xs sm:text-sm mb-2 font-sans">Topics covered:</p>
+                          {course.topics && (
+                            <div className="mt-2 sm:mt-3">
+                              <p className="text-gray-400 text-xs sm:text-sm mb-2 font-sans">Topics covered:</p>
                             <div className="flex flex-wrap gap-2">
                               {course.topics.map((topic: string, idx: number) => (
                                 <span
                                   key={idx}
-                                  className="bg-dark-700 border border-dark-600 text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded font-sans"
+                                    className="bg-dark-700 border border-dark-600 text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded font-sans"
                                 >
-                                  {searchQuery ? highlightText(topic, searchQuery) : topic}
+                                    {searchQuery && searchQuery.trim().length >= 3 ? highlightText(topic, searchQuery) : topic}
                                 </span>
                               ))}
                             </div>
                           </div>
+                          )}
+                          {(course as any).expectedOutcomes && (
+                            <div className="mt-3 sm:mt-4">
+                              <p className="text-gray-400 text-xs sm:text-sm mb-2 font-sans">Expected Outcomes:</p>
+                              <ul className="list-disc list-inside space-y-1.5">
+                                {(course as any).expectedOutcomes.map((outcome: string, idx: number) => (
+                                  <li
+                                    key={idx}
+                                    className="text-gray-300 text-xs sm:text-sm font-sans"
+                                  >
+                                    {searchQuery && searchQuery.trim().length >= 3 ? highlightText(outcome, searchQuery) : outcome}
+                                  </li>
+                                ))}
+                              </ul>
                         </div>
                       )}
                     </div>
-                  ))}
+                      )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             ))}

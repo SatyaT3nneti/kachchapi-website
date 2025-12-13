@@ -52,3 +52,7 @@ async function checkAllRegions() {
 checkAllRegions();
 
 
+
+
+
+
