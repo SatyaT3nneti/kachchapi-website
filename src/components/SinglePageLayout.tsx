@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaptopCode, faUserTie, faRoute, faUsers, faGraduationCap, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import LiveDemoModal from './LiveDemoModal';
@@ -23,6 +23,7 @@ const SinglePageLayout: React.FC = () => {
     benefits?: string[];
   } | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
+  const [categoryLevels, setCategoryLevels] = useState<Record<string, 'beginner' | 'intermediate' | 'advanced'>>({});
   const [expandedCourses, setExpandedCourses] = useState<number[]>([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -1179,44 +1180,65 @@ const SinglePageLayout: React.FC = () => {
     );
   };
 
-  // Filter courses based on search query (minimum 3 characters required)
-  const filterCourses = (categories: typeof curriculumData.beginner.categories): typeof curriculumData.beginner.categories => {
-    if (!searchQuery.trim() || searchQuery.trim().length < 3) {
-      return categories;
-    }
-
-    const query = searchQuery.toLowerCase().trim();
-    
-    return categories.map((category) => ({
-      ...category,
-      courses: category.courses.filter((course) => {
-        // Search in course title
-        if (course.title.toLowerCase().includes(query)) {
-          return true;
-        }
-        // Search in course description
-        if (course.description?.toLowerCase().includes(query)) {
-          return true;
-        }
-        // Search in course topics
-        if (course.topics?.some((topic: string) => topic.toLowerCase().includes(query))) {
-          return true;
-        }
-        // Search in expected outcomes
-        if ((course as any).expectedOutcomes?.some((outcome: string) => outcome.toLowerCase().includes(query))) {
-          return true;
-        }
-        return false;
-      })
-    })).filter((category) => category.courses.length > 0) as typeof curriculumData.beginner.categories; // Only show categories that have matching courses
+  // Get level for a specific category (defaults to 'beginner' if not set)
+  const getCategoryLevel = (categoryId: string): 'beginner' | 'intermediate' | 'advanced' => {
+    return categoryLevels[categoryId] || 'beginner';
   };
 
-  const currentCategories = filterCourses(curriculumData[selectedLevel].categories);
+  // Set level for a specific category
+  const setCategoryLevel = (categoryId: string, level: 'beginner' | 'intermediate' | 'advanced') => {
+    setCategoryLevels(prev => ({
+      ...prev,
+      [categoryId]: level
+    }));
+  };
 
-  // Clear search when level changes
-  useEffect(() => {
-    setSearchQuery('');
-  }, [selectedLevel]);
+  // Build categories with per-category level selection and filter by search query
+  const currentCategories = useMemo(() => {
+    // Get all unique category IDs from all levels
+    const allCategoryIds = new Set<string>();
+    (['beginner', 'intermediate', 'advanced'] as const).forEach(level => {
+      curriculumData[level].categories.forEach(cat => allCategoryIds.add(cat.id));
+    });
+
+    // Build categories array with each category using its own level
+    let categories = Array.from(allCategoryIds).map(categoryId => {
+      const level = categoryLevels[categoryId] || 'beginner';
+      const categoryFromLevel = curriculumData[level].categories.find(cat => cat.id === categoryId);
+      return categoryFromLevel!;
+    }).filter(Boolean) as typeof curriculumData.beginner.categories;
+
+    // Filter courses based on search query (minimum 3 characters required)
+    if (searchQuery.trim() && searchQuery.trim().length >= 3) {
+      const query = searchQuery.toLowerCase().trim();
+      
+      categories = categories.map((category) => ({
+        ...category,
+        courses: category.courses.filter((course) => {
+          // Search in course title
+          if (course.title.toLowerCase().includes(query)) {
+            return true;
+          }
+          // Search in course description
+          if (course.description?.toLowerCase().includes(query)) {
+            return true;
+          }
+          // Search in course topics
+          if (course.topics?.some((topic: string) => topic.toLowerCase().includes(query))) {
+            return true;
+          }
+          // Search in expected outcomes
+          if ((course as any).expectedOutcomes?.some((outcome: string) => outcome.toLowerCase().includes(query))) {
+            return true;
+          }
+          return false;
+        })
+      })).filter((category) => category.courses.length > 0) as typeof curriculumData.beginner.categories; // Only show categories that have matching courses
+    }
+
+    return categories;
+  }, [categoryLevels, searchQuery]);
+
 
   // Auto-scroll to first matching course when search results are found (minimum 3 characters required)
   useEffect(() => {
@@ -1541,40 +1563,6 @@ const SinglePageLayout: React.FC = () => {
             </h2>
           </div>
 
-          {/* Level Selection Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-            {(['beginner', 'intermediate', 'advanced'] as const).map((level) => (
-              <button
-                key={level}
-                onClick={() => setSelectedLevel(level)}
-                className={`p-4 rounded-lg border-2 transition-all ${
-                  selectedLevel === level
-                    ? 'bg-accent-500 border-accent-500 text-white'
-                    : 'bg-dark-800 border-dark-700 text-white hover:border-dark-600'
-                }`}
-              >
-                <div className="flex items-center justify-center mb-2">
-                  <div className="flex items-end space-x-1">
-                    {[1, 2, 3].map((bar, idx) => (
-                      <div
-                        key={idx}
-                        className={`w-3 ${
-                          selectedLevel === level && level === 'beginner' && idx === 0
-                            ? 'bg-accent-400'
-                            : selectedLevel === level
-                            ? 'bg-white'
-                            : 'bg-gray-500'
-                        }`}
-                        style={{ height: `${(idx + 1) * 6}px` }}
-                      />
-                    ))}
-                  </div>
-                </div>
-                <h3 className="text-base font-normal capitalize">{level}</h3>
-              </button>
-            ))}
-          </div>
-
           {/* Search Input Bar */}
           <div className="mb-8 sm:mb-10 md:mb-12">
             <div className="relative max-w-2xl mx-auto">
@@ -1601,7 +1589,7 @@ const SinglePageLayout: React.FC = () => {
                 </svg>
               </div>
               {searchQuery && (
-                <button
+              <button
                   onClick={() => setSearchQuery('')}
                   className="absolute right-10 sm:right-12 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                   aria-label="Clear search"
@@ -1621,7 +1609,7 @@ const SinglePageLayout: React.FC = () => {
                   </svg>
                 </button>
               )}
-            </div>
+                  </div>
             {searchQuery && searchQuery.trim().length >= 3 && (
               <p className="text-center text-gray-400 text-sm mt-3 font-sans">
                 {currentCategories.reduce((total: number, cat) => total + cat.courses.length, 0)} course(s) found
@@ -1632,7 +1620,7 @@ const SinglePageLayout: React.FC = () => {
                 Please enter at least 3 characters to search
               </p>
             )}
-          </div>
+                </div>
 
           {/* Important Note */}
           <div className="mb-6 sm:mb-8 bg-accent-500 bg-opacity-10 border-l-4 border-accent-500 rounded-lg p-4 sm:p-5">
@@ -1655,11 +1643,35 @@ const SinglePageLayout: React.FC = () => {
           <div className="mb-6 sm:mb-8 space-y-4 sm:space-y-6">
             {currentCategories.map((category, categoryIndex) => (
               <div key={category.id} className="mb-4 sm:mb-6">
-                <div className="flex items-center mb-3 sm:mb-4">
-                  <span className="text-white text-xl sm:text-2xl mr-2 sm:mr-3">✦</span>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white font-sans">
+                <div className="mb-3 sm:mb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+                    <div className="flex items-center">
+                      <span className="text-white text-xl sm:text-2xl mr-2 sm:mr-3">✦</span>
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white font-sans">
                     {category.title}
                   </h3>
+                    </div>
+                    {/* Level Selector Buttons */}
+                    <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                      {(['beginner', 'intermediate', 'advanced'] as const).map((level) => {
+                        const categoryLevel = getCategoryLevel(category.id);
+                        return (
+                          <button
+                            key={level}
+                            onClick={() => setCategoryLevel(category.id, level)}
+                            className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded text-[10px] sm:text-xs font-medium transition-all whitespace-nowrap ${
+                              categoryLevel === level
+                                ? 'bg-accent-500 text-white'
+                                : 'bg-dark-700 text-gray-300 hover:bg-dark-600'
+                            }`}
+                            title={`Switch to ${level} level`}
+                          >
+                            {level.charAt(0).toUpperCase() + level.slice(1)}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Course Cards for this Category */}
