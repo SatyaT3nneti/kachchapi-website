@@ -13,10 +13,18 @@
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Documentation with secrets
+EMAIL_SETUP.md
+LOCAL_TESTING.md
+
+# Lambda node_modules (should not be committed)
+lambda/**/node_modules/
 
 npm-debug.log*
 yarn-debug.log*
